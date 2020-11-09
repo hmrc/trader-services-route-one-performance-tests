@@ -1,0 +1,2 @@
+EPU,entryNo,entryDay,entryMonth,entryYear,request,route,priority,whichPriority,transport
+123,A23456A,01,11,2020,new,route1,yes,liveAnimals,air
