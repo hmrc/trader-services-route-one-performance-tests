@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.perftests.traderServices
 
+import java.io.InputStream
+
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.http.Predef._
@@ -61,11 +63,71 @@ trait SaveToGatlingSessions extends Patterns {
   def saveUserDetailsUrl = {
     headerRegex("Location", userDetailsUrlPattern).saveAs("userDetailsUrl")
   }
-}
 
-//  def saveUserId = {
-//    bodyCheck(userIdPattern).saveAs("userId")
-//  }
-//  def savePlanetId = {
-//    bodyCheck(planetIdPattern).saveAs("planetId")
-//  }
+
+  //Uploads
+  def saveSuccessRedirect: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(successRedirectPattern).saveAs("successRedirect")
+  }
+
+  def saveErrorRedirect: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(errorRedirectPattern).saveAs("errorRedirect")
+  }
+
+  def saveFileUploadurl: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(amazonUrlPattern).saveAs("fileUploadAmazonUrl")
+  }
+
+  def saveCallBack: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(callBackUrPattern).saveAs("callBack")
+  }
+
+  def saveReference: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(referencePattern).saveAs("reference")
+  }
+
+  def saveFileType: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(fileTypePattern).saveAs("fileType")
+  }
+
+  def saveAmazonDate: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(amzDatePattern).saveAs("amazonDate")
+  }
+
+  def saveAmazonCredential: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(credentialPattern).saveAs("amazonCredential")
+  }
+
+  def saveUpscanIniateResponse: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(initiateResponsePattern).saveAs("upscanInitiateResponse")
+  }
+
+  def saveUpscanInitiateRecieved: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(initiateReceivedPattern).saveAs("upscanInitiateReceived")
+  }
+
+  def saveAmazonMetaOriginalFileName: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(metaOriginalFilename).saveAs("amazonMetaOriginalFileName")
+  }
+
+  def saveAmazonAlgorithm: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(algorithmPattern).saveAs("amazonAlgorithm")
+  }
+
+  def saveKey: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(keyPattern).saveAs("key")
+  }
+
+  def saveAmazonSignature: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(signaturePattern).saveAs("amazonSignature")
+  }
+
+  def savePolicy: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(policyPattern).saveAs("policy")
+  }
+
+  def fileBytes(filename: String): Array[Byte] = {
+    val resource: InputStream = getClass.getResourceAsStream(filename)
+    Iterator.continually(resource.read).takeWhile(_ != -1).map(_.toByte).toArray
+  }
+}

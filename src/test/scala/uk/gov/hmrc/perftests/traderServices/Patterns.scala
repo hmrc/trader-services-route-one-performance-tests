@@ -18,8 +18,6 @@ package uk.gov.hmrc.perftests.traderServices
 
 trait Patterns {
 
-  val dobPattern = """"dateOfBirth":"([^"]+)""""
-
   val csrfPattern =
     """<input type="hidden" name="csrfToken" value="([^"]+)"""
   val userDetailsUrlPattern = s"""([^"]+)"""
@@ -29,7 +27,24 @@ trait Patterns {
   val authTokenPattern = """"authToken":"([^"]+)""""
   val sessionIdPattern = """"sessionId":"([^"]+)""""
 
-
-
+  //Upload patters
+  val amazonUrlPattern = """action="(.*?)""""
+  val callBackUrPattern = """name="x-amz-meta-callback-url" value="(.*?)""""
+  val amzDatePattern = """name="x-amz-date" value="(.*?)""""
+  val credentialPattern = """name="x-amz-credential" value="(.*?)""""
+  val initiateResponsePattern = """name="x-amz-meta-upscan-initiate-response" value="(.*?)""""
+  val initiateReceivedPattern = """name="x-amz-meta-upscan-initiate-received" value="(.*?)""""
+  val metaOriginalFilename = """name="x-amz-meta-original-filename" value="(.*?)""""
+  val algorithmPattern = """name="x-amz-algorithm" value="(.*?)""""
+  val keyPattern = """name="key" value="(.*?)""""
+  val signaturePattern = """name="x-amz-signature" value="(.*?)""""
+  val policyPattern = """name="policy" value="(.*?)""""
+  val referencePattern = """data-reference="(.*?)""""
+  val fileTypePattern = """data-filetype="(.*?)""""
+  val successRedirectPattern = """name="success_action_redirect" value="(.*?)""""
+  val errorRedirectPattern = """name="error_action_redirect" value="(.*?)""""
 
 }
+
+
+//  val dobPattern = """"dateOfBirth":"([^"]+)""""
