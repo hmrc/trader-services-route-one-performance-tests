@@ -67,7 +67,6 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postExportVessel,
     postExportContact,
     getExportCYA,
-    getUploadPage,
     destroy_UserPlanet
   )
 

@@ -35,7 +35,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Load landing page")
       .get(landingpageUrl)
       .check(status.is(200))
-      .check(regex("Trader Services"))
+//      .check(regex("Trader Services"))
   }
 
   def getDecdetails: HttpRequestBuilder = {
@@ -44,7 +44,6 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(status.is(200))
 
   }
-
 
   def postImportDecdetails: HttpRequestBuilder = {
     http("Post input dec details")
@@ -224,14 +223,14 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Get Import CYA page")
       .get(landingpageUrl + importPrefix + CYA)
       .check(status.is(200))
-      .check(regex("Review your pre-clearance case details"))
+//      .check(regex("Review your pre-clearance case details"))
   }
 
   def getExportCYA: HttpRequestBuilder = {
     http("Get Export CYA page")
       .get(landingpageUrl + exportPrefix + CYA)
       .check(status.is(200))
-      .check(regex("Review your pre-clearance case details"))
+//      .check(regex("Review your pre-clearance case details"))
 
   }
 }

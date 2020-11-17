@@ -34,15 +34,15 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   ///      .get(s"${JourneyUrls.baseUrl}" + "/pre-clearance" + "${fileUploadUrl}")
 
   def getFileUploadPage: HttpRequestBuilder = {
-    http("Navigate to file upload page")
+    http("Get file upload page")
       .get(landingpageUrl + fileUploadUrl)
       .check(saveFileUploadurl)
       .check(saveCallBack)
       .check(saveAmazonDate)
       .check(saveAmazonCredential)
-      .check(saveUpscanIniateResponse)
-      .check(saveUpscanInitiateRecieved)
-      .check(saveAmazonMetaOriginalFileName)
+//      .check(saveUpscanIniateResponse)
+//      .check(saveUpscanInitiateRecieved)
+//      .check(saveAmazonMetaOriginalFileName)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
@@ -52,9 +52,16 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
+
+//  "downloadUrl" : "https://bucketName.s3.eu-west-2.amazonaws.com?1235676",
+//  "uploadTimestamp" : "2018-04-24T09:30:00Z",
+//  "checksum" : "396f101dd52e8b2ace0dcf5ed09b1d1f030e608938510ce46e7a5c7a4e775100",
+//  "fileName" : "test.pdf",
+//  "fileMimeType" : "application/pdf"
+
   def postFileUpload: HttpRequestBuilder = {
     http("upload file")
-      .post("https://www.staging.upscan.tax.service.gov.uk/v1/uploads/fus-inbound-830f78e090fe8aec00891405dfc14824")
+      .post("https://http//localhost:9570.upscan.tax.service.gov.uk/v1/uploads/fus-inbound-830f78e090fe8aec00891405dfc14824")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
       .asMultipartForm
       .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))

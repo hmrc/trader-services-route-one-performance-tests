@@ -20,9 +20,7 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
-  val loginUrl: String = readProperty("loginUrl")
-  val loginSubmitUrl: String = readProperty("loginSubmitUrl")
-  val landingpageUrl: String = readProperty("landingpageUrl")
+  val landingpageUrl: String = readProperty("landingPageUrl")
 
   val baseUrl: String = baseUrlFor("trader-services-route-one-frontend")
 

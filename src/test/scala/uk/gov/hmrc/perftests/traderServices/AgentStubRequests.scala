@@ -24,22 +24,24 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
+  val loginUrl: String = readProperty("loginUrl")
+  val loginSubmitUrl: String = readProperty("loginSubmitUrl")
 
   val baseUrlExternalStubs: String = baseUrlFor("agents-external-stubs")
-  val postSignInUrl = s"$baseUrlExternalStubs/agents-external-stubs/sign-in"
-  val updateUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users"
+  val postSignInUrl = f"$baseUrlExternalStubs/agents-external-stubs/sign-in"
+  val updateUserUrl = f"$baseUrlExternalStubs/agents-external-stubs/users"
   val updateSpecificUserUrl = f"$baseUrlExternalStubs/agents-external-stubs/users/$${userId}"
 
   def getLogin_Page: HttpRequestBuilder = {
-    http("Get login stub page & login")
-      .get(s"$loginUrl")
+    http("Get login stub page")
+      .get(f"$loginUrl")
       .check(status.is(200))
       .check(saveCsrfToken)
   }
 
   def authenticate_User: HttpRequestBuilder =
     http("Authenticate a user")
-      .post(postSignInUrl)
+      .post(f"$postSignInUrl")
       .check(status.is(201))
       .check(saveUserDetailsUrl)
       .check(saveBearerTokenHeader)
@@ -92,3 +94,10 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .header("Authorization", "Bearer ${bearerToken}")
       .check(status.is(204))
 }
+
+//  val baseUrlExternalStubs: String = if (runLocal) {
+//    "http://localhost:9025"
+//  } else {
+//    "https://www.staging.tax.service.gov.uk"
+//  }
+//  val postSignInUrl = readProperty("loginSubmitUrl")
