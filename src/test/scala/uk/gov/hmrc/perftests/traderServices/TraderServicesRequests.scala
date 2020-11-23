@@ -51,7 +51,6 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Load dec details page")
       .get(traderBase + decDetailsUrl)
       .check(status.is(200))
-
   }
 
   def postImportDecdetails: HttpRequestBuilder = {

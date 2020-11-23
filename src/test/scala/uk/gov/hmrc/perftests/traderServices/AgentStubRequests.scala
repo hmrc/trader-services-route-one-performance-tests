@@ -28,6 +28,8 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
   val loginSubmitUrl: String = readProperty("loginSubmitUrl")
 
   val baseUrlExternalStubs: String = baseUrlFor("agents-external-stubs")
+//  val baseUrlExternalStubs: String = "https://www.staging.tax.service.gov.uk"
+
   val postSignInUrl = s"$baseUrlExternalStubs/agents-external-stubs/sign-in"
   val updateUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users"
   val updateSpecificUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users/$${userId}"
