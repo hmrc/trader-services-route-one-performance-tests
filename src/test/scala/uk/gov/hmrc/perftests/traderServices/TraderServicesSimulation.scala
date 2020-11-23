@@ -18,6 +18,7 @@ package uk.gov.hmrc.perftests.traderServices
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
+import uk.gov.hmrc.perftests.traderServices.AmendRequests._
 import uk.gov.hmrc.perftests.traderServices.TraderServicesRequests._
 
 
@@ -31,7 +32,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postsuccessful_Login,
     getLandingpage,
     loadLandingpage,
-    postjourneyResponse,
+    postjourneyNew,
     getDecdetails,
     postImportDecdetails,
     postImportRequestType,
@@ -56,7 +57,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postsuccessful_Login,
     getLandingpage,
     loadLandingpage,
-    postjourneyResponse,
+    postjourneyNew,
     getDecdetails,
     postExportDecdetails,
     postExportRequestType,
@@ -68,6 +69,24 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postExportContact,
     getExportCYA,
     destroy_UserPlanet
+  )
+
+  setup("Trader Services Amend Journey", "Amend").withRequests(
+    getLogin_Page,
+    login_User,
+    update_UserRole,
+    postsuccessful_Login,
+    getLandingpage,
+    loadLandingpage,
+    postJourneyAmend,
+    getCaseRefPage,
+    loadCaseRefPage,
+    postCaseref,
+    getWhichAmend,
+    postWriteOnly,
+    getWriteResponsePage,
+    postFreeTextResponse
+
   )
 
   runSimulation()

@@ -38,8 +38,8 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(regex("What do you want to do?"))
   }
 
-  def postjourneyResponse: HttpRequestBuilder = {
-    http("Post journey response")
+  def postjourneyNew: HttpRequestBuilder = {
+    http("Post New journey response")
       .post(traderLanding)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "New")

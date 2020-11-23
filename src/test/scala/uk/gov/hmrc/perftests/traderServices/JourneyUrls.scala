@@ -52,5 +52,9 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val fileUploadUrl: String = "/pre-clearance/file-upload"
   val fileUploaded: String = "/pre-clearance/file-uploaded"
 
+  val caseRefUrl: String = "/amend/case-reference-number"
+  val whichAmendUrl:String = "/amend/type-of-amendment"
+  val writeResponseUrl: String = "/amend/write-response"
+
   val usrDir = System.getProperty("user.dir") + "/src/test/resources/data/"
 }
