@@ -20,16 +20,23 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
-  val loginUrl: String = readProperty("loginUrl")
-  val loginSubmitUrl: String = readProperty("loginSubmitUrl")
-  val landingpageUrl: String = readProperty("landingpageUrl")
+  val redirectUrl: String = if (runLocal) {
+    "http://localhost:9379/trader-services/pre-clearance/new-or-existing"
+  } else {
+    "/trader-services/pre-clearance/new-or-existing"
+  }
 
-  val baseUrl: String = baseUrlFor("trader-services-route-one-frontend")
+  val landingTSRead: String = readProperty("baseUrl")
 
-  val traderLanding: String = "/trader-services"
-  val decDetailsUrl: String = "/pre-clearance/declaration-details"
-  val exportPrefix: String = "/pre-clearance/export-questions"
-  val importPrefix: String = "/pre-clearance/import-questions"
+  val baseUrlTS: String = baseUrlFor("trader-services-route-one-frontend")
+  val traderBase:String = s"$baseUrlTS/trader-services/pre-clearance"
+  val traderLanding: String = s"$baseUrlTS/trader-services/pre-clearance/new-or-existing"
+
+
+  val traderUrl:String = "/trader-services/pre-clearance"
+  val decDetailsUrl: String = "/declaration-details"
+  val exportPrefix: String = "/export-questions"
+  val importPrefix: String = "/import-questions"
   val requestType: String = "/request-type"
   val routeType: String = "/route-type"
   val priorityYN: String = "/has-priority-goods"
@@ -44,15 +51,6 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
   val fileUploadUrl: String = "/pre-clearance/file-upload"
   val fileUploaded: String = "/pre-clearance/file-uploaded"
-
-  val CsrfPattern: String = """name="csrfToken" value="([^"]+)""""
-
-  val redirectUrl: String = if (runLocal) {
-    "http://localhost:9379/trader-services"
-  } else {
-    "/trader-services"
-  }
-
 
   val usrDir = System.getProperty("user.dir") + "/src/test/resources/data/"
 }

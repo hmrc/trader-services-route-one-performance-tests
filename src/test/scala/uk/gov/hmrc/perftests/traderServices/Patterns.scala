@@ -48,3 +48,5 @@ trait Patterns {
 
 
 //  val dobPattern = """"dateOfBirth":"([^"]+)""""
+
+//  val CsrfPattern: String = """name="csrfToken" value="([^"]+)""""

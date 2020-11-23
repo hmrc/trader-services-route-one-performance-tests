@@ -24,22 +24,24 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
+  val loginUrl: String = readProperty("loginUrl")
+  val loginSubmitUrl: String = readProperty("loginSubmitUrl")
 
   val baseUrlExternalStubs: String = baseUrlFor("agents-external-stubs")
   val postSignInUrl = s"$baseUrlExternalStubs/agents-external-stubs/sign-in"
   val updateUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users"
-  val updateSpecificUserUrl = f"$baseUrlExternalStubs/agents-external-stubs/users/$${userId}"
+  val updateSpecificUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users/$${userId}"
 
   def getLogin_Page: HttpRequestBuilder = {
-    http("Get login stub page & login")
+    http("Get login stub page")
       .get(s"$loginUrl")
       .check(status.is(200))
       .check(saveCsrfToken)
   }
 
-  def authenticate_User: HttpRequestBuilder =
+  def login_User: HttpRequestBuilder =
     http("Authenticate a user")
-      .post(postSignInUrl)
+      .post(s"$postSignInUrl")
       .check(status.is(201))
       .check(saveUserDetailsUrl)
       .check(saveBearerTokenHeader)
@@ -48,7 +50,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .check(saveUserIdHeader)
 
   def update_UserRole: HttpRequestBuilder =
-    http("Update a current user to have HMRC-CUS-ORG")
+    http("Update current user to have HMRC-CUS-ORG")
       .put(updateUserUrl)
       .body(StringBody(stubUserAsAgentWithEnrolment))
       .header("Content-Type", "application/json")
@@ -65,7 +67,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       |                  "identifiers" : [
       |                    {
       |                      "key" : "EORINumber",
-      |                      "value" : "GX671687041489"
+      |                      "value" : "GX671687041489123"
       |                    }
       |                  ]
       |              }
