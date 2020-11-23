@@ -26,7 +26,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getUploadPage: HttpRequestBuilder = {
     http("Get first Upload page")
-      .get(landingpageUrl + fileUploadUrl)
+      .get(traderBase + fileUploadUrl)
       .check(status.is(200))
       .check(regex("Upload your first document"))
   }
@@ -35,7 +35,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getFileUploadPage: HttpRequestBuilder = {
     http("Get file upload page")
-      .get(landingpageUrl + fileUploadUrl)
+      .get(traderBase + fileUploadUrl)
       .check(saveFileUploadurl)
       .check(saveCallBack)
       .check(saveAmazonDate)
