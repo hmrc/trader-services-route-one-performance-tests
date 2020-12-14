@@ -238,13 +238,19 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Get Export CYA page")
       .get(traderBaseNew + exportPrefix + CYA)
       .check(status.is(200))
-    //      .check(regex("Review your pre-clearance case details"))
+  }
 
+  def postNoMoreUpload: HttpRequestBuilder = {
+    http("Last upload - complete journey")
+      .post(traderBaseNew + fileUploaded)
+      .formParam("uploadAnotherFile", "No")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrlNew + confirm))
   }
 
   def getConfirmationPage: HttpRequestBuilder = {
     http("Get confirmation page")
-      .get(traderBase + confirm)
+      .get(traderBaseNew + confirm)
       .check(status.is(200))
   }
 }
