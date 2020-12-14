@@ -20,15 +20,13 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
+import uk.gov.hmrc.perftests.traderServices.JourneyUrls.redirectUrl
 
 object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   val loginUrl: String = readProperty("loginUrl")
   val loginSubmitUrl: String = readProperty("loginSubmitUrl")
-
   val baseUrlExternalStubs: String = baseUrlFor("agents-external-stubs")
-//  val baseUrlExternalStubs: String = "https://www.staging.tax.service.gov.uk"
 
   val postSignInUrl = s"$baseUrlExternalStubs/agents-external-stubs/sign-in"
   val updateUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users"

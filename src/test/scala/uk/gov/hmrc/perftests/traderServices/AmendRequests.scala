@@ -30,58 +30,63 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + caseRefUrl))
+      .check(header("Location").is(traderAmendUrl + caseRefUrl))
   }
 
   def getCaseRefPage: HttpRequestBuilder = {
     http("Get case reference number page")
-      .get(traderBase + caseRefUrl)
+      .get(traderBaseAmend + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
     http("Load case reference number page")
-      .get(traderBase + caseRefUrl)
+      .get(traderBaseAmend + caseRefUrl)
       .check(status.is(200))
 //      .check(regex("What's the case reference number?"))
   }
 
   def postCaseref: HttpRequestBuilder = {
     http("Post case ref number")
-      .post(traderBase + caseRefUrl)
+      .post(traderBaseAmend + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + whichAmendUrl))
+      .check(header("Location").is(traderAmendUrl + whichAmendUrl))
   }
 
   def getWhichAmend: HttpRequestBuilder = {
     http("Get which amendment page")
-      .get(traderBase + whichAmendUrl)
+      .get(traderBaseAmend + whichAmendUrl)
       .check(status.is(200))
   }
 
   def postWriteOnly: HttpRequestBuilder = {
     http("Post write only option")
-      .post(traderBase + whichAmendUrl)
+      .post(traderBaseAmend + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + writeResponseUrl))
+      .check(header("Location").is(traderAmendUrl + writeResponseUrl))
   }
 
   def getWriteResponsePage: HttpRequestBuilder = {
     http("Get write response page")
-      .get(traderBase + writeResponseUrl)
+      .get(traderBaseAmend + writeResponseUrl)
       .check(status.is(200))
   }
 
   def postFreeTextResponse: HttpRequestBuilder = {
     http("Post query response in free text field")
-      .post(traderBase + writeResponseUrl)
+      .post(traderBaseAmend + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
       .check(status.is(303))
-//      .check(header("Location").is(traderUrl))
+  }
+
+  def getConfirmationPageAmend: HttpRequestBuilder = {
+    http("Get amend confirmation page")
+      .get(traderBaseAmend + confirm)
+      .check(status.is(200))
   }
 }

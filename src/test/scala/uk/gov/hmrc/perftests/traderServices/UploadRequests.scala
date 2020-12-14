@@ -24,25 +24,16 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def getUploadPage: HttpRequestBuilder = {
-    http("Get first Upload page")
-      .get(traderBase + fileUploadUrl)
-      .check(status.is(200))
-      .check(regex("Upload your first document"))
-  }
-
-  ///      .get(s"${JourneyUrls.baseUrl}" + "/pre-clearance" + "${fileUploadUrl}")
-
   def getFileUploadPage: HttpRequestBuilder = {
     http("Get file upload page")
-      .get(traderBase + fileUploadUrl)
+      .get(traderBaseNew + fileUploadUrl)
       .check(saveFileUploadurl)
       .check(saveCallBack)
       .check(saveAmazonDate)
       .check(saveAmazonCredential)
-//      .check(saveUpscanIniateResponse)
-//      .check(saveUpscanInitiateRecieved)
-//      .check(saveAmazonMetaOriginalFileName)
+      //      .check(saveUpscanIniateResponse)
+      //      .check(saveUpscanInitiateRecieved)
+      //      .check(saveAmazonMetaOriginalFileName)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
@@ -52,51 +43,91 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-
-//  "downloadUrl" : "https://bucketName.s3.eu-west-2.amazonaws.com?1235676",
-//  "uploadTimestamp" : "2018-04-24T09:30:00Z",
-//  "checksum" : "396f101dd52e8b2ace0dcf5ed09b1d1f030e608938510ce46e7a5c7a4e775100",
-//  "fileName" : "test.pdf",
-//  "fileMimeType" : "application/pdf"
-
   def postFileUpload: HttpRequestBuilder = {
-    http("upload file")
-      .post("https://http//localhost:9570.upscan.tax.service.gov.uk/v1/uploads/fus-inbound-830f78e090fe8aec00891405dfc14824")
-      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-      .asMultipartForm
-      .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-      .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-      .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-      .bodyPart(StringBodyPart("x-amz-meta-request-id", "n/a"))
-      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "tradingAddress.pdf"))
-      .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-      .bodyPart(StringBodyPart("key", "${key}"))
-      .bodyPart(StringBodyPart("acl", "private"))
-      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-      .bodyPart(StringBodyPart("x-amz-meta-session-id", "n/a"))
-      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one"))
-      .bodyPart(StringBodyPart("policy", "${policy}"))
-      .bodyPart(ByteArrayBodyPart("file", fileBytes("/data/PDFile.pdf")).contentType("application/pdf"))
-      .check(status.is(303))
-      .check(header("Location").saveAs("upscanResponse"))
+    http("Upload a file")
+      .post(traderBaseNew + fileUploadUrl)
+     .formParam( "downloadUrl", "https://bucketName.s3.eu-west-2.amazonaws.com?1235676")
+     .formParam("uploadTimestamp", "2018-04-24T09:30:00Z")
+      .formParam("checksum", "396f101dd52e8b2ace0dcf5ed09b1d1f030e608938510ce46e7a5c7a4e775100")
+      .formParam("fileName", "test.pdf")
+    .formParam("fileMimeType", "application/pdf")
+
   }
 
-  //.bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one")) ???
-  def getSuccessUrl: HttpRequestBuilder = {
-    http("get success url")
-      .get("${upscanResponse}")
-      .check(status.is(303))
-  }
 
-//  def getReceiptPage: HttpRequestBuilder = {
-//    http("get receipt page")
-//      .get(s"${JourneyUrls.baseUrl}/cds-file-upload-service/upload/receipt")
-//      .check(status.is(200))
-//  }
+  val authBaseUrl = baseUrlFor("auth")
+  val apiBaseUrl = baseUrlFor("customs-file-upload")
+
+  val SuccessfulUploadSubmissionStatusCode = 200
+  val UpscanInitiate = StringBody(ExampleUpscanIntiate.valid.toString())
+
+  val UploadStatus = "UpscanInitiateStatus"
+  val UpscanInitiateSubmissionId = "UpscanInitiateSubmissionId"
+
+  private def headers(): Map[String, String] = Map(
+    "Accept" -> s"application/vnd.hmrc.1.0+xml",
+    "Content-Type" -> "application/xml",
+    "Authorization" -> s"Bearer ${}",
+    "X-Client-ID" -> "e0bb1fcd-090b-4773-8b6c-d0a00b45a27b",
+    "X-Badge-Identifier" -> "BADGEID123",
+    "X-Eori-Identifier" -> "EORIID123"
+  )
+
+  private def submitUpscanInitiate(): HttpRequestBuilder = http("Submit File Upload")
+    .post(apiBaseUrl + "/upload": String)
+    .headers(headers())
+    .body(UpscanInitiate)
+    .check(status.is(SuccessfulUploadSubmissionStatusCode))
+
 }
+
+
+//  def postFileUpload: HttpRequestBuilder = {
+//    http("Upload a file")
+//      .post("https://www.staging.upscan.tax.service.gov.uk/v1/uploads/fus-inbound-830f78e090fe8aec00891405dfc14824")
+//      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
+//      .asMultipartForm
+//      .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
+//      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
+//      .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
+//      .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-request-id", "n/a"))
+//      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "tradingAddress.pdf"))
+//      .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
+//      .bodyPart(StringBodyPart("key", "${key}"))
+//      .bodyPart(StringBodyPart("acl", "private"))
+//      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-session-id", "n/a"))
+//      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "customs-declarations"))
+//      .bodyPart(StringBodyPart("policy", "${policy}"))
+//      .bodyPart(ByteArrayBodyPart("file", fileBytes("/data/PDFile.pdf")).contentType("application/pdf"))
+//      .check(status.is(303))
+//      .check(header("Location").saveAs("upscanResponse"))
+//  }
+
+object ExampleUpscanIntiate {
+  val valid = <FileUploadRequest xmlns="hmrc:fileupload" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <DeclarationID>DEC123</DeclarationID>
+    <FileGroupSize>3</FileGroupSize>
+    <Files>
+      <File>
+        <FileSequenceNo>1</FileSequenceNo>
+        <DocumentType>document type 1</DocumentType>
+      </File>
+      <File>
+        <FileSequenceNo>3</FileSequenceNo>
+        <DocumentType>document type 2</DocumentType>
+      </File>
+      <File>
+        <FileSequenceNo>2</FileSequenceNo>
+        <DocumentType>document type 2</DocumentType>
+      </File>
+    </Files>
+  </FileUploadRequest>
+}
+
 
 
