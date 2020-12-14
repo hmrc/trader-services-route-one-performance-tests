@@ -45,8 +45,4 @@ trait Patterns {
   val errorRedirectPattern = """name="error_action_redirect" value="(.*?)""""
 
 }
-
-
-//  val dobPattern = """"dateOfBirth":"([^"]+)""""
-
 //  val CsrfPattern: String = """name="csrfToken" value="([^"]+)""""

@@ -21,40 +21,44 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
   val redirectUrl: String = if (runLocal) {
-    "http://localhost:9379/trader-services/pre-clearance/new-or-existing"
+    "http://localhost:9379/send-documents-for-customs-check"
   } else {
-    "/trader-services/pre-clearance/new-or-existing"
+    "/send-documents-for-customs-check"
   }
 
   val landingTSRead: String = readProperty("baseUrl")
 
   val baseUrlTS: String = baseUrlFor("trader-services-route-one-frontend")
-  val traderBase:String = s"$baseUrlTS/trader-services/pre-clearance"
-  val traderLanding: String = s"$baseUrlTS/trader-services/pre-clearance/new-or-existing"
+  val traderBase:String = s"$baseUrlTS/send-documents-for-customs-check"
+  val traderBaseNew:String = s"$baseUrlTS/send-documents-for-customs-check/new"
+  val traderBaseAmend:String = s"$baseUrlTS/send-documents-for-customs-check/add"
+  val traderLanding: String = s"$baseUrlTS/send-documents-for-customs-check/new-or-existing"
 
+  val traderUrl:String = "/send-documents-for-customs-check"
+  val traderUrlNew:String = "/send-documents-for-customs-check/new"
+  val traderAmendUrl:String = "/send-documents-for-customs-check/add"
 
-  val traderUrl:String = "/trader-services/pre-clearance"
   val decDetailsUrl: String = "/declaration-details"
-  val exportPrefix: String = "/export-questions"
-  val importPrefix: String = "/import-questions"
+  val exportPrefix: String = "/export"
+  val importPrefix: String = "/import"
   val requestType: String = "/request-type"
   val routeType: String = "/route-type"
   val priorityYN: String = "/has-priority-goods"
   val whichPriority: String = "/which-priority-goods"
   val hasALVS: String = "/automatic-licence-verification"
   val transport: String = "/transport-type"
-  val vesselMandatory: String = "/vessel-info-required"
-  val vesselOptional: String = "/vessel-info"
-  val contactDetails: String = "/contact-info"
+  val vesselMandatory: String = "/transport-information-required"
+  val vesselOptional: String = "/transport-information"
+  val contactDetails: String = "/contact-information"
 
   val CYA: String = "/check-your-answers"
+  val fileUploadUrl: String = "/file-upload"
+  val fileUploaded: String = "/file-uploaded"
+  val confirm: String = "/confirmation"
 
-  val fileUploadUrl: String = "/pre-clearance/file-upload"
-  val fileUploaded: String = "/pre-clearance/file-uploaded"
-
-  val caseRefUrl: String = "/amend/case-reference-number"
-  val whichAmendUrl:String = "/amend/type-of-amendment"
-  val writeResponseUrl: String = "/amend/write-response"
+  val caseRefUrl: String = "/case-reference-number"
+  val whichAmendUrl:String = "/type-of-amendment"
+  val writeResponseUrl: String = "/write-response"
 
   val usrDir = System.getProperty("user.dir") + "/src/test/resources/data/"
 }

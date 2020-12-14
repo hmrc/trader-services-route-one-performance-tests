@@ -28,7 +28,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Get start page")
       .get(traderLanding)
       .check(status.is(303))
-      .check(header("Location").is("/trader-services"))
+      .check(header("Location").is("/send-documents-for-customs-check"))
   }
 
   def loadLandingpage: HttpRequestBuilder = {
@@ -44,18 +44,18 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "New")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + decDetailsUrl))
+      .check(header("Location").is(traderUrlNew + decDetailsUrl))
   }
 
   def getDecdetails: HttpRequestBuilder = {
     http("Load dec details page")
-      .get(traderBase + decDetailsUrl)
+      .get(traderBaseNew + decDetailsUrl)
       .check(status.is(200))
   }
 
   def postImportDecdetails: HttpRequestBuilder = {
     http("Post import dec details")
-      .post(traderBase + decDetailsUrl)
+      .post(traderBaseNew + decDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("epu", "123")
       .formParam("entryNumber", "123456B")
@@ -63,12 +63,12 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("entryDate.month", "${entryMonth}")
       .formParam("entryDate.year", "${entryYear}")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + "/request-type"))
+      .check(header("Location").is(traderUrlNew + importPrefix + "/request-type"))
   }
 
   def postExportDecdetails: HttpRequestBuilder = {
     http("Post export dec details")
-      .post(traderBase + decDetailsUrl)
+      .post(traderBaseNew + decDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("epu", "123")
       .formParam("entryNumber", "A23456B")
@@ -76,125 +76,125 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("entryDate.month", "${entryMonth}")
       .formParam("entryDate.year", "${entryYear}")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + requestType))
+      .check(header("Location").is(traderUrlNew + exportPrefix + requestType))
   }
 
   def postImportRequestType: HttpRequestBuilder = {
     http("Post Import request")
-      .post(traderBase + importPrefix + requestType)
+      .post(traderBaseNew + importPrefix + requestType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("requestType", "New")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + routeType))
+      .check(header("Location").is(traderUrlNew + importPrefix + routeType))
   }
 
   def postExportRequestType: HttpRequestBuilder = {
     http("Post Export request")
-      .post(traderBase + exportPrefix + requestType)
+      .post(traderBaseNew + exportPrefix + requestType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("requestType", "Cancellation")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + routeType))
+      .check(header("Location").is(traderUrlNew + exportPrefix + routeType))
   }
 
   def postImportRouteType: HttpRequestBuilder = {
     http("Post Import route")
-      .post(traderBase + importPrefix + routeType)
+      .post(traderBaseNew + importPrefix + routeType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("routeType", "Route1")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + priorityYN))
+      .check(header("Location").is(traderUrlNew + importPrefix + priorityYN))
   }
 
   def postExportRouteType: HttpRequestBuilder = {
     http("Post Export route")
-      .post(traderBase + exportPrefix + routeType)
+      .post(traderBaseNew + exportPrefix + routeType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("routeType", "Hold")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + priorityYN))
+      .check(header("Location").is(traderUrlNew + exportPrefix + priorityYN))
   }
 
   def postImportPriorityYN: HttpRequestBuilder = {
     http("Post Import YN priority")
-      .post(traderBase + importPrefix + priorityYN)
+      .post(traderBaseNew + importPrefix + priorityYN)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasPriorityGoods", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + whichPriority))
+      .check(header("Location").is(traderUrlNew + importPrefix + whichPriority))
   }
 
   def postExportPriorityYN: HttpRequestBuilder = {
     http("Post Export YN priority")
-      .post(traderBase + exportPrefix + priorityYN)
+      .post(traderBaseNew + exportPrefix + priorityYN)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasPriorityGoods", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + whichPriority))
+      .check(header("Location").is(traderUrlNew + exportPrefix + whichPriority))
   }
 
   def postImportPriorityGoods: HttpRequestBuilder = {
     http("Post Import priority goods")
-      .post(traderBase + importPrefix + whichPriority)
+      .post(traderBaseNew + importPrefix + whichPriority)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("priorityGoods", "LiveAnimals")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + hasALVS))
+      .check(header("Location").is(traderUrlNew + importPrefix + hasALVS))
   }
 
   def postExportPriorityGoods: HttpRequestBuilder = {
     http("Post Export priority goods")
-      .post(traderBase + exportPrefix + whichPriority)
+      .post(traderBaseNew + exportPrefix + whichPriority)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("priorityGoods", "HighValueArt")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + transport))
+      .check(header("Location").is(traderUrlNew + exportPrefix + transport))
   }
 
   def postALVS: HttpRequestBuilder = {
     http("Post ALVS (Import only)")
-      .post(traderBase + importPrefix + hasALVS)
+      .post(traderBaseNew + importPrefix + hasALVS)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasALVS", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + transport))
+      .check(header("Location").is(traderUrlNew + importPrefix + transport))
   }
 
   def postImportTransport: HttpRequestBuilder = {
     http("Post Import transport")
-      .post(traderBase + importPrefix + transport)
+      .post(traderBaseNew + importPrefix + transport)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("freightType", "Air")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + vesselOptional))
+      .check(header("Location").is(traderUrlNew + importPrefix + vesselOptional))
   }
 
   def postExportTransport: HttpRequestBuilder = {
     http("Post Export transport")
-      .post(traderBase + exportPrefix + transport)
+      .post(traderBaseNew + exportPrefix + transport)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("freightType", "Maritime")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + vesselMandatory))
+      .check(header("Location").is(traderUrlNew + exportPrefix + vesselMandatory))
   }
 
   //optional for now
   def postImportVessel: HttpRequestBuilder = {
     http("Post Import vessel details")
-      .post(traderBase + importPrefix + vesselOptional)
+      .post(traderBaseNew + importPrefix + vesselOptional)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("vesselName", "Abcdef")
       .formParam("dateOfArrival.day", "01")
       .formParam("dateOfArrival.month", "11")
       .formParam("dateOfArrival.year", "2020")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + contactDetails))
+      .check(header("Location").is(traderUrlNew + importPrefix + contactDetails))
   }
 
   //mandatory for now
   def postExportVessel: HttpRequestBuilder = {
     http("Post Export vessel details")
-      .post(traderBase + exportPrefix + vesselMandatory)
+      .post(traderBaseNew + exportPrefix + vesselMandatory)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("vesselName", "fedcba")
       .formParam("dateOfArrival.day", "01")
@@ -203,43 +203,49 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("timeOfArrival.hour", "01")
       .formParam("timeOfArrival.minutes", "23")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + contactDetails))
+      .check(header("Location").is(traderUrlNew + exportPrefix + contactDetails))
   }
 
   def postImportContact: HttpRequestBuilder = {
     http("Post Import contact details")
-      .post(traderBase + importPrefix + contactDetails)
+      .post(traderBaseNew + importPrefix + contactDetails)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("contactName", "Mrs. Test")
       .formParam("contactEmail", "abc@a.com")
       .formParam("contactNumber", "01234567891")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + importPrefix + CYA))
+      .check(header("Location").is(traderUrlNew + importPrefix + CYA))
   }
 
   def postExportContact: HttpRequestBuilder = {
     http("Post Export contact details")
-      .post(traderBase + exportPrefix + contactDetails)
+      .post(traderBaseNew + exportPrefix + contactDetails)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("contactName", "Mr. Test")
       .formParam("contactEmail", "cba@a.com")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + exportPrefix + CYA))
+      .check(header("Location").is(traderUrlNew + exportPrefix + CYA))
   }
 
   def getImportCYA: HttpRequestBuilder = {
     http("Get Import CYA page")
-      .get(traderBase + importPrefix + CYA)
+      .get(traderBaseNew + importPrefix + CYA)
       .check(status.is(200))
-//      .check(regex("Review your pre-clearance case details"))
+    //      .check(regex("Review your pre-clearance case details"))
   }
 
   def getExportCYA: HttpRequestBuilder = {
     http("Get Export CYA page")
-      .get(traderBase + exportPrefix + CYA)
+      .get(traderBaseNew + exportPrefix + CYA)
       .check(status.is(200))
-//      .check(regex("Review your pre-clearance case details"))
+    //      .check(regex("Review your pre-clearance case details"))
 
+  }
+
+  def getConfirmationPage: HttpRequestBuilder = {
+    http("Get confirmation page")
+      .get(traderBase + confirm)
+      .check(status.is(200))
   }
 }
 
