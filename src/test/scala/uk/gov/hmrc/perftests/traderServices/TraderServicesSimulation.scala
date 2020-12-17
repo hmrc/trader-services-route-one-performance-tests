@@ -20,7 +20,7 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
 import uk.gov.hmrc.perftests.traderServices.TraderServicesRequests._
-import uk.gov.hmrc.perftests.traderServices.UploadRequests.{getFileUploadPage, uploadFile}
+import uk.gov.hmrc.perftests.traderServices.UploadRequests.{getFileUploadInfo, postFileUpload}
 
 
 class TraderServicesSimulation extends PerformanceTestRunner {
@@ -45,7 +45,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postImportVessel,
     postImportContact,
     getImportCYA,
-    getFileUploadPage,
+    getFileUploadInfo,
+    postFileUpload,
     destroy_UserPlanet
 
     )
@@ -70,8 +71,6 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postExportVessel,
     postExportContact,
     getExportCYA,
-    getFileUploadPage,
-    uploadFile,
     destroy_UserPlanet
   )
 

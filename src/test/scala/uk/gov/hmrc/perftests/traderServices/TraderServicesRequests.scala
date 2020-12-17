@@ -243,6 +243,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
   def postNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
       .post(traderBaseNew + fileUploaded)
+      .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "No")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + confirm))

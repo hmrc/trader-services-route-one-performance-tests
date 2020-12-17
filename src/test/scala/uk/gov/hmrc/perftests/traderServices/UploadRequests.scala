@@ -28,10 +28,12 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   val fileUploadFrontendBaseUrl = baseUrlFor("trader-services-route-one-frontend")
   val fileUploadBackendBaseUrl = baseUrlFor("trader-services-route-one")
+  val upscanInitiateBaseUrl = baseUrlFor("upscan-initiate")
   val file = File.makeTemp()
 
-  def getFileUploadPage: HttpRequestBuilder = {
-    http("Navigate to file upload page")
+
+  def getFileUploadInfo: HttpRequestBuilder = {
+    http("Get info from file upload page")
       .get(traderBaseNew + fileUploadUrl)
       .check(saveFileUploadurl)
       .check(saveCallBack)
@@ -49,17 +51,46 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  def uploadFile: HttpRequestBuilder = {
-    http("Upload File")
-      .post("www.development.upscan.tax.service.gov.uk/v1/uploads/fus-inbound-759b74ce43947f5f4c91aeddc3e5bad3")
-      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-      .formParam("csrfToken", "${csrfToken}")
-      .headers(Map("X-Requested-With" -> "someRequestedWith"))
-      .bodyPart(StringBodyPart("foo", "bar"))
-      .bodyPart(RawFileBodyPart("fileToUpload", file.path))
+  private def headers: Map[String, String] = Map(
+    "User-Agent" -> "trader-services-route-one-frontend",
+    "Accept" -> "application/pdf",
+    "Content-Type" -> "application/pdf",
+    "Authorization" -> "Bearer ${bearerToken}"
+  )
+
+//  "Accept" -> s"application/vnd.hmrc.1.0+pdf"
+//     "reference" -> "11370e18-6e24-453e-b45a-76d3e32ea33d"
+//    "X-Client-ID" -> "e0bb1fcd-090b-4773-8b6c-d0a00b45a27b"
+//    "X-Badge-Identifier" -> "BADGEID123"
+//    "X-Eori-Identifier" -> "EORIID123"
+
+
+//      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
+//      .headers(Map("X-Requested-With" -> "someRequestedWith"))
+
+  def postFileUpload(): HttpRequestBuilder = {
+    http("upload file")
+      .post(upscanInitiateBaseUrl + "/v1/uploads/fus-inbound-830f78e090fe8aec00891405dfc14824")
+      .headers(headers)
+      .asMultipartForm
+      .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
+      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
+      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
+      .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
+      .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "${amazonMetaOriginalFileName}"))
+      .bodyPart(StringBodyPart("x-amz-meta-request-id", "n/a"))
+      .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
+      .bodyPart(StringBodyPart("key", "${key}"))
+      .bodyPart(StringBodyPart("acl", "private"))
+      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
+      .bodyPart(StringBodyPart("x-amz-meta-session-id", "n/a"))
+      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
+      .bodyPart(StringBodyPart("policy", "${policy}"))
+      .bodyPart(ByteArrayBodyPart("file", fileBytes("/data/test.pdf")).contentType("application/pdf"))
       .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + fileUploaded))
+      .check(header("Location").saveAs("upscanResponse"))
   }
 }
-//text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-
