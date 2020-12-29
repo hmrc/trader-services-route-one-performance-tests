@@ -130,4 +130,16 @@ trait SaveToGatlingSessions extends Patterns {
     val resource: InputStream = getClass.getResourceAsStream(filename)
     Iterator.continually(resource.read).takeWhile(_ != -1).map(_.toByte).toArray
   }
+
+  def saveChecksum: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(checksumPattern).saveAs("checksum")
+  }
+
+    def saveCorrelationID: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+      bodyCheck(correlationIdPattern).saveAs("correlationID")
+    }
+
+  def saveConversationID: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(conversationIdPattern).saveAs("conversationID")
+  }
 }

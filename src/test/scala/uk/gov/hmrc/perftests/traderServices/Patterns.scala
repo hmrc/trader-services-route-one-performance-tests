@@ -44,5 +44,9 @@ trait Patterns {
   val successRedirectPattern = """name="success_action_redirect" value="(.*?)""""
   val errorRedirectPattern = """name="error_action_redirect" value="(.*?)""""
 
+
+  val checksumPattern = """name="key" value="(.*?)""""
+  val correlationIdPattern = """name="key" value="(.*?)""""
+  val conversationIdPattern = """name="key" value="(.*?)""""
 }
 //  val CsrfPattern: String = """name="csrfToken" value="([^"]+)""""
