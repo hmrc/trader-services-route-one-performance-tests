@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,8 +53,8 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
   val CYA: String = "/check-your-answers"
   val fileUploadUrl: String = "/file-upload"
-  val fileUploaded: String = "/file-uploaded"
-  val confirm: String = "/confirmation"
+  val fileUploadedUrl: String = "/file-uploaded"
+  val confirmUrl: String = "/confirmation"
 
   val caseRefUrl: String = "/case-reference-number"
   val whichAmendUrl:String = "/type-of-amendment"

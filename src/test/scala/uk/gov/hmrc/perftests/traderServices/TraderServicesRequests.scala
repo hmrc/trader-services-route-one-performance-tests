@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Post Export priority goods")
       .post(traderBaseNew + exportPrefix + whichPriority)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("priorityGoods", "HighValueArt")
+      .formParam("priorityGoods", "LiveAnimals")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + exportPrefix + transport))
   }
@@ -231,7 +231,6 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Get Import CYA page")
       .get(traderBaseNew + importPrefix + CYA)
       .check(status.is(200))
-    //      .check(regex("Review your pre-clearance case details"))
   }
 
   def getExportCYA: HttpRequestBuilder = {
@@ -242,16 +241,16 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
-      .post(traderBaseNew + fileUploaded)
+      .post(traderBaseNew + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("uploadAnotherFile", "No")
+      .formParam("uploadAnotherFile", "no")
       .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + confirm))
+      .check(header("Location").is(traderUrlNew + confirmUrl))
   }
 
   def getConfirmationPage: HttpRequestBuilder = {
     http("Get confirmation page")
-      .get(traderBaseNew + confirm)
+      .get(traderBaseNew + confirmUrl)
       .check(status.is(200))
   }
 }
