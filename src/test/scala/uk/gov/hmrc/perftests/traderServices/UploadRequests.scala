@@ -24,10 +24,6 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  val fileUploadFrontendBaseUrl = baseUrlFor("trader-services-route-one-frontend")
-  val fileUploadBackendBaseUrl = baseUrlFor("trader-services-route-one")
-  val upscanInitiateBaseUrl = baseUrlFor("upscan-initiate")
-
   def getFileUploadInfo: HttpRequestBuilder = {
     http("Get info from file upload page")
       .get(traderBaseNew + fileUploadUrl)
