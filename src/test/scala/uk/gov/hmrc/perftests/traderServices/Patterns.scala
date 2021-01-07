@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,10 +43,6 @@ trait Patterns {
   val fileTypePattern = """data-filetype="(.*?)""""
   val successRedirectPattern = """name="success_action_redirect" value="(.*?)""""
   val errorRedirectPattern = """name="error_action_redirect" value="(.*?)""""
+  val requestIdPattern = """name="x-amz-meta-request-id" value="(.*?)""""
 
-
-  val checksumPattern = """name="key" value="(.*?)""""
-  val correlationIdPattern = """name="key" value="(.*?)""""
-  val conversationIdPattern = """name="key" value="(.*?)""""
 }
-//  val CsrfPattern: String = """name="csrfToken" value="([^"]+)""""

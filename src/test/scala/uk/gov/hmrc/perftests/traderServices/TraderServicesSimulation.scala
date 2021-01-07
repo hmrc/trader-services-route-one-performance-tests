@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
 import uk.gov.hmrc.perftests.traderServices.TraderServicesRequests._
-import uk.gov.hmrc.perftests.traderServices.UploadRequests.{getFileUploadInfo, postFileUpload}
+import uk.gov.hmrc.perftests.traderServices.UploadRequests._
 
 
 class TraderServicesSimulation extends PerformanceTestRunner {
@@ -47,6 +47,10 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getImportCYA,
     getFileUploadInfo,
     postFileUpload,
+    getSuccessUrl,
+    getFileUploadedPage,
+    postNoMoreUpload,
+    getConfirmationPage,
     destroy_UserPlanet
 
     )
@@ -71,6 +75,12 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postExportVessel,
     postExportContact,
     getExportCYA,
+    getFileUploadInfo,
+    postFileUpload,
+    getSuccessUrl,
+    getFileUploadedPage,
+    postNoMoreUpload,
+    getConfirmationPage,
     destroy_UserPlanet
   )
 
