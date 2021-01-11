@@ -28,7 +28,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
     http("Get start page")
       .get(traderLanding)
       .check(status.is(303))
-      .check(header("Location").is("/send-documents-for-customs-check/new-or-existing"))
+      .check(header("Location").is("/send-documents-for-customs-check"))
   }
 
   def loadLandingpage: HttpRequestBuilder = {
