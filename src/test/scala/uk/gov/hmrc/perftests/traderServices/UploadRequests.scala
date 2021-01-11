@@ -63,8 +63,8 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getSuccessUrl: HttpRequestBuilder = {
-    http("get success url")
-      .get("${successRedirect}")
+    http("Get success url")
+      .get("${UpscanResponseSuccess}")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + fileUploadedUrl))
   }
