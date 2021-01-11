@@ -26,21 +26,21 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def getLandingpage: HttpRequestBuilder = {
     http("Get start page")
-      .get(landingTSRead)
+      .get(baseUrlRead)
       .check(status.is(303))
       .check(header("Location").is("/send-documents-for-customs-check"))
   }
 
   def loadLandingpage: HttpRequestBuilder = {
     http("Load start page")
-      .get(landingTSRead + "/new-or-existing")
+      .get(baseUrlRead + "/new-or-existing")
       .check(status.is(200))
       .check(regex("What do you want to do?"))
   }
 
   def postjourneyNew: HttpRequestBuilder = {
     http("Post New journey response")
-      .post(traderLanding)
+      .post(baseUrlRead + "/new-or-existing")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "New")
       .check(status.is(303))
@@ -49,13 +49,13 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def getDecdetails: HttpRequestBuilder = {
     http("Load dec details page")
-      .get(traderBaseNew + decDetailsUrl)
+      .get(baseUrlRead + "/new" + decDetailsUrl)
       .check(status.is(200))
   }
 
   def postImportDecdetails: HttpRequestBuilder = {
     http("Post import dec details")
-      .post(traderBaseNew + decDetailsUrl)
+      .post(baseUrlRead + "/new" + decDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("epu", "123")
       .formParam("entryNumber", "123456B")
@@ -68,7 +68,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportDecdetails: HttpRequestBuilder = {
     http("Post export dec details")
-      .post(traderBaseNew + decDetailsUrl)
+      .post(baseUrlRead + "/new" + decDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("epu", "123")
       .formParam("entryNumber", "A23456B")
@@ -81,7 +81,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postImportRequestType: HttpRequestBuilder = {
     http("Post Import request")
-      .post(traderBaseNew + importPrefix + requestType)
+      .post(baseUrlRead + "/new" + importPrefix + requestType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("requestType", "New")
       .check(status.is(303))
@@ -90,7 +90,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportRequestType: HttpRequestBuilder = {
     http("Post Export request")
-      .post(traderBaseNew + exportPrefix + requestType)
+      .post(baseUrlRead + "/new" + exportPrefix + requestType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("requestType", "Cancellation")
       .check(status.is(303))
@@ -99,7 +99,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postImportRouteType: HttpRequestBuilder = {
     http("Post Import route")
-      .post(traderBaseNew + importPrefix + routeType)
+      .post(baseUrlRead + "/new"+ importPrefix + routeType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("routeType", "Route1")
       .check(status.is(303))
@@ -108,7 +108,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportRouteType: HttpRequestBuilder = {
     http("Post Export route")
-      .post(traderBaseNew + exportPrefix + routeType)
+      .post(baseUrlRead + "/new" + exportPrefix + routeType)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("routeType", "Hold")
       .check(status.is(303))
@@ -117,7 +117,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postImportPriorityYN: HttpRequestBuilder = {
     http("Post Import YN priority")
-      .post(traderBaseNew + importPrefix + priorityYN)
+      .post(baseUrlRead + "/new" + importPrefix + priorityYN)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasPriorityGoods", "yes")
       .check(status.is(303))
@@ -126,7 +126,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportPriorityYN: HttpRequestBuilder = {
     http("Post Export YN priority")
-      .post(traderBaseNew + exportPrefix + priorityYN)
+      .post(baseUrlRead + "/new" + exportPrefix + priorityYN)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasPriorityGoods", "yes")
       .check(status.is(303))
@@ -135,7 +135,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postImportPriorityGoods: HttpRequestBuilder = {
     http("Post Import priority goods")
-      .post(traderBaseNew + importPrefix + whichPriority)
+      .post(baseUrlRead + "/new" + importPrefix + whichPriority)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("priorityGoods", "LiveAnimals")
       .check(status.is(303))
@@ -144,7 +144,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportPriorityGoods: HttpRequestBuilder = {
     http("Post Export priority goods")
-      .post(traderBaseNew + exportPrefix + whichPriority)
+      .post(baseUrlRead + "/new" + exportPrefix + whichPriority)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("priorityGoods", "LiveAnimals")
       .check(status.is(303))
@@ -153,7 +153,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postALVS: HttpRequestBuilder = {
     http("Post ALVS (Import only)")
-      .post(traderBaseNew + importPrefix + hasALVS)
+      .post(baseUrlRead + "/new" + importPrefix + hasALVS)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasALVS", "yes")
       .check(status.is(303))
@@ -162,7 +162,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postImportTransport: HttpRequestBuilder = {
     http("Post Import transport")
-      .post(traderBaseNew + importPrefix + transport)
+      .post(baseUrlRead + "/new" + importPrefix + transport)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("freightType", "Air")
       .check(status.is(303))
@@ -171,7 +171,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportTransport: HttpRequestBuilder = {
     http("Post Export transport")
-      .post(traderBaseNew + exportPrefix + transport)
+      .post(baseUrlRead + "/new" + exportPrefix + transport)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("freightType", "Maritime")
       .check(status.is(303))
@@ -181,7 +181,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
   //optional for now
   def postImportVessel: HttpRequestBuilder = {
     http("Post Import vessel details")
-      .post(traderBaseNew + importPrefix + vesselOptional)
+      .post(baseUrlRead + "/new" + importPrefix + vesselOptional)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("vesselName", "Abcdef")
       .formParam("dateOfArrival.day", "01")
@@ -194,7 +194,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
   //mandatory for now
   def postExportVessel: HttpRequestBuilder = {
     http("Post Export vessel details")
-      .post(traderBaseNew + exportPrefix + vesselMandatory)
+      .post(baseUrlRead + "/new" + exportPrefix + vesselMandatory)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("vesselName", "fedcba")
       .formParam("dateOfArrival.day", "01")
@@ -208,7 +208,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postImportContact: HttpRequestBuilder = {
     http("Post Import contact details")
-      .post(traderBaseNew + importPrefix + contactDetails)
+      .post(baseUrlRead + "/new" + importPrefix + contactDetails)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("contactName", "Mrs. Test")
       .formParam("contactEmail", "abc@a.com")
@@ -219,7 +219,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def postExportContact: HttpRequestBuilder = {
     http("Post Export contact details")
-      .post(traderBaseNew + exportPrefix + contactDetails)
+      .post(baseUrlRead + "/new" + exportPrefix + contactDetails)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("contactName", "Mr. Test")
       .formParam("contactEmail", "cba@a.com")
@@ -229,19 +229,19 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def getImportCYA: HttpRequestBuilder = {
     http("Get Import CYA page")
-      .get(traderBaseNew + importPrefix + CYA)
+      .get(baseUrlRead + "/new" + importPrefix + CYA)
       .check(status.is(200))
   }
 
   def getExportCYA: HttpRequestBuilder = {
     http("Get Export CYA page")
-      .get(traderBaseNew + exportPrefix + CYA)
+      .get(baseUrlRead + "/new" + exportPrefix + CYA)
       .check(status.is(200))
   }
 
   def postNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
-      .post(traderBaseNew + fileUploadedUrl)
+      .post(baseUrlRead + "/new" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
       .check(status.is(303))
@@ -250,7 +250,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
 
   def getConfirmationPage: HttpRequestBuilder = {
     http("Get confirmation page")
-      .get(traderBaseNew + confirmUrl)
+      .get(baseUrlRead + "/new" + confirmUrl)
       .check(status.is(200))
   }
 }

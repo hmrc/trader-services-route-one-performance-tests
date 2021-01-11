@@ -26,7 +26,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postJourneyAmend: HttpRequestBuilder = {
     http("Post existing journey response")
-      .post(traderLanding)
+      .post(baseUrlRead + "/new-or-existing")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
       .check(status.is(303))
@@ -35,20 +35,20 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getCaseRefPage: HttpRequestBuilder = {
     http("Get case reference number page")
-      .get(traderBaseAmend + caseRefUrl)
+      .get(baseUrlRead + "/add" + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
     http("Load case reference number page")
-      .get(traderBaseAmend + caseRefUrl)
+      .get(baseUrlRead + "/add" + caseRefUrl)
       .check(status.is(200))
 //      .check(regex("What's the case reference number?"))
   }
 
   def postCaseref: HttpRequestBuilder = {
     http("Post case ref number")
-      .post(traderBaseAmend + caseRefUrl)
+      .post(baseUrlRead + "/add" + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
@@ -57,13 +57,13 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getWhichAmend: HttpRequestBuilder = {
     http("Get which amendment page")
-      .get(traderBaseAmend + whichAmendUrl)
+      .get(baseUrlRead + "/add" + whichAmendUrl)
       .check(status.is(200))
   }
 
   def postWriteOnly: HttpRequestBuilder = {
     http("Post write only option")
-      .post(traderBaseAmend + whichAmendUrl)
+      .post(baseUrlRead + "/add" + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
       .check(status.is(303))
@@ -72,13 +72,13 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getWriteResponsePage: HttpRequestBuilder = {
     http("Get write response page")
-      .get(traderBaseAmend + writeResponseUrl)
+      .get(baseUrlRead + "/add" + writeResponseUrl)
       .check(status.is(200))
   }
 
   def postFreeTextResponse: HttpRequestBuilder = {
     http("Post query response in free text field")
-      .post(traderBaseAmend + writeResponseUrl)
+      .post(baseUrlRead + "/add" + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
       .check(status.is(303))
@@ -86,7 +86,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getConfirmationPageAmend: HttpRequestBuilder = {
     http("Get amend confirmation page")
-      .get(traderBaseAmend + confirmUrl)
+      .get(baseUrlRead + "/add" + confirmUrl)
       .check(status.is(200))
   }
 }
