@@ -26,7 +26,7 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
     "/send-documents-for-customs-check"
   }
 
-  val landingTSRead: String = readProperty("baseUrl")
+  val landingTSRead: String = readProperty("baseUrlTrader")
 
   val baseUrlTS: String = baseUrlFor("trader-services-route-one-frontend")
   val traderBase:String = s"$baseUrlTS/send-documents-for-customs-check"
