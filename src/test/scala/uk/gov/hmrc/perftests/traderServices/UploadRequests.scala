@@ -71,6 +71,6 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def getFileUploadedPage: HttpRequestBuilder = {
     http("Get file uploaded page")
       .get(baseUrlRead + "/new" + fileUploadedUrl)
-      .check(status.is(200))
+//      .check(status.is(200))
   }
 }
