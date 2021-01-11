@@ -26,7 +26,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getFileUploadInfo: HttpRequestBuilder = {
     http("Get info from file upload page")
-      .get(traderBaseNew + fileUploadUrl)
+      .get(baseUrlRead + "/new" + fileUploadUrl)
       .check(saveFileUploadUrl)
       .check(saveCallBack)
       .check(saveAmazonDate)
@@ -71,7 +71,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getFileUploadedPage: HttpRequestBuilder = {
     http("Get file uploaded page")
-      .get(traderBaseNew + fileUploadedUrl)
+      .get(baseUrlRead + "/new" + fileUploadedUrl)
       .check(status.is(200))
   }
 }
