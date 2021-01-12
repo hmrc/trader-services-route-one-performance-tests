@@ -353,7 +353,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
 
-  //Finalize Stages
+  //Final Stages
   def postNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
       .post(baseUrlRead + "/new" + fileUploadedUrl)

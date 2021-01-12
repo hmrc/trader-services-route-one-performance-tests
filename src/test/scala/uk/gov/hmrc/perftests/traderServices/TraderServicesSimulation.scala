@@ -77,13 +77,12 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadInfo,
     postFileUpload,
     getSuccessUrl,
-    uploadWait,
-    getFileUploadedPage,
-    postNoMoreUpload,
-    getConfirmationPage,
+//    uploadWait,
+//    getFileUploadedPage,
+//    postNoMoreUpload,
+//    getConfirmationPage,
     destroy_UserPlanet
   )
-
 
 
   setup("Trader Services Export Journey", "Export").withActions(
@@ -132,6 +131,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getExportCYA,
     getFileUploadInfo,
     postFileUpload,
+    uploadWait,
     getSuccessUrl,
     uploadWait,
     getFileUploadedPage,
@@ -145,6 +145,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     login_User,
     update_UserRole,
     postsuccessful_Login,
+
     getLandingpage,
     loadLandingpage,
     pause,
