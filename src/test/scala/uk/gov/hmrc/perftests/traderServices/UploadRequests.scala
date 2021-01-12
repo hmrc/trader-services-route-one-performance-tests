@@ -65,8 +65,11 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
 
-  def pause = new PauseBuilder(20 seconds, None)
-  def uploadWait = new PauseBuilder(60 seconds, None)
+  def pause = new PauseBuilder(1 seconds, None)
+  //update to more realistic think time later
+
+  def uploadWait = new PauseBuilder(120 seconds, None)
+  //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
     http("Get success url")

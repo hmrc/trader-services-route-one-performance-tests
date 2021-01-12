@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
-object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSessions {
+object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getLandingpage: HttpRequestBuilder = {
     http("Get start page")
@@ -47,6 +47,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + decDetailsUrl))
   }
 
+    //Declaration Details
   def getDecdetails: HttpRequestBuilder = {
     http("Load dec details page")
       .get(baseUrlRead + "/new" + decDetailsUrl)
@@ -79,6 +80,19 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + exportPrefix + requestType))
   }
 
+  //Request Type
+  def getImportRequestPage: HttpRequestBuilder = {
+    http("Load request type page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + requestType)
+      .check(status.is(200))
+  }
+
+  def getExportRequestPage: HttpRequestBuilder = {
+    http("Load request type page - Import")
+      .get(baseUrlRead + "/new" + exportPrefix + requestType)
+      .check(status.is(200))
+  }
+
   def postImportRequestType: HttpRequestBuilder = {
     http("Post Import request")
       .post(baseUrlRead + "/new" + importPrefix + requestType)
@@ -95,6 +109,19 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("requestType", "Cancellation")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + exportPrefix + routeType))
+  }
+
+  //Route Type
+  def getImportRoute: HttpRequestBuilder = {
+    http("Load route page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + routeType)
+      .check(status.is(200))
+  }
+
+  def getExportRoute: HttpRequestBuilder = {
+    http("Load route page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + routeType)
+      .check(status.is(200))
   }
 
   def postImportRouteType: HttpRequestBuilder = {
@@ -115,6 +142,20 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + exportPrefix + priorityYN))
   }
 
+
+  //Priority Goods
+  def getImportPriorityYN: HttpRequestBuilder = {
+    http("Load priority YN page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + priorityYN)
+      .check(status.is(200))
+  }
+
+  def getExportPriorityYN: HttpRequestBuilder = {
+    http("Load priority YN page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + priorityYN)
+      .check(status.is(200))
+  }
+
   def postImportPriorityYN: HttpRequestBuilder = {
     http("Post Import YN priority")
       .post(baseUrlRead + "/new" + importPrefix + priorityYN)
@@ -131,6 +172,18 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("hasPriorityGoods", "yes")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + exportPrefix + whichPriority))
+  }
+
+  def getImportPriority: HttpRequestBuilder = {
+    http("Load priority goods page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + whichPriority)
+      .check(status.is(200))
+  }
+
+  def getExportPriority: HttpRequestBuilder = {
+    http("Load priority goods page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + whichPriority)
+      .check(status.is(200))
   }
 
   def postImportPriorityGoods: HttpRequestBuilder = {
@@ -151,13 +204,34 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + exportPrefix + transport))
   }
 
+
+  //ALVS (Import Only)
+  def getALVS: HttpRequestBuilder = {
+    http("Get ALVS page")
+      .get(baseUrlRead + "/new" + importPrefix + hasALVS)
+      .check(status.is(200))
+  }
+
   def postALVS: HttpRequestBuilder = {
-    http("Post ALVS (Import only)")
+    http("Post ALVS")
       .post(baseUrlRead + "/new" + importPrefix + hasALVS)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasALVS", "yes")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + importPrefix + transport))
+  }
+
+  //Transport
+  def getImportTransport: HttpRequestBuilder = {
+    http("Get transport page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + transport)
+      .check(status.is(200))
+  }
+
+  def getExportTransport: HttpRequestBuilder = {
+    http("Get transport page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + transport)
+      .check(status.is(200))
   }
 
   def postImportTransport: HttpRequestBuilder = {
@@ -178,8 +252,32 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + exportPrefix + vesselMandatory))
   }
 
-  //optional for now
-  def postImportVessel: HttpRequestBuilder = {
+  //Optional
+  def getImportVesselMandatory: HttpRequestBuilder = {
+    http("Get mandatory vessel details page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + vesselMandatory)
+      .check(status.is(200))
+  }
+
+  def getImportVesselOptional: HttpRequestBuilder = {
+    http("Get optional vessel details page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + vesselOptional)
+      .check(status.is(200))
+  }
+
+  def getExportVesselMandatory: HttpRequestBuilder = {
+    http("Get mandatory vessel details page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + vesselMandatory)
+      .check(status.is(200))
+  }
+
+  def getExportVesselOptional: HttpRequestBuilder = {
+    http("Get optional vessel details page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + vesselOptional)
+      .check(status.is(200))
+  }
+
+  def postImportVesselOptional: HttpRequestBuilder = {
     http("Post Import vessel details")
       .post(baseUrlRead + "/new" + importPrefix + vesselOptional)
       .formParam("csrfToken", "${csrfToken}")
@@ -191,8 +289,8 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + importPrefix + contactDetails))
   }
 
-  //mandatory for now
-  def postExportVessel: HttpRequestBuilder = {
+  //Mandatory
+  def postExportVesselMandatory: HttpRequestBuilder = {
     http("Post Export vessel details")
       .post(baseUrlRead + "/new" + exportPrefix + vesselMandatory)
       .formParam("csrfToken", "${csrfToken}")
@@ -204,6 +302,20 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .formParam("timeOfArrival.minutes", "23")
       .check(status.is(303))
       .check(header("Location").is(traderUrlNew + exportPrefix + contactDetails))
+  }
+
+
+  //Contact details
+  def getImportContactDetails: HttpRequestBuilder = {
+    http("Get contact details page - Import")
+      .get(baseUrlRead + "/new" + importPrefix + contactDetails)
+      .check(status.is(200))
+  }
+
+  def getExportContactDetails: HttpRequestBuilder = {
+    http("Get contact details page - Export")
+      .get(baseUrlRead + "/new" + exportPrefix + contactDetails)
+      .check(status.is(200))
   }
 
   def postImportContact: HttpRequestBuilder = {
@@ -227,6 +339,7 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(header("Location").is(traderUrlNew + exportPrefix + CYA))
   }
 
+  //CYA
   def getImportCYA: HttpRequestBuilder = {
     http("Get Import CYA page")
       .get(baseUrlRead + "/new" + importPrefix + CYA)
@@ -239,6 +352,8 @@ object TraderServicesRequests extends ServicesConfiguration with SaveToGatlingSe
       .check(status.is(200))
   }
 
+
+  //Finalize Stages
   def postNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
       .post(baseUrlRead + "/new" + fileUploadedUrl)
