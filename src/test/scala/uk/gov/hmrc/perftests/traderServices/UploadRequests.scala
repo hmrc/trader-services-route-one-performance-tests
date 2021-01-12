@@ -35,10 +35,14 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveAmazonDate)
       .check(saveSuccessRedirect)
       .check(saveAmazonCredential)
+//      .check(saveUpscanIniateResponse)
+//      .check(saveUpscanInitiateRecieved)
+//      .check(saveRequestId)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
       .check(saveErrorRedirect)
+//      .check(saveSessionId)
       .check(savePolicy)
       .check(status.is(200))
   }
@@ -47,43 +51,46 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("Content-Type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
+      .header("user-agent", "trader-services-route-one-frontend")
       .asMultipartForm
       .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
       .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
       .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
       .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
       .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
       .bodyPart(StringBodyPart("key", "${key}"))
       .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
       .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
+      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testjpeg.jpeg"))
       .bodyPart(StringBodyPart("acl", "private"))
+//      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${sessionId}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
-      .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
+//      .fileName("test.pdf")
+      .bodyPart(RawFileBodyPart("file", "data/testjpeg.jpeg").contentType("image/jpeg"))
       .check(status.is(303))
-      .check(header("Location").saveAs("UpscanResponseSuccess"))
-//      .check(header("Location").is(""))
+//      .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
 
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(45 seconds, None)
+  def uploadWait = new PauseBuilder(1 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
     http("Get success url")
       .get("${successRedirect}")
       .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + fileUploadedUrl))
   }
 
   def getFileUploadedPage: HttpRequestBuilder = {
     http("Get file uploaded page")
       .get(baseUrlRead + "/new" + fileUploadedUrl)
       .check(status.is(200))
-      .check(header("Location").is(traderUrlNew + fileUploadedUrl))
   }
 
   def postNoMoreUpload: HttpRequestBuilder = {

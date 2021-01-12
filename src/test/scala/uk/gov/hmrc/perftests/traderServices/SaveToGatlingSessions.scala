@@ -20,7 +20,7 @@ import java.io.InputStream
 
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
-import io.gatling.http.Predef._
+import io.gatling.http.Predef.{Response, _}
 import io.gatling.http.check.HttpCheck
 import io.gatling.http.response.Response
 
@@ -120,6 +120,10 @@ trait SaveToGatlingSessions extends Patterns {
 
   def saveAmazonSignature: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
     bodyCheck(signaturePattern).saveAs("amazonSignature")
+  }
+
+  def saveRequestId: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(requestIdPattern).saveAs("requestId")
   }
 
   def savePolicy: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
