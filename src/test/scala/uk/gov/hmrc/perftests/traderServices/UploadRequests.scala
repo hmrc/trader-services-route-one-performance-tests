@@ -68,7 +68,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(2 seconds, None)
+  def uploadWait = new PauseBuilder(60 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
