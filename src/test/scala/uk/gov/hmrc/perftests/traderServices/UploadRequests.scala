@@ -17,10 +17,13 @@
 package uk.gov.hmrc.perftests.traderServices
 
 import io.gatling.core.Predef._
+import io.gatling.core.action.builder.PauseBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
+
+import scala.concurrent.duration.DurationInt
 
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
@@ -62,6 +65,9 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
 
+  def pause = new PauseBuilder(20 seconds, None)
+  def uploadWait = new PauseBuilder(60 seconds, None)
+
   def getSuccessUrl: HttpRequestBuilder = {
     http("Get success url")
       .get("${UpscanResponseSuccess}")
@@ -71,6 +77,6 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def getFileUploadedPage: HttpRequestBuilder = {
     http("Get file uploaded page")
       .get(baseUrlRead + "/new" + fileUploadedUrl)
-//      .check(status.is(200))
+      .check(status.is(200))
   }
 }
