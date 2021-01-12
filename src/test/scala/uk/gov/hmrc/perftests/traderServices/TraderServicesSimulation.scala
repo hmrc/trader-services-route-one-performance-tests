@@ -19,7 +19,7 @@ package uk.gov.hmrc.perftests.traderServices
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
-import uk.gov.hmrc.perftests.traderServices.TraderServicesRequests._
+import uk.gov.hmrc.perftests.traderServices.JourneyNewRequests._
 import uk.gov.hmrc.perftests.traderServices.UploadRequests._
 
 
@@ -31,19 +31,48 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     login_User,
     update_UserRole,
     postsuccessful_Login,
+
     getLandingpage,
     loadLandingpage,
+    pause,
     postjourneyNew,
+
     getDecdetails,
+    pause,
     postImportDecdetails,
+
+    getImportRequestPage,
+    pause,
     postImportRequestType,
+
+    getImportRoute,
+    pause,
     postImportRouteType,
+
+    getImportPriorityYN,
+    pause,
     postImportPriorityYN,
+
+    getImportPriority,
+    pause,
     postImportPriorityGoods,
+
+    getALVS,
+    pause,
     postALVS,
+
+    getImportTransport,
+    pause,
     postImportTransport,
-    postImportVessel,
+
+    getImportVesselOptional,
+    pause,
+    postImportVesselOptional,
+
+    getImportContactDetails,
+    pause,
     postImportContact,
+
     getImportCYA,
     getFileUploadInfo,
     postFileUpload,
@@ -62,18 +91,44 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     login_User,
     update_UserRole,
     postsuccessful_Login,
+
     getLandingpage,
     loadLandingpage,
+    pause,
     postjourneyNew,
+
     getDecdetails,
+    pause,
     postExportDecdetails,
+
+    getExportRequestPage,
+    pause,
     postExportRequestType,
+
+    getExportRoute,
+    pause,
     postExportRouteType,
+
+    getExportPriorityYN,
+    pause,
     postExportPriorityYN,
+
+    getExportPriority,
+    pause,
     postExportPriorityGoods,
+
+    getExportTransport,
+    pause,
     postExportTransport,
-    postExportVessel,
+
+    getExportVesselMandatory,
+    pause,
+    postExportVesselMandatory,
+
+    getExportContactDetails,
+    pause,
     postExportContact,
+
     getExportCYA,
     getFileUploadInfo,
     postFileUpload,
@@ -92,13 +147,19 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postsuccessful_Login,
     getLandingpage,
     loadLandingpage,
+    pause,
     postJourneyAmend,
+
     getCaseRefPage,
     loadCaseRefPage,
+    pause,
     postCaseref,
+
     getWhichAmend,
+    pause,
     postWriteOnly,
     getWriteResponsePage,
+    pause,
     postFreeTextResponse,
     getConfirmationPageAmend
   )
