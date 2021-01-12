@@ -28,7 +28,7 @@ import scala.concurrent.duration.DurationInt
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getFileUploadInfo: HttpRequestBuilder = {
-    http("Get info from file upload page")
+    http("Get info from new file upload page")
       .get(baseUrlRead + "/new" + fileUploadUrl)
       .check(saveFileUploadUrl)
       .check(saveCallBack)
@@ -81,5 +81,23 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
     http("Get file uploaded page")
       .get(baseUrlRead + "/new" + fileUploadedUrl)
       .check(status.is(200))
+  }
+
+  def postNoMoreUpload: HttpRequestBuilder = {
+    http("Last upload - complete journey")
+      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("uploadAnotherFile", "no")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrlNew + confirmUrl))
+  }
+
+  def postYesMoreUpload: HttpRequestBuilder = {
+    http("Upload another")
+      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("uploadAnotherFile", "yes")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrlNew + fileUploadUrl))
   }
 }

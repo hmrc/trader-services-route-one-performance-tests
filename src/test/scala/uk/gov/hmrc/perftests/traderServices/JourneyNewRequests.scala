@@ -352,17 +352,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(status.is(200))
   }
 
-
-  //Final Stages
-  def postNoMoreUpload: HttpRequestBuilder = {
-    http("Last upload - complete journey")
-      .post(baseUrlRead + "/new" + fileUploadedUrl)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("uploadAnotherFile", "no")
-      .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + confirmUrl))
-  }
-
+  //Confirmation page
   def getConfirmationPage: HttpRequestBuilder = {
     http("Get confirmation page")
       .get(baseUrlRead + "/new" + confirmUrl)
