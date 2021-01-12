@@ -59,13 +59,14 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
 //      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
 //      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-//      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
       .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
       .bodyPart(StringBodyPart("key", "${key}"))
       .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
       .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
       .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testjpeg.jpeg"))
       .bodyPart(StringBodyPart("acl", "private"))
+      .bodyPart(StringBodyPart("x-amz-meta-request-id", "n/a"))
 //      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${sessionId}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
@@ -79,7 +80,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(60 seconds, None)
+  def uploadWait = new PauseBuilder(45 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
