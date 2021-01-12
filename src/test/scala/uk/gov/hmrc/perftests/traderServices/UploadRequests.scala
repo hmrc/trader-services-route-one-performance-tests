@@ -60,10 +60,10 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("acl", "private"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
-      .bodyPart(RawFileBodyPart("file", "data/test.pdf"))
+      .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
       .check(status.is(303))
-//      .check(header("Location").saveAs("UpscanResponseSuccess"))
-      .check(header("Location").is(""))
+      .check(header("Location").saveAs("UpscanResponseSuccess"))
+//      .check(header("Location").is(""))
   }
 
   def pause = new PauseBuilder(1 seconds, None)
