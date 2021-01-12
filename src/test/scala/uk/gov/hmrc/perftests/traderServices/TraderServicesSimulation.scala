@@ -26,7 +26,7 @@ import uk.gov.hmrc.perftests.traderServices.UploadRequests._
 class TraderServicesSimulation extends PerformanceTestRunner {
 
 
-  setup("Trader Services Import Journey", "Import").withRequests(
+  setup("Trader Services Import Journey", "Import").withActions(
     getLogin_Page,
     login_User,
     update_UserRole,
@@ -48,16 +48,16 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadInfo,
     postFileUpload,
     getSuccessUrl,
+    uploadWait,
     getFileUploadedPage,
     postNoMoreUpload,
     getConfirmationPage,
     destroy_UserPlanet
+  )
 
-    )
 
 
-  setup("Trader Services Export Journey", "Export").withRequests(
-
+  setup("Trader Services Export Journey", "Export").withActions(
     getLogin_Page,
     login_User,
     update_UserRole,
@@ -78,13 +78,14 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadInfo,
     postFileUpload,
     getSuccessUrl,
+    uploadWait,
     getFileUploadedPage,
     postNoMoreUpload,
     getConfirmationPage,
     destroy_UserPlanet
   )
 
-  setup("Trader Services Amend Journey", "Amend").withRequests(
+  setup("Trader Services Amend Journey", "Amend").withActions(
     getLogin_Page,
     login_User,
     update_UserRole,
