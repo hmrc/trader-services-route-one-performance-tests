@@ -76,11 +76,11 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getImportCYA,
     getFileUploadInfo,
     postFileUpload,
-    getSuccessUrl,
-//    uploadWait,
+//    getSuccessUrl,
+    uploadWait,
 //    getFileUploadedPage,
-//    postNoMoreUpload,
-//    getConfirmationPage,
+    postNoMoreUpload,
+    getConfirmationPage,
     destroy_UserPlanet
   )
 
@@ -132,7 +132,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadInfo,
     postFileUpload,
     uploadWait,
-    getFileUploadedPage,
+//    getFileUploadedPage,
     postNoMoreUpload,
     getConfirmationPage,
     destroy_UserPlanet
