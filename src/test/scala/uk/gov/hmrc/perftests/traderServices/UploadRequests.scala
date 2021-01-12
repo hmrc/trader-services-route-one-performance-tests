@@ -17,7 +17,7 @@
 package uk.gov.hmrc.perftests.traderServices
 
 import io.gatling.core.Predef._
-import io.gatling.core.action.builder.{ActionBuilder, PauseBuilder}
+import io.gatling.core.action.builder.PauseBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
@@ -58,12 +58,12 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
       .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
       .bodyPart(StringBodyPart("acl", "private"))
-      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one"))
+      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
       .bodyPart(RawFileBodyPart("file", "data/test.pdf"))
       .check(status.is(303))
 //      .check(header("Location").saveAs("UpscanResponseSuccess"))
-      .check(header("Location").is("successRedirect"))
+      .check(header("Location").is(""))
   }
 
   def pause = new PauseBuilder(1 seconds, None)
