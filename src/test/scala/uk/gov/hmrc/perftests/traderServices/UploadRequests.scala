@@ -17,7 +17,7 @@
 package uk.gov.hmrc.perftests.traderServices
 
 import io.gatling.core.Predef._
-import io.gatling.core.action.builder.PauseBuilder
+import io.gatling.core.action.builder.{ActionBuilder, PauseBuilder}
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
@@ -62,13 +62,14 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("policy", "${policy}"))
       .bodyPart(RawFileBodyPart("file", "data/test.pdf"))
       .check(status.is(303))
-      .check(header("Location").saveAs("UpscanResponseSuccess"))
+//      .check(header("Location").saveAs("UpscanResponseSuccess"))
+      .check(header("Location").is("successRedirect"))
   }
 
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(60 seconds, None)
+  def uploadWait = new PauseBuilder(1 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {

@@ -21,7 +21,6 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
-import uk.gov.hmrc.perftests.traderServices.UploadRequests.{saveAmazonAlgorithm, saveAmazonCredential, saveAmazonDate, saveAmazonSignature, saveCallBack, saveErrorRedirect, saveFileUploadUrl, saveKey, savePolicy, saveSuccessRedirect}
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
