@@ -68,21 +68,21 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(60 seconds, None)
+  def uploadWait = new PauseBuilder(2 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
     http("Get success url")
       .get("${successRedirect}")
       .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + "/new" + fileUploadedUrl))
+      .check(header("Location").is(traderUrlNew + fileUploadedUrl))
   }
 
   def getFileUploadedPage: HttpRequestBuilder = {
     http("Get file uploaded page")
       .get(baseUrlRead + "/new" + fileUploadedUrl)
       .check(status.is(200))
-      .check(header("Location").is(traderUrlNew + "/new" + fileUploadedUrl))
+      .check(header("Location").is(traderUrlNew + fileUploadedUrl))
   }
 
   def postNoMoreUpload: HttpRequestBuilder = {
