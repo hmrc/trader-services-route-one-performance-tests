@@ -21,6 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
+import uk.gov.hmrc.perftests.traderServices.UploadRequests.{saveAmazonAlgorithm, saveAmazonCredential, saveAmazonDate, saveAmazonSignature, saveCallBack, saveErrorRedirect, saveFileUploadUrl, saveKey, savePolicy, saveSuccessRedirect}
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
@@ -43,7 +44,6 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
     http("Load case reference number page")
       .get(baseUrlRead + "/add" + caseRefUrl)
       .check(status.is(200))
-//      .check(regex("What's the case reference number?"))
   }
 
   def postCaseref: HttpRequestBuilder = {
@@ -61,6 +61,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
+  //Write Response
   def postWriteOnly: HttpRequestBuilder = {
     http("Post write only option")
       .post(baseUrlRead + "/add" + whichAmendUrl)
@@ -84,6 +85,24 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(303))
   }
 
+  //Upload
+  def getAmendFileUploadInfo: HttpRequestBuilder = {
+    http("Get info from amend file upload page")
+      .get(baseUrlRead + "/add" + fileUploadUrl)
+      .check(saveFileUploadUrl)
+      .check(saveCallBack)
+      .check(saveAmazonDate)
+      .check(saveSuccessRedirect)
+      .check(saveAmazonCredential)
+      .check(saveAmazonAlgorithm)
+      .check(saveKey)
+      .check(saveAmazonSignature)
+      .check(saveErrorRedirect)
+      .check(savePolicy)
+      .check(status.is(200))
+  }
+
+  //Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder = {
     http("Get amend confirmation page")
       .get(baseUrlRead + "/add" + confirmUrl)
