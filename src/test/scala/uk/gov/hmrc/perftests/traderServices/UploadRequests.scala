@@ -73,12 +73,13 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(RawFileBodyPart("file", "data/testjpeg.jpeg").contentType("image/jpeg"))
       .check(status.is(303))
 //      .check(header("Location").saveAs("UpscanResponseSuccess"))
+          .check(header("Location").is(""))
   }
 
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(1 seconds, None)
+  def uploadWait = new PauseBuilder(60 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
