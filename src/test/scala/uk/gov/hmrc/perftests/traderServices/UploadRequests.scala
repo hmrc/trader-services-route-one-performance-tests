@@ -51,7 +51,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-//      .header("User-Agent", "trader-services-route-one-frontend")
+      .headers(headers)
       .asMultipartForm
       .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
       .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
@@ -69,12 +69,15 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
-      .bodyPart(StringBodyPart("Content-Type", "application/pdf"))
-      .bodyPart(RawFileBodyPart("file", "data/test.pdf"))
+      .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
       .check(status.is(303))
 //      .check(header("Location").saveAs("UpscanResponseSuccess"))
           .check(header("Location").is(""))
   }
+
+   def headers: Map[String, String] = Map(
+  "Content-Type" -> "application/pdf",
+  "User-Agent" -> "trader-services-route-one-frontend")
 
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
