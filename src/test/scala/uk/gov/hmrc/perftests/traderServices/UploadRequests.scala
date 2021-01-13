@@ -42,7 +42,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveKey)
       .check(saveAmazonSignature)
       .check(saveErrorRedirect)
-//      .check(saveSessionId)
+      .check(saveAmzSessionID)
       .check(savePolicy)
       .check(status.is(200))
   }
@@ -66,7 +66,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
       .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testjpeg.jpeg"))
       .bodyPart(StringBodyPart("acl", "private"))
-//      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${sessionId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
       .bodyPart(RawFileBodyPart("file", "data/testjpeg.jpeg").contentType("image/jpeg"))
