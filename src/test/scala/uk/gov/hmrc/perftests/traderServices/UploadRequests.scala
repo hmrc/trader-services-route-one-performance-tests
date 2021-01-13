@@ -72,12 +72,13 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
       .check(status.is(303))
 //      .check(header("Location").saveAs("UpscanResponseSuccess"))
-          .check(header("Location").is(""))
+      .check(header("Location").is(""))
   }
 
    def headers: Map[String, String] = Map(
-  "Content-Type" -> "application/pdf",
-  "User-Agent" -> "trader-services-route-one-frontend")
+   "Accept" -> "application/xml",
+   "Content-Type" -> "application/xml",
+     "User-Agent" -> "trader-services-route-one-frontend")
 
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
