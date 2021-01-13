@@ -32,6 +32,7 @@ trait Patterns {
   val callBackUrPattern = """name="x-amz-meta-callback-url" value="(.*?)""""
   val amzDatePattern = """name="x-amz-date" value="(.*?)""""
   val credentialPattern = """name="x-amz-credential" value="(.*?)""""
+  val requestIdPattern = """name="x-amz-meta-request-id" value="(.*?)""""
   val initiateResponsePattern = """name="x-amz-meta-upscan-initiate-response" value="(.*?)""""
   val initiateReceivedPattern = """name="x-amz-meta-upscan-initiate-received" value="(.*?)""""
   val metaOriginalFilename = """name="x-amz-meta-original-filename" value="(.*?)""""
@@ -43,6 +44,5 @@ trait Patterns {
   val fileTypePattern = """data-filetype="(.*?)""""
   val successRedirectPattern = """name="success_action_redirect" value="(.*?)""""
   val errorRedirectPattern = """name="error_action_redirect" value="(.*?)""""
-  val requestIdPattern = """name="x-amz-meta-request-id" value="(.*?)""""
 
 }
