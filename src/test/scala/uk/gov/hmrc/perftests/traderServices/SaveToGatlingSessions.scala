@@ -134,6 +134,10 @@ trait SaveToGatlingSessions extends Patterns {
     bodyCheck(amazonSessionPattern).saveAs("amzSessionId")
   }
 
+  def saveContentType: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+    bodyCheck(contentTypePattern).saveAs("contentType")
+  }
+
     def fileBytes(filename: String): Array[Byte] = {
     val resource: InputStream = getClass.getResourceAsStream(filename)
     Iterator.continually(resource.read).takeWhile(_ != -1).map(_.toByte).toArray

@@ -45,5 +45,6 @@ trait Patterns {
   val successRedirectPattern = """name="success_action_redirect" value="(.*?)""""
   val errorRedirectPattern = """name="error_action_redirect" value="(.*?)""""
   val amazonSessionPattern = """x-amz-meta-session-id" value="(.*?)""""
+  val contentTypePattern = """Content-Type" value="(.*?)""""
 
 }

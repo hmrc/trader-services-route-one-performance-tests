@@ -43,6 +43,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveAmazonSignature)
       .check(saveErrorRedirect)
       .check(saveAmzSessionID)
+      .check(saveContentType)
       .check(savePolicy)
       .check(status.is(200))
   }
@@ -51,7 +52,6 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-      .headers(headers)
       .asMultipartForm
       .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
       .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
@@ -60,30 +60,31 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
       .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
       .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
       .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
       .bodyPart(StringBodyPart("key", "${key}"))
-      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
       .bodyPart(StringBodyPart("acl", "private"))
+      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
+      .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
+      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
       .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
       .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
       .check(status.is(303))
-//      .check(header("Location").saveAs("UpscanResponseSuccess"))
-      .check(header("Location").is(""))
+      .check(header("Location").saveAs("UpscanResponseSuccess"))
+//      .check(header("Location").is(""))
   }
 
-   def headers: Map[String, String] = Map(
-   "Accept" -> "application/xml",
-   "Content-Type" -> "application/xml",
-     "User-Agent" -> "trader-services-route-one-frontend")
+//   def headers: Map[String, String] = Map(
+//   "Accept" -> "application/xml",
+//   "Content-Type" -> "application/xml",
+//     "User-Agent" -> "trader-services-route-one-frontend")
 
   def pause = new PauseBuilder(1 seconds, None)
   //update to more realistic think time later
 
-  def uploadWait = new PauseBuilder(45 seconds, None)
+  def uploadWait = new PauseBuilder(30 seconds, None)
   //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
