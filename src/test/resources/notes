@@ -2,9 +2,5 @@ Set appropriate loads
 
 Set up feeder/csv
 
-Set up jenkins (check services.conf)
-
 Tidy up obsolete
 Add upload steps fully in amend journey (hit each page)
-
-Wait for upload (ie. on staging/jenkins?)
