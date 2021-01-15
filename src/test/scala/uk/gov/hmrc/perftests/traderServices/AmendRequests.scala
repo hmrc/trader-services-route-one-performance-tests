@@ -30,55 +30,55 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + caseRefUrl))
+      .check(header("Location").is(traderUrl + caseRefUrl))
   }
 
   def getCaseRefPage: HttpRequestBuilder = {
     http("Get case reference number page")
-      .get(baseUrlRead + "/add" + caseRefUrl)
+      .get(baseUrlRead + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
     http("Load case reference number page")
-      .get(baseUrlRead + "/add" + caseRefUrl)
+      .get(baseUrlRead + caseRefUrl)
       .check(status.is(200))
   }
 
   def postCaseref: HttpRequestBuilder = {
     http("Post case ref number")
-      .post(baseUrlRead + "/add" + caseRefUrl)
+      .post(baseUrlRead + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + whichAmendUrl))
+      .check(header("Location").is(traderUrl + whichAmendUrl))
   }
 
   def getWhichAmend: HttpRequestBuilder = {
     http("Get which amendment page")
-      .get(baseUrlRead + "/add" + whichAmendUrl)
+      .get(baseUrlRead +  whichAmendUrl)
       .check(status.is(200))
   }
 
   //Write Response
   def postWriteOnly: HttpRequestBuilder = {
     http("Post write only option")
-      .post(baseUrlRead + "/add" + whichAmendUrl)
+      .post(baseUrlRead +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + writeResponseUrl))
+      .check(header("Location").is(traderUrl + writeResponseUrl))
   }
 
   def getWriteResponsePage: HttpRequestBuilder = {
     http("Get write response page")
-      .get(baseUrlRead + "/add" + writeResponseUrl)
+      .get(baseUrlRead + writeResponseUrl)
       .check(status.is(200))
   }
 
   def postFreeTextResponse: HttpRequestBuilder = {
     http("Post query response in free text field")
-      .post(baseUrlRead + "/add" + writeResponseUrl)
+      .post(baseUrlRead + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
       .check(status.is(303))
@@ -109,7 +109,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   //Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder = {
     http("Get amend confirmation page")
-      .get(baseUrlRead + "/add" + confirmUrl)
+      .get(baseUrlRead + "/add" + confirmationUrl)
       .check(status.is(200))
   }
 }

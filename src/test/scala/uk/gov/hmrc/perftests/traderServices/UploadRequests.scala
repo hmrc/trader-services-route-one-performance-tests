@@ -17,13 +17,10 @@
 package uk.gov.hmrc.perftests.traderServices
 
 import io.gatling.core.Predef._
-import io.gatling.core.action.builder.PauseBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
-
-import scala.concurrent.duration.DurationInt
 
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
@@ -35,15 +32,15 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveAmazonDate)
       .check(saveSuccessRedirect)
       .check(saveAmazonCredential)
-      .check(saveUpscanIniateResponse)
-      .check(saveUpscanInitiateRecieved)
-      .check(saveRequestId)
+//      .check(saveUpscanIniateResponse)
+//      .check(saveUpscanInitiateRecieved)
+//      .check(saveRequestId)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
       .check(saveErrorRedirect)
-      .check(saveAmzSessionID)
-      .check(saveContentType)
+//      .check(saveAmzSessionID)
+//      .check(saveContentType)
       .check(savePolicy)
       .check(status.is(200))
   }
@@ -57,35 +54,23 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
       .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
       .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
       .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
       .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
       .bodyPart(StringBodyPart("key", "${key}"))
       .bodyPart(StringBodyPart("acl", "private"))
       .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-      .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
+//      .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
       .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
+//      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
       .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
       .check(status.is(303))
       .check(header("Location").saveAs("UpscanResponseSuccess"))
-//      .check(header("Location").is(""))
   }
-
-//   def headers: Map[String, String] = Map(
-//   "Accept" -> "application/xml",
-//   "Content-Type" -> "application/xml",
-//     "User-Agent" -> "trader-services-route-one-frontend")
-
-  def pause = new PauseBuilder(1 seconds, None)
-  //update to more realistic think time later
-
-  def uploadWait = new PauseBuilder(30 seconds, None)
-  //testing
 
   def getSuccessUrl: HttpRequestBuilder = {
     http("Get success url")
@@ -105,7 +90,6 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
       .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + confirmUrl))
   }
 
   def postYesMoreUpload: HttpRequestBuilder = {
@@ -114,6 +98,6 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrlNew + fileUploadUrl))
+      .check(header("Location").is(traderUrl + "/new" + fileUploadUrl))
   }
 }
