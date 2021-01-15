@@ -67,7 +67,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       |                  "identifiers" : [
       |                    {
       |                      "key" : "EORINumber",
-      |                      "value" : "GX671687041489123"
+      |                      "value" : "GB671687041489123"
       |                    }
       |                  ]
       |              }

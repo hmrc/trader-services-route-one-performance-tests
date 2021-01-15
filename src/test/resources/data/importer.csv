@@ -1,2 +1,2 @@
-EPU,entryNo,entryDay,entryMonth,entryYear,request,route,priority,whichPriority,ALVS,transport
+epu,entryNoImport,entryDay,entryMonth,entryYear,request,route,priority,whichPriority,ALVS,transport
 123,123456A,01,11,2020,new,route1,yes,liveAnimals,yes,air

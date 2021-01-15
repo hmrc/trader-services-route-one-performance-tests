@@ -2,5 +2,18 @@ Set appropriate loads
 
 Set up feeder/csv
 
+EORI
+GB${range-15}
+
+EPU
+
+
+ENTRYNO
+
+
+
+
+
+-
 Tidy up obsolete
 Add upload steps fully in amend journey (hit each page)

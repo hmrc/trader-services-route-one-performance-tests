@@ -20,6 +20,7 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
+  //Base
   val redirectUrl: String = if (runLocal) {
     "http://localhost:9379/send-documents-for-customs-check"
   } else {
@@ -31,17 +32,14 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val baseUrlTS: String = baseUrlFor("trader-services-route-one-frontend")
   val traderBase:String = s"$baseUrlTS/send-documents-for-customs-check"
 
-  val traderBaseNew:String = baseUrlRead + "/send-documents-for-customs-check/new"
-  val traderBaseAmend:String = baseUrlRead + "/send-documents-for-customs-check/add"
-  val traderLanding: String = baseUrlRead + "/send-documents-for-customs-check/new-or-existing"
-
   val traderUrl:String = "/send-documents-for-customs-check"
   val traderUrlNew:String = "/send-documents-for-customs-check/new"
   val traderAmendUrl:String = "/send-documents-for-customs-check/add"
 
-  val decDetailsUrl: String = "/declaration-details"
-  val exportPrefix: String = "/export"
-  val importPrefix: String = "/import"
+  //New
+  val decDetailsUrl: String = "/new/declaration-details"
+  val exportPrefix: String = "/new/export"
+  val importPrefix: String = "/new/import"
   val requestType: String = "/request-type"
   val routeType: String = "/route-type"
   val priorityYN: String = "/has-priority-goods"
@@ -52,14 +50,16 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val vesselOptional: String = "/transport-information"
   val contactDetails: String = "/contact-information"
 
+  //Amend
+  val caseRefUrl: String = "/add/case-reference-number"
+  val whichAmendUrl:String = "/add/type-of-amendment"
+  val writeResponseUrl: String = "/add/write-response"
+
+  //Common
   val CYA: String = "/check-your-answers"
   val fileUploadUrl: String = "/file-upload"
   val fileUploadedUrl: String = "/file-uploaded"
-  val confirmUrl: String = "/confirmation"
-
-  val caseRefUrl: String = "/case-reference-number"
-  val whichAmendUrl:String = "/type-of-amendment"
-  val writeResponseUrl: String = "/write-response"
+  val confirmationUrl: String = "/confirmation"
 
   val usrDir = System.getProperty("user.dir") + "/src/test/resources/data/"
 }
