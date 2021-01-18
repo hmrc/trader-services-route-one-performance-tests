@@ -27,8 +27,8 @@ import scala.concurrent.duration.DurationInt
 
 object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def pause = new PauseBuilder(20 seconds, None)
-  def uploadWait = new PauseBuilder(30 seconds, None)
+  def pause = new PauseBuilder(15 seconds, None)
+  def uploadWait = new PauseBuilder(20 seconds, None)
 
   def getLandingpage: HttpRequestBuilder = {
     http("Get start page")
@@ -64,7 +64,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
     http("Post import dec details")
       .post(baseUrlRead + decDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("epu", "${epu}")
+      .formParam("epu", "123")
       .formParam("entryNumber", "123515H")
       .formParam("entryDate.day", "11")
       .formParam("entryDate.month", "01")
@@ -77,7 +77,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
     http("Post export dec details")
       .post(baseUrlRead + decDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("epu", "${epu}")
+      .formParam("epu", "345")
       .formParam("entryNumber", "A12345H")
       .formParam("entryDate.day", "01")
       .formParam("entryDate.month", "01")
