@@ -106,6 +106,22 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
+  //CYA
+  def getAmendCYA: HttpRequestBuilder = {
+    http("Get amend confirmation page")
+      .get(baseUrlRead + "/add" + CYA)
+      .check(status.is(200))
+  }
+
+  def postAmendCYA: HttpRequestBuilder = {
+    http("Post Amend CYA page")
+      .post(baseUrlRead + "/add/amend-case")
+      .formParam("csrfToken", "${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrl + "/add" + confirmationUrl))
+  }
+
+
   //Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder = {
     http("Get amend confirmation page")

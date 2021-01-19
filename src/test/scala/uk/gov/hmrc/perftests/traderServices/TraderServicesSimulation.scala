@@ -161,6 +161,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getWriteResponsePage,
     pause,
     postFreeTextResponse,
+    getAmendCYA,
+    postAmendCYA,
     getConfirmationPageAmend
   )
 
