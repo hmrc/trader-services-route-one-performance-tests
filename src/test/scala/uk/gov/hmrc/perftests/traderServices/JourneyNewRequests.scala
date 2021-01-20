@@ -27,8 +27,8 @@ import scala.concurrent.duration.DurationInt
 
 object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def pause = new PauseBuilder(1 seconds, None)
-  def uploadWait = new PauseBuilder(1 seconds, None)
+  def pause = new PauseBuilder(15 seconds, None)
+  def uploadWait = new PauseBuilder(20 seconds, None)
 
   def getLandingpage: HttpRequestBuilder = {
     http("Get start page")
