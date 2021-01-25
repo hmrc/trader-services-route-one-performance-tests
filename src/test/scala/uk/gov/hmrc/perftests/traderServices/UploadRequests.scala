@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getFileUploadInfo: HttpRequestBuilder = {
-    http("Get info from new file upload page")
+    http("New: Get info from file upload page")
       .get(baseUrlRead + "/new" + fileUploadUrl)
       .check(saveFileUploadUrl)
       .check(saveCallBack)
@@ -46,7 +46,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getAmendFileUploadInfo: HttpRequestBuilder = {
-    http("Get info from amend file upload page")
+    http("Amend: Get info from file upload page")
       .get(baseUrlRead + "/add" + fileUploadUrl)
       .check(saveFileUploadUrl)
       .check(saveCallBack)
