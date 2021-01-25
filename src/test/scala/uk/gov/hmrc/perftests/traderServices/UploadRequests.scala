@@ -32,10 +32,10 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveAmazonDate)
       .check(saveSuccessRedirect)
       .check(saveAmazonCredential)
-//      .check(saveUpscanIniateResponse)
-//      .check(saveUpscanInitiateRecieved)
-//      .check(saveRequestId)
-//      .check(saveAmzSessionID)
+      .check(saveUpscanIniateResponse)
+      .check(saveUpscanInitiateRecieved)
+      .check(saveRequestId)
+      .check(saveAmzSessionID)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
@@ -53,10 +53,10 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveAmazonDate)
       .check(saveSuccessRedirect)
       .check(saveAmazonCredential)
-      //      .check(saveUpscanIniateResponse)
-      //      .check(saveUpscanInitiateRecieved)
-      //      .check(saveRequestId)
-      //      .check(saveAmzSessionID)
+      .check(saveUpscanIniateResponse)
+      .check(saveUpscanInitiateRecieved)
+      .check(saveRequestId)
+      .check(saveAmzSessionID)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
@@ -94,7 +94,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postAmendNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
-      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .post(baseUrlRead + "/add" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
       .check(status.is(303))
@@ -102,11 +102,11 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postYesMoreUpload: HttpRequestBuilder = {
     http("Upload another")
-      .post(baseUrlRead + "/add" + fileUploadedUrl)
+      .post(baseUrlRead + "/new" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + "/add" + fileUploadUrl))
+      .check(header("Location").is(traderUrl + "/new" + fileUploadUrl))
   }
 
   def postAmendYesMoreUpload: HttpRequestBuilder = {
