@@ -20,7 +20,7 @@ import java.io.InputStream
 
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
-import io.gatling.http.Predef.{Response, _}
+import io.gatling.http.Predef._
 import io.gatling.http.check.HttpCheck
 import io.gatling.http.response.Response
 

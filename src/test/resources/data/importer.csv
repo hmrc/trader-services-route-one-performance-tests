@@ -1,5 +1,6 @@
-epu,entryNoImport,entryDay,entryMonth,entryYear,request,route,priority,whichPriority,ALVS,transport
-669,123515H,01,11,2020,new,route1,yes,HumanRemains,yes,air
+epu,entryImport,entryDay,entryMonth,entryYear,request,route,priority,whichPriority,ALVS,transport
+001,123515H,01,01,2021,New,Route1,yes,HumanRemains,yes,air
+
 
 
 

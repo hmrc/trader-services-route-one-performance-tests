@@ -84,28 +84,6 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(303))
   }
 
-  //Upload
-  def getAmendFileUploadInfo: HttpRequestBuilder = {
-    http("Get info from amend file upload page")
-      .get(baseUrlRead + "/add" + fileUploadUrl)
-      .check(saveFileUploadUrl)
-      .check(saveCallBack)
-      .check(saveAmazonDate)
-      .check(saveSuccessRedirect)
-      .check(saveAmazonCredential)
-      .check(saveUpscanIniateResponse)
-      .check(saveUpscanInitiateRecieved)
-      .check(saveRequestId)
-      .check(saveAmazonAlgorithm)
-      .check(saveKey)
-      .check(saveAmazonSignature)
-      .check(saveErrorRedirect)
-      .check(saveAmzSessionID)
-      .check(saveContentType)
-      .check(savePolicy)
-      .check(status.is(200))
-  }
-
   //CYA
   def getAmendCYA: HttpRequestBuilder = {
     http("Get amend confirmation page")

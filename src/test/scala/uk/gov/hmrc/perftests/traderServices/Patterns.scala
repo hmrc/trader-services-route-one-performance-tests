@@ -18,8 +18,7 @@ package uk.gov.hmrc.perftests.traderServices
 
 trait Patterns {
 
-  val csrfPattern =
-    """<input type="hidden" name="csrfToken" value="([^"]+)"""
+  val csrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)"""
   val userDetailsUrlPattern = s"""([^"]+)"""
   val userIdPattern = """"userId":"([^"]+)""""
   val clientUserIdPattern = """agents-external-stubs/users/([^"]+)"""
@@ -27,7 +26,7 @@ trait Patterns {
   val authTokenPattern = """"authToken":"([^"]+)""""
   val sessionIdPattern = """"sessionId":"([^"]+)""""
 
-  //Upload patters
+  //Upload patterns
   val amazonUrlPattern = """action="(.*?)""""
   val callBackUrPattern = """name="x-amz-meta-callback-url" value="(.*?)""""
   val amzDatePattern = """name="x-amz-date" value="(.*?)""""
