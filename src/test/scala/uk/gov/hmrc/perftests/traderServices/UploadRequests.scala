@@ -53,14 +53,14 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(saveAmazonDate)
       .check(saveSuccessRedirect)
       .check(saveAmazonCredential)
-      .check(saveUpscanIniateResponse)
-      .check(saveUpscanInitiateRecieved)
-      .check(saveRequestId)
+      //      .check(saveUpscanIniateResponse)
+      //      .check(saveUpscanInitiateRecieved)
+      //      .check(saveRequestId)
+      //      .check(saveAmzSessionID)
       .check(saveAmazonAlgorithm)
       .check(saveKey)
       .check(saveAmazonSignature)
       .check(saveErrorRedirect)
-      .check(saveAmzSessionID)
       .check(saveContentType)
       .check(savePolicy)
       .check(status.is(200))
@@ -78,7 +78,21 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
+  def getAmendFileUploadedPage: HttpRequestBuilder = {
+    http("Get file uploaded page")
+      .get(baseUrlRead + "/add" + fileUploadedUrl)
+      .check(status.is(200))
+  }
+
   def postNoMoreUpload: HttpRequestBuilder = {
+    http("Last upload - complete journey")
+      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("uploadAnotherFile", "no")
+      .check(status.is(303))
+  }
+
+  def postAmendNoMoreUpload: HttpRequestBuilder = {
     http("Last upload - complete journey")
       .post(baseUrlRead + "/new" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -88,10 +102,19 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postYesMoreUpload: HttpRequestBuilder = {
     http("Upload another")
-      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .post(baseUrlRead + "/add" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + "/new" + fileUploadUrl))
+      .check(header("Location").is(traderUrl + "/add" + fileUploadUrl))
+  }
+
+  def postAmendYesMoreUpload: HttpRequestBuilder = {
+    http("Upload another")
+      .post(baseUrlRead + "/add" + fileUploadedUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("uploadAnotherFile", "yes")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrl + "/add" + fileUploadUrl))
   }
 }

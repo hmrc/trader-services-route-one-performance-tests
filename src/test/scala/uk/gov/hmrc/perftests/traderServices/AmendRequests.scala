@@ -60,12 +60,30 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  //Write Response
+  //Journey choices
   def postWriteOnly: HttpRequestBuilder = {
     http("Post write only option")
       .post(baseUrlRead +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrl + writeResponseUrl))
+  }
+
+  def postUploadOnly: HttpRequestBuilder = {
+    http("Post upload only option")
+      .post(baseUrlRead +  whichAmendUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("typeOfAmendment", "UploadDocuments")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrl + "add" + fileUploadUrl))
+  }
+
+  def postWriteAndUpload: HttpRequestBuilder = {
+    http("Post write response and upload option")
+      .post(baseUrlRead +  whichAmendUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("typeOfAmendment", "WriteResponseAndUploadDocuments")
       .check(status.is(303))
       .check(header("Location").is(traderUrl + writeResponseUrl))
   }
