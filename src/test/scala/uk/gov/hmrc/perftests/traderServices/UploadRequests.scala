@@ -73,19 +73,19 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getFileUploadedPage: HttpRequestBuilder = {
-    http("Get file uploaded page")
+    http("New: Get file uploaded page")
       .get(baseUrlRead + "/new" + fileUploadedUrl)
       .check(status.is(200))
   }
 
   def getAmendFileUploadedPage: HttpRequestBuilder = {
-    http("Get file uploaded page")
+    http("Amend: Get file uploaded page")
       .get(baseUrlRead + "/add" + fileUploadedUrl)
       .check(status.is(200))
   }
 
   def postNoMoreUpload: HttpRequestBuilder = {
-    http("Last upload - complete journey")
+    http("New: Last upload - complete journey")
       .post(baseUrlRead + "/new" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
@@ -93,7 +93,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def postAmendNoMoreUpload: HttpRequestBuilder = {
-    http("Last upload - complete journey")
+    http("Amend: Last upload - complete journey")
       .post(baseUrlRead + "/add" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
@@ -101,7 +101,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def postYesMoreUpload: HttpRequestBuilder = {
-    http("Upload another")
+    http("New: Upload another")
       .post(baseUrlRead + "/new" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")
@@ -110,7 +110,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def postAmendYesMoreUpload: HttpRequestBuilder = {
-    http("Upload another")
+    http("Amend: Upload another")
       .post(baseUrlRead + "/add" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")

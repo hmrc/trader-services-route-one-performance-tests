@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postJourneyAmend: HttpRequestBuilder = {
-    http("Post existing journey response")
+    http("Amend: Post existing journey response")
       .post(baseUrlRead + "/new-or-existing")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
@@ -34,19 +34,19 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getCaseRefPage: HttpRequestBuilder = {
-    http("Get case reference number page")
+    http("Amend: Get case reference number page")
       .get(baseUrlRead + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
-    http("Load case reference number page")
+    http("Amend: Load case reference number page")
       .get(baseUrlRead + caseRefUrl)
       .check(status.is(200))
   }
 
   def postCaseref: HttpRequestBuilder = {
-    http("Post case ref number")
+    http("Amend: Post case ref number")
       .post(baseUrlRead + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
@@ -55,14 +55,14 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getWhichAmend: HttpRequestBuilder = {
-    http("Get which amendment page")
+    http("Amend: Get which amendment page")
       .get(baseUrlRead +  whichAmendUrl)
       .check(status.is(200))
   }
 
   //Journey choices
   def postWriteOnly: HttpRequestBuilder = {
-    http("Post write only option")
+    http("Amend: Post write only option")
       .post(baseUrlRead +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
@@ -71,7 +71,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def postUploadOnly: HttpRequestBuilder = {
-    http("Post upload only option")
+    http("Amend: Post upload only option")
       .post(baseUrlRead +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "UploadDocuments")
@@ -80,7 +80,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def postWriteAndUpload: HttpRequestBuilder = {
-    http("Post write response and upload option")
+    http("Amend: Post write response and upload option")
       .post(baseUrlRead +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponseAndUploadDocuments")
@@ -89,13 +89,13 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getWriteResponsePage: HttpRequestBuilder = {
-    http("Get write response page")
+    http("Amend: Get write response page")
       .get(baseUrlRead + writeResponseUrl)
       .check(status.is(200))
   }
 
   def postFreeTextResponse: HttpRequestBuilder = {
-    http("Post query response in free text field")
+    http("Amend: Post query response in free text field")
       .post(baseUrlRead + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
@@ -104,13 +104,13 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   //CYA
   def getAmendCYA: HttpRequestBuilder = {
-    http("Get amend confirmation page")
+    http("Amend: Get amend confirmation page")
       .get(baseUrlRead + "/add" + CYA)
       .check(status.is(200))
   }
 
   def postAmendCYA: HttpRequestBuilder = {
-    http("Post Amend CYA page")
+    http("Amend: Post CYA page")
       .post(baseUrlRead + "/add/amend-case")
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
@@ -120,7 +120,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   //Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder = {
-    http("Get amend confirmation page")
+    http("Amend: Get confirmation page")
       .get(baseUrlRead + "/add" + confirmationUrl)
       .check(status.is(200))
   }
