@@ -60,12 +60,30 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  //Write Response
+  //Journey choices
   def postWriteOnly: HttpRequestBuilder = {
     http("Post write only option")
       .post(baseUrlRead +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrl + writeResponseUrl))
+  }
+
+  def postUploadOnly: HttpRequestBuilder = {
+    http("Post upload only option")
+      .post(baseUrlRead +  whichAmendUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("typeOfAmendment", "UploadDocuments")
+      .check(status.is(303))
+      .check(header("Location").is(traderUrl + "add" + fileUploadUrl))
+  }
+
+  def postWriteAndUpload: HttpRequestBuilder = {
+    http("Post write response and upload option")
+      .post(baseUrlRead +  whichAmendUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("typeOfAmendment", "WriteResponseAndUploadDocuments")
       .check(status.is(303))
       .check(header("Location").is(traderUrl + writeResponseUrl))
   }
@@ -82,28 +100,6 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
       .check(status.is(303))
-  }
-
-  //Upload
-  def getAmendFileUploadInfo: HttpRequestBuilder = {
-    http("Get info from amend file upload page")
-      .get(baseUrlRead + "/add" + fileUploadUrl)
-      .check(saveFileUploadUrl)
-      .check(saveCallBack)
-      .check(saveAmazonDate)
-      .check(saveSuccessRedirect)
-      .check(saveAmazonCredential)
-      .check(saveUpscanIniateResponse)
-      .check(saveUpscanInitiateRecieved)
-      .check(saveRequestId)
-      .check(saveAmazonAlgorithm)
-      .check(saveKey)
-      .check(saveAmazonSignature)
-      .check(saveErrorRedirect)
-      .check(saveAmzSessionID)
-      .check(saveContentType)
-      .check(savePolicy)
-      .check(status.is(200))
   }
 
   //CYA
