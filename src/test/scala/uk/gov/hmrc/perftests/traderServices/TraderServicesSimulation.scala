@@ -177,24 +177,24 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getWhichAmend,
     pause,
-    postWriteAndUpload,
+    postWriteOnly,
     getWriteResponsePage,
     pause,
     postFreeTextResponse,
     pause,
 
-    getAmendFileUploadInfo,
-    postSpreadsheetFileUpload,
-    uploadWait,
-    getAmendFileUploadedPage,
-    postAmendYesMoreUpload,
-
-    getAmendFileUploadInfo,
-    postPDFFileUpload,
-    uploadWait,
-    getAmendFileUploadedPage,
-
-    postAmendNoMoreUpload,
+//    getAmendFileUploadInfo,
+//    postSpreadsheetFileUpload,
+//    uploadWait,
+//    getAmendFileUploadedPage,
+//    postAmendYesMoreUpload,
+//
+//    getAmendFileUploadInfo,
+//    postPDFFileUpload,
+//    uploadWait,
+//    getAmendFileUploadedPage,
+//
+//    postAmendNoMoreUpload,
     getAmendCYA,
     postAmendCYA,
     getConfirmationPageAmend
