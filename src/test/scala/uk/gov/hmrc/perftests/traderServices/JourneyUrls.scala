@@ -33,6 +33,8 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val traderBase:String = s"$baseUrlTS/send-documents-for-customs-check"
 
   val traderUrl:String = "/send-documents-for-customs-check"
+  val traderUrlStart:String = "/start"
+  val traderUrlLanding:String = "/new-or-existing"
   val traderUrlNew:String = "/send-documents-for-customs-check/new"
   val traderAmendUrl:String = "/send-documents-for-customs-check/add"
 

@@ -33,6 +33,9 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     update_UserRole,
     postsuccessful_Login,
 
+    getPreLandingpage,
+    loadPreLandingpage,
+
     getLandingpage,
     loadLandingpage,
     pause,
@@ -99,6 +102,9 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     update_UserRole,
     postsuccessful_Login,
 
+    getPreLandingpage,
+    loadPreLandingpage,
+
     getLandingpage,
     loadLandingpage,
     pause,
@@ -152,6 +158,9 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     login_User,
     update_UserRole,
     postsuccessful_Login,
+
+    getPreLandingpage,
+    loadPreLandingpage,
 
     getLandingpage,
     loadLandingpage,

@@ -26,7 +26,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postJourneyAmend: HttpRequestBuilder = {
     http("Amend: Post existing journey response")
-      .post(baseUrlRead + "/new-or-existing")
+      .post(baseUrlRead + traderUrlLanding)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
       .check(status.is(303))

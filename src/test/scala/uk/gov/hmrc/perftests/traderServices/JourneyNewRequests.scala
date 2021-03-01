@@ -27,26 +27,40 @@ import scala.concurrent.duration.DurationInt
 
 object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def pause = new PauseBuilder(5 seconds, None)
-  def uploadWait = new PauseBuilder(10 seconds, None)
+  def pause = new PauseBuilder(1 seconds, None)
+  def uploadWait = new PauseBuilder(1 seconds, None)
 
-  def getLandingpage: HttpRequestBuilder = {
-    http("Get start page")
+  def getPreLandingpage: HttpRequestBuilder = {
+    http("Get pre landing page")
       .get(baseUrlRead)
       .check(status.is(303))
-      .check(header("Location").is("/send-documents-for-customs-check"))
+      .check(header("Location").is("/send-documents-for-customs-check/start"))
+  }
+
+  def loadPreLandingpage: HttpRequestBuilder = {
+    http("Load pre landing page")
+      .get(baseUrlRead + "/start")
+      .check(status.is(200))
+      .check(regex("Send documents for a customs check for declarations made in CHIEF"))
+  }
+
+  def getLandingpage: HttpRequestBuilder = {
+    http("Get new or existing page")
+      .get(baseUrlRead + traderUrlLanding)
+      .check(status.is(303))
+      .check(header("Location").is("/send-documents-for-customs-check/new-or-existing"))
   }
 
   def loadLandingpage: HttpRequestBuilder = {
-    http("Load start page")
-      .get(baseUrlRead + "/new-or-existing")
+    http("Load new or existing page")
+      .get(baseUrlRead + traderUrlLanding)
       .check(status.is(200))
       .check(regex("What do you want to do?"))
   }
 
   def postjourneyNew: HttpRequestBuilder = {
     http("Post New journey response")
-      .post(baseUrlRead + "/new-or-existing")
+      .post(baseUrlRead + traderUrlLanding)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "New")
       .check(status.is(303))
