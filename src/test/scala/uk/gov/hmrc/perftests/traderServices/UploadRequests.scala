@@ -117,4 +117,28 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(303))
       .check(header("Location").is(traderUrl + "/add" + fileUploadUrl))
   }
+
+
+  //Locally these values aren't obtained
+  def getFileUploadInfoLocal: HttpRequestBuilder = {
+    http("New: Get info from file upload page")
+      .get(baseUrlRead + "/new" + fileUploadUrl)
+      .check(saveFileUploadUrl)
+      .check(saveCallBack)
+      .check(saveAmazonDate)
+      .check(saveSuccessRedirect)
+      .check(saveAmazonCredential)
+      //      .check(saveUpscanIniateResponse)
+      //      .check(saveUpscanInitiateRecieved)
+      //      .check(saveRequestId)
+      //      .check(saveAmzSessionID)
+      .check(saveAmazonAlgorithm)
+      .check(saveKey)
+      .check(saveAmazonSignature)
+      .check(saveErrorRedirect)
+      .check(saveContentType)
+      .check(savePolicy)
+      .check(status.is(200))
+  }
 }
+
