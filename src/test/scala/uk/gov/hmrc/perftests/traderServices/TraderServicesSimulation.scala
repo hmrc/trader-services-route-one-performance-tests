@@ -33,8 +33,10 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     update_UserRole,
     postsuccessful_Login,
 
-    getLandingpage,
+    getPreLandingpage,
+    loadPreLandingpage,
     loadLandingpage,
+
     pause,
     postjourneyNew,
 
