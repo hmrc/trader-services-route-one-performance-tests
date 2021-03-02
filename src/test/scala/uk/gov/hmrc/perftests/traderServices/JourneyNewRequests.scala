@@ -34,7 +34,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
     http("Get pre landing page")
       .get(baseUrlRead)
       .check(status.is(303))
-      .check(header("Location").is("/send-documents-for-customs-check/start"))
+      .check(header("Location").is("/send-documents-for-customs-check"))
   }
 
   def loadPreLandingpage: HttpRequestBuilder = {
@@ -48,7 +48,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
     http("Get new or existing page")
       .get(baseUrlRead + traderUrlLanding)
       .check(status.is(303))
-      .check(header("Location").is("/send-documents-for-customs-check/new-or-existing"))
+      .check(header("Location").is("/send-documents-for-customs-check"))
   }
 
   def loadLandingpage: HttpRequestBuilder = {
