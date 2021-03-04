@@ -80,12 +80,12 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postPDFFileUpload,
     uploadWait,
     getFileUploadedPage,
-
-    postYesMoreUpload,
-    getFileUploadInfo,
-    postJPEGFileUpload,
-    uploadWait,
-    getFileUploadedPage,
+//
+//    postYesMoreUpload,
+//    getFileUploadInfo,
+//    postJPEGFileUpload,
+//    uploadWait,
+//    getFileUploadedPage,
 
     postNoMoreUpload,
     getImportCYA,
@@ -177,12 +177,12 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postPDFFileUpload,
     uploadWait,
     getAmendFileUploadedPage,
-    postAmendYesMoreUpload,
 
-    getAmendFileUploadInfo,
-    postJPEGFileUpload,
-    uploadWait,
-    getAmendFileUploadedPage,
+//    postAmendYesMoreUpload,
+//    getAmendFileUploadInfo,
+//    postJPEGFileUpload,
+//    uploadWait,
+//    getAmendFileUploadedPage,
 
     postAmendNoMoreUpload,
     getAmendCYA,
