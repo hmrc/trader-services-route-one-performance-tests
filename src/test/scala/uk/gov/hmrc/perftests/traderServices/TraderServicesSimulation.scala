@@ -177,8 +177,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postPDFFileUpload,
     uploadWait,
     getAmendFileUploadedPage,
-    postAmendYesMoreUpload,
 
+    postAmendYesMoreUpload,
     getAmendFileUploadInfo,
     postJPEGFileUpload,
     uploadWait,
@@ -187,7 +187,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postAmendNoMoreUpload,
     getAmendCYA,
     postAmendCYA,
-    getConfirmationPageAmend
+    getConfirmationPageAmend,
+    destroy_UserPlanet
   )
 
   runSimulation()
