@@ -54,8 +54,8 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(header("Location").is(traderUrl + whichAmendUrl))
   }
 
-  def getWhichAmend: HttpRequestBuilder = {
-    http("Amend: Get which amendment page")
+  def getTypeOfAmendmentPage: HttpRequestBuilder = {
+    http("Amend: Get the amendment type options page")
       .get(baseUrlRead +  whichAmendUrl)
       .check(status.is(200))
   }
@@ -103,14 +103,14 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   //CYA
-  def getAmendCYA: HttpRequestBuilder = {
+  def getAmendCYAPage: HttpRequestBuilder = {
     http("Amend: Get amend confirmation page")
       .get(baseUrlRead + "/add" + CYA)
       .check(status.is(200))
   }
 
   def postAmendCYA: HttpRequestBuilder = {
-    http("Amend: Post CYA page")
+    http("Amend: Post CYA page - submit case to update-case")
       .post(baseUrlRead + "/add/amend-case")
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))

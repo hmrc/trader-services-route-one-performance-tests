@@ -39,7 +39,7 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val traderAmendUrl:String = "/send-documents-for-customs-check/add"
 
   //New
-  val decDetailsUrl: String = "/new/declaration-details"
+  val entryDetailsUrl: String = "/new/entry-details"
   val exportPrefix: String = "/new/export"
   val importPrefix: String = "/new/import"
   val requestType: String = "/request-type"

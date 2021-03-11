@@ -33,46 +33,46 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     update_UserRole,
     postsuccessful_Login,
 
-    getPreLandingpage,
-    loadPreLandingpage,
-    loadLandingpage,
+    getPreLandingPage,
+    loadPreLandingPage,
+    loadLandingPage,
 
     pause,
-    postjourneyNew,
+    postJourneyNew,
 
-    getDecdetails,
+    getEntryDetailsPage,
     pause,
-    postImportDecdetails,
+    postImportEntryDetails,
 
     getImportRequestPage,
     pause,
     postImportRequestType,
 
-    getImportRoute,
+    getImportRoutePage,
     pause,
     postImportRouteType,
 
-    getImportPriorityYN,
+    getImportHasPriorityPage,
     pause,
     postImportPriorityYN,
 
-    getImportPriority,
+    getImportPriorityGoodsPage,
     pause,
     postImportPriorityGoods,
 
-    getALVS,
+    getALVSPage,
     pause,
     postALVS,
 
-    getImportTransport,
+    getImportTransportPage,
     pause,
     postImportTransport,
 
-    getImportVesselOptional,
+    getImportVesselOptionalPage,
     pause,
     postImportVesselOptional,
 
-    getImportContactDetails,
+    getImportContactDetailsPage,
     pause,
     postImportContact,
 
@@ -88,7 +88,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadedPage,
 
     postNoMoreUpload,
-    getImportCYA,
+    getImportCYAPage,
     postImportCYA,
     getConfirmationPage,
     destroy_UserPlanet
@@ -101,40 +101,36 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     update_UserRole,
     postsuccessful_Login,
 
-    getLandingpage,
-    loadLandingpage,
+    getLandingPage,
+    loadLandingPage,
     pause,
-    postjourneyNew,
+    postJourneyNew,
 
-    getDecdetails,
+    getEntryDetailsPage,
     pause,
-    postExportDecdetails,
+    postExportEntryDetails,
 
     getExportRequestPage,
     pause,
     postExportRequestType,
 
-    getExportRoute,
+    getExportRoutePage,
     pause,
     postExportRouteType,
 
-    getExportPriorityYN,
+    getExportHasPriorityPage,
     pause,
     postExportPriorityYN,
 
-    getExportPriority,
-    pause,
-    postExportPriorityGoods,
-
-    getExportTransport,
+    getExportTransportPage,
     pause,
     postExportTransport,
 
-    getExportVesselMandatory,
+    getExportVesselMandatoryPage,
     pause,
     postExportVesselMandatory,
 
-    getExportContactDetails,
+    getExportContactDetailsPage,
     pause,
     postExportContact,
 
@@ -143,7 +139,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     uploadWait,
 
     postNoMoreUpload,
-    getExportCYA,
+    getExportCYAPage,
     postExportCYA,
     getConfirmationPage,
     destroy_UserPlanet
@@ -155,8 +151,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     update_UserRole,
     postsuccessful_Login,
 
-    getLandingpage,
-    loadLandingpage,
+    getLandingPage,
+    loadLandingPage,
     pause,
     postJourneyAmend,
 
@@ -165,7 +161,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     pause,
     postCaseref,
 
-    getWhichAmend,
+    getTypeOfAmendmentPage,
     pause,
     postWriteAndUpload,
     getWriteResponsePage,
@@ -185,7 +181,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getAmendFileUploadedPage,
 
     postAmendNoMoreUpload,
-    getAmendCYA,
+    getAmendCYAPage,
     postAmendCYA,
     getConfirmationPageAmend,
     destroy_UserPlanet
