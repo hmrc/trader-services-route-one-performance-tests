@@ -27,28 +27,28 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
     fileInfo("testPdf.pdf", "application/pdf")
   }
 
-  def postXLSFileUpload: HttpRequestBuilder = {
-    fileInfo("testXlsx.xlsx", "application/vnd.ms-excel")
-  }
-
   def postXLSXFileUpload: HttpRequestBuilder = {
     fileInfo("testXls.xls", "application/vnd.ms-excel")
   }
 
-  def postDOCFileUpload: HttpRequestBuilder = {
-    fileInfo("testDoc.doc", "application/msword")
+  def postXLSFileUpload: HttpRequestBuilder = {
+    fileInfo("testXlsx.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   }
 
   def postDOCXFileUpload: HttpRequestBuilder = {
     fileInfo("testDocx.docx", "application/msword")
   }
 
-  def postPPTFileUpload: HttpRequestBuilder = {
-    fileInfo("testPpt.ppt", "application/vnd.ms-presentation")
+  def postDOCFileUpload: HttpRequestBuilder = {
+    fileInfo("testDoc.doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
   }
 
   def postPPTXFileUpload: HttpRequestBuilder = {
     fileInfo("testPptx.pptx", "application/vnd.ms-presentation")
+  }
+
+  def postPPTFileUpload: HttpRequestBuilder = {
+    fileInfo("testPpt.ppt", "application/vnd.openxmlformats-officedocument.presentationml.presentation")
   }
 
   def postODTFileUpload: HttpRequestBuilder = {
