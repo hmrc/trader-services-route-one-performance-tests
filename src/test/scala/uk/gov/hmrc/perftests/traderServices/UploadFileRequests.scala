@@ -49,14 +49,14 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def postODTFileUpload: HttpRequestBuilder = {
-    fileInfo("testOdt.odt", "?????")
+    fileInfo("testOdt.odt", "vnd.oasis.opendocument.text")
   }
 
   def postODSFileUpload: HttpRequestBuilder = {
-    fileInfo("testOds.ods", "?????")
+    fileInfo("testOds.ods", "vnd.oasis.opendocument.spreadsheet")
   }
   def postODPFileUpload: HttpRequestBuilder = {
-    fileInfo("testOdp.odp", "?????")
+    fileInfo("testOdp.odp", "vnd.oasis.opendocument.presentation")
   }
 
 
@@ -70,7 +70,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   def postTIFFFileUpload: HttpRequestBuilder = {
     fileInfo("testTiff.tiff", "image/tiff")
   }
-  def postTIFileUpload: HttpRequestBuilder = {
+  def postTIFFileUpload: HttpRequestBuilder = {
     fileInfo("testTif.tif", "image/tif")
   }
 
@@ -79,11 +79,11 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def postTXTFileUpload: HttpRequestBuilder = {
-    fileInfo("testTxt.txt", "?????")
+    fileInfo("testTxt.txt", "text/plain")
   }
 
   def postMSGFileUpload: HttpRequestBuilder = {
-    fileInfo("testMsg.msg", "?????")
+    fileInfo("testMsg.msg", "vnd.ms-outlook")
   }
 
 
