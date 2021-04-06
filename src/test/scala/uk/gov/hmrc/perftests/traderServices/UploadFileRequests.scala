@@ -25,11 +25,12 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
 
   def postPDFFileUpload: HttpRequestBuilder = {
     fileInfo("testPdf.pdf", "application/pdf")
-    }
+  }
 
   def postXLSFileUpload: HttpRequestBuilder = {
     fileInfo("testXlsx.xlsx", "application/vnd.ms-excel")
   }
+
   def postXLSXFileUpload: HttpRequestBuilder = {
     fileInfo("testXls.xls", "application/vnd.ms-excel")
   }
@@ -37,6 +38,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   def postDOCFileUpload: HttpRequestBuilder = {
     fileInfo("testDoc.doc", "application/msword")
   }
+
   def postDOCXFileUpload: HttpRequestBuilder = {
     fileInfo("testDocx.docx", "application/msword")
   }
@@ -44,6 +46,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   def postPPTFileUpload: HttpRequestBuilder = {
     fileInfo("testPpt.ppt", "application/vnd.ms-presentation")
   }
+
   def postPPTXFileUpload: HttpRequestBuilder = {
     fileInfo("testPptx.pptx", "application/vnd.ms-presentation")
   }
@@ -55,6 +58,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   def postODSFileUpload: HttpRequestBuilder = {
     fileInfo("testOds.ods", "vnd.oasis.opendocument.spreadsheet")
   }
+
   def postODPFileUpload: HttpRequestBuilder = {
     fileInfo("testOdp.odp", "vnd.oasis.opendocument.presentation")
   }
@@ -63,6 +67,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   def postJPEGFileUpload: HttpRequestBuilder = {
     fileInfo("testJpeg.jpeg", "image/jpeg")
   }
+
   def postJPGFileUpload: HttpRequestBuilder = {
     fileInfo("testJpg.jpeg", "image/jpg")
   }
@@ -70,6 +75,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   def postTIFFFileUpload: HttpRequestBuilder = {
     fileInfo("testTiff.tiff", "image/tiff")
   }
+
   def postTIFFileUpload: HttpRequestBuilder = {
     fileInfo("testTif.tif", "image/tif")
   }
@@ -86,36 +92,40 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
     fileInfo("testMsg.msg", "vnd.ms-outlook")
   }
 
-
-  def fileInfo(fileName:String, fileType:String):HttpRequestBuilder = {
-    if(runLocal) {
-      http("Upload file")
-        .post("${fileUploadAmazonUrl}")
-        .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-        .asMultipartForm
-        .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-        .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-        .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-        .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-        .bodyPart(StringBodyPart("key", "${key}"))
-        .bodyPart(StringBodyPart("acl", "private"))
-        .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-        .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
-        .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
-        .bodyPart(StringBodyPart("policy", "${policy}"))
-        .bodyPart(StringBodyPart("x-amz-meta-original-filename", s"$fileName"))
-        .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
-    }
-    else {
-      fileInfo("", "")
-        .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-        .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-        .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
-        .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
-    }
+  def fileInfo(fileName: String, fileType: String): HttpRequestBuilder = if (runLocal) {
+    fileInfoLocal("", "")
+  } else {
+    fileInfoFull("", "")
   }
+
+  def fileInfoLocal(fileName: String, fileType: String): HttpRequestBuilder = {
+    http("Upload file")
+      .post("${fileUploadAmazonUrl}")
+      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
+      .asMultipartForm
+      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
+      .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
+      .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
+      .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
+      .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
+      .bodyPart(StringBodyPart("key", "${key}"))
+      .bodyPart(StringBodyPart("acl", "private"))
+      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
+      .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
+      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
+      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
+      .bodyPart(StringBodyPart("policy", "${policy}"))
+      .bodyPart(StringBodyPart("x-amz-meta-original-filename", s"$fileName"))
+      .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
       .check(status.is(303))
       .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
+
+  def fileInfoFull(fileName: String, fileType: String): HttpRequestBuilder = {
+    fileInfoLocal("", "")
+      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
+      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
+      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
+  }
+}
