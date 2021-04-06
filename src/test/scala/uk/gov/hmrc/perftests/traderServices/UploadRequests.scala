@@ -38,7 +38,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
 
   def fileUploadInfoLocal(journey: String): HttpRequestBuilder = {
-    http("New: Get info from" + s" $journey " + "file upload page")
+    http(s"$journey" + "Get info from" + s" $journey " + "file upload page")
       .get(baseUrlRead + s"$journey" + fileUploadUrl)
       .check(saveFileUploadUrl)
       .check(saveCallBack)
@@ -55,7 +55,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def fileUploadInfoFull(journey: String): HttpRequestBuilder = {
-    fileUploadInfoLocal("")
+    fileUploadInfoLocal(s"$journey")
       .check(saveUpscanIniateResponse)
       .check(saveUpscanInitiateRecieved)
       .check(saveRequestId)
