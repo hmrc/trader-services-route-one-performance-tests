@@ -59,7 +59,7 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
   //Common
   val CYA: String = "/check-your-answers"
-  val fileUploadUrlX: String = "/upload-files"
+  val fileUploadUrlMFU: String = "/upload-files"
 
   val fileUploadUrl: String = "/file-upload"
   val fileUploadedUrl: String = "/file-uploaded"

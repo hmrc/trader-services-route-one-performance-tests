@@ -21,7 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object UploadDocRequests extends ServicesConfiguration with SaveToGatlingSessions {
+object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postPDFFileUpload: HttpRequestBuilder = {
     fileInfo("testPdf.pdf", "application/pdf")

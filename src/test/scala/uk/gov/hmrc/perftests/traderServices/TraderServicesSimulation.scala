@@ -21,7 +21,7 @@ import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
 import uk.gov.hmrc.perftests.traderServices.JourneyNewRequests._
 import uk.gov.hmrc.perftests.traderServices.UploadRequests._
-import uk.gov.hmrc.perftests.traderServices.UploadDocRequests._
+import uk.gov.hmrc.perftests.traderServices.UploadFileRequests._
 
 
 class TraderServicesSimulation extends PerformanceTestRunner {
@@ -83,7 +83,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     postYesMoreUpload,
     getFileUploadInfo,
-    postJPEGFileUpload,
+    postDOCFileUpload,
     uploadWait,
     getFileUploadedPage,
 
@@ -135,7 +135,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postExportContact,
 
     getFileUploadInfo,
-    postPDFFileUpload,
+    postXLSFileUpload,
     uploadWait,
 
     postNoMoreUpload,
@@ -170,13 +170,13 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     pause,
 
     getAmendFileUploadInfo,
-    postPDFFileUpload,
+    postTIFFFileUpload,
     uploadWait,
     getAmendFileUploadedPage,
 
     postAmendYesMoreUpload,
     getAmendFileUploadInfo,
-    postJPEGFileUpload,
+    postDOCXFileUpload,
     uploadWait,
     getAmendFileUploadedPage,
 
