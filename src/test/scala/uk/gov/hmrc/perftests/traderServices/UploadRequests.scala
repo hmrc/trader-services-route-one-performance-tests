@@ -24,84 +24,42 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def getFileUploadInfo: HttpRequestBuilder = {
+  def getFileInfoNew: HttpRequestBuilder =
     if (runLocal) {
-      http("New: Get info from file upload page")
-        .get(baseUrlRead + "/new" + fileUploadUrl)
-        .check(saveFileUploadUrl)
-        .check(saveCallBack)
-        .check(saveAmazonDate)
-        .check(saveSuccessRedirect)
-        .check(saveAmazonCredential)
-        .check(saveAmazonAlgorithm)
-        .check(saveKey)
-        .check(saveAmazonSignature)
-        .check(saveErrorRedirect)
-        .check(saveContentType)
-        .check(savePolicy)
-        .check(status.is(200))
-    }
+      fileUploadInfoLocal("/new")
+    } else
+      fileUploadInfoFull("/new")
 
-    else {
-      http("New: Get info from file upload page")
-        .get(baseUrlRead + "/new" + fileUploadUrl)
-        .check(saveFileUploadUrl)
-        .check(saveCallBack)
-        .check(saveAmazonDate)
-        .check(saveSuccessRedirect)
-        .check(saveAmazonCredential)
-        .check(saveUpscanIniateResponse)
-        .check(saveUpscanInitiateRecieved)
-        .check(saveRequestId)
-        .check(saveAmzSessionID)
-        .check(saveAmazonAlgorithm)
-        .check(saveKey)
-        .check(saveAmazonSignature)
-        .check(saveErrorRedirect)
-        .check(saveContentType)
-        .check(savePolicy)
-        .check(status.is(200))
-    }
+  def getFileInfoAmend: HttpRequestBuilder =
+    if (runLocal) {
+      fileUploadInfoLocal("/add")
+    } else
+      fileUploadInfoFull("/add")
+
+
+  def fileUploadInfoLocal(journey: String): HttpRequestBuilder = {
+    http("New: Get info from" + s" $journey " + "file upload page")
+      .get(baseUrlRead + s"$journey" + fileUploadUrl)
+      .check(saveFileUploadUrl)
+      .check(saveCallBack)
+      .check(saveAmazonDate)
+      .check(saveSuccessRedirect)
+      .check(saveAmazonCredential)
+      .check(saveAmazonAlgorithm)
+      .check(saveKey)
+      .check(saveAmazonSignature)
+      .check(saveErrorRedirect)
+      .check(saveContentType)
+      .check(savePolicy)
+      .check(status.is(200))
   }
 
-  def getAmendFileUploadInfo: HttpRequestBuilder = {
-    if (runLocal) {
-      http("Amend: Get info from file upload page")
-        .get(baseUrlRead + "/add" + fileUploadUrl)
-        .check(saveFileUploadUrl)
-        .check(saveCallBack)
-        .check(saveAmazonDate)
-        .check(saveSuccessRedirect)
-        .check(saveAmazonCredential)
-        .check(saveAmazonAlgorithm)
-        .check(saveKey)
-        .check(saveAmazonSignature)
-        .check(saveErrorRedirect)
-        .check(saveContentType)
-        .check(savePolicy)
-        .check(status.is(200))
-    }
-
-    else {
-      http("Amend: Get info from file upload page")
-        .get(baseUrlRead + "/add" + fileUploadUrl)
-        .check(saveFileUploadUrl)
-        .check(saveCallBack)
-        .check(saveAmazonDate)
-        .check(saveSuccessRedirect)
-        .check(saveAmazonCredential)
-        .check(saveUpscanIniateResponse)
-        .check(saveUpscanInitiateRecieved)
-        .check(saveRequestId)
-        .check(saveAmzSessionID)
-        .check(saveAmazonAlgorithm)
-        .check(saveKey)
-        .check(saveAmazonSignature)
-        .check(saveErrorRedirect)
-        .check(saveContentType)
-        .check(savePolicy)
-        .check(status.is(200))
-    }
+  def fileUploadInfoFull(journey: String): HttpRequestBuilder = {
+    fileUploadInfoLocal("")
+      .check(saveUpscanIniateResponse)
+      .check(saveUpscanInitiateRecieved)
+      .check(saveRequestId)
+      .check(saveAmzSessionID)
   }
 
   def getSuccessUrl: HttpRequestBuilder = {
