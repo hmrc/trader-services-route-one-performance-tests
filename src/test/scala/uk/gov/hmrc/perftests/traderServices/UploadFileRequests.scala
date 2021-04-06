@@ -93,9 +93,9 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def fileInfo(fileName: String, fileType: String): HttpRequestBuilder = if (runLocal) {
-    fileInfoLocal("", "")
+    fileInfoLocal(s"$fileName", s"$fileType")
   } else {
-    fileInfoFull("", "")
+    fileInfoFull(s"$fileName", s"$fileType")
   }
 
   def fileInfoLocal(fileName: String, fileType: String): HttpRequestBuilder = {
@@ -122,7 +122,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def fileInfoFull(fileName: String, fileType: String): HttpRequestBuilder = {
-    fileInfoLocal("", "")
+    fileInfoLocal(s"$fileName", s"$fileType")
       .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
       .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
       .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
