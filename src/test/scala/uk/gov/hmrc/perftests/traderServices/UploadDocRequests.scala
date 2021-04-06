@@ -23,115 +23,9 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object UploadDocRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def postPDFFileUpload: HttpRequestBuilder = {
-    if (runLocal){
-      http("Upload file")
-        .post("${fileUploadAmazonUrl}")
-        .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-        .asMultipartForm
-        .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-        .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-        .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-        .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
-        .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-        .bodyPart(StringBodyPart("key", "${key}"))
-        .bodyPart(StringBodyPart("acl", "private"))
-        .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-        .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
-        .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
-        .bodyPart(StringBodyPart("policy", "${policy}"))
-        .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
-        .check(status.is(303))
-        .check(header("Location").saveAs("UpscanResponseSuccess"))
-    }
-
-    else {
-      http("Upload file")
-        .post("${fileUploadAmazonUrl}")
-        .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-        .asMultipartForm
-        .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-        .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-        .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-        .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-        .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-        .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
-        .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
-        .bodyPart(StringBodyPart("x-amz-meta-original-filename", "test.pdf"))
-        .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-        .bodyPart(StringBodyPart("key", "${key}"))
-        .bodyPart(StringBodyPart("acl", "private"))
-        .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-        .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
-        .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
-        .bodyPart(StringBodyPart("policy", "${policy}"))
-        .bodyPart(RawFileBodyPart("file", "data/test.pdf").contentType("application/pdf"))
-        .check(status.is(303))
-        .check(header("Location").saveAs("UpscanResponseSuccess"))
-    }
-  }
-
-  def postJPEGFileUpload: HttpRequestBuilder = {
-    if (runLocal) {
-      http("Upload file")
-        .post("${fileUploadAmazonUrl}")
-        .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-        .asMultipartForm
-        .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-        .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-        .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-        .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testjpeg.jpeg"))
-        .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-        .bodyPart(StringBodyPart("key", "${key}"))
-        .bodyPart(StringBodyPart("acl", "private"))
-        .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-        .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
-        .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
-        .bodyPart(StringBodyPart("policy", "${policy}"))
-        .bodyPart(RawFileBodyPart("file", "data/testjpeg.jpeg").contentType("image/jpeg"))
-        .check(status.is(303))
-        .check(header("Location").saveAs("UpscanResponseSuccess"))
-    }
-    else {
-      http("Upload file")
-        .post("${fileUploadAmazonUrl}")
-        .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-        .asMultipartForm
-        .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-        .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-        .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-        .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-        .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-        .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
-        .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
-        .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testjpeg.jpeg"))
-        .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-        .bodyPart(StringBodyPart("key", "${key}"))
-        .bodyPart(StringBodyPart("acl", "private"))
-        .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-        .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
-        .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-        .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
-        .bodyPart(StringBodyPart("policy", "${policy}"))
-        .bodyPart(RawFileBodyPart("file", "data/testjpeg.jpeg").contentType("image/jpeg"))
-        .check(status.is(303))
-        .check(header("Location").saveAs("UpscanResponseSuccess"))
-    }
-  }
-
-
-
-
-
-  //No longer allowed...
-  def postSpreadsheetFileUpload: HttpRequestBuilder = {
+  //Common to all requests and can be run locally
+  def fileInfo(fileName:String, fileType:String):HttpRequestBuilder = {
+    if(runLocal){
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
@@ -140,11 +34,6 @@ object UploadDocRequests extends ServicesConfiguration with SaveToGatlingSession
       .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
       .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
       .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
-      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
-      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testsheet.xlsx"))
       .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
       .bodyPart(StringBodyPart("key", "${key}"))
       .bodyPart(StringBodyPart("acl", "private"))
@@ -153,34 +42,39 @@ object UploadDocRequests extends ServicesConfiguration with SaveToGatlingSession
       .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
       .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
       .bodyPart(StringBodyPart("policy", "${policy}"))
-      .bodyPart(RawFileBodyPart("file", "data/testsheet.xlsx").contentType("application/vnd.ms-excel"))
+      .bodyPart(StringBodyPart("x-amz-meta-original-filename", s"$fileName"))
+      .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
+  }
+    else {
+  fileInfo("", "")
+      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
+      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
+      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
+  }
+}
+
+  def postPDFFileUpload: HttpRequestBuilder = {
+    fileInfo("test.pdf", "application/pdf")
+        .check(status.is(303))
+        .check(header("Location").saveAs("UpscanResponseSuccess"))
+    }
+
+
+  def postJPEGFileUpload: HttpRequestBuilder = {
+    fileInfo("testjpeg.jpeg", "image/jpeg")
+        .check(status.is(303))
+        .check(header("Location").saveAs("UpscanResponseSuccess"))
+  }
+
+  def postSpreadsheetFileUpload: HttpRequestBuilder = {
+    fileInfo("testsheet.xlsx", "application/vnd.ms-excel")
       .check(status.is(303))
       .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
 
   def postDocFileUpload: HttpRequestBuilder = {
-    http("Upload file")
-      .post("${fileUploadAmazonUrl}")
-      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
-      .asMultipartForm
-      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
-      .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
-      .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
-      .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
-      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
-      .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
-      .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
-      .bodyPart(StringBodyPart("x-amz-meta-original-filename", "testdoc.docx"))
-      .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
-      .bodyPart(StringBodyPart("key", "${key}"))
-      .bodyPart(StringBodyPart("acl", "private"))
-      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
-      .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
-      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
-      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
-      .bodyPart(StringBodyPart("policy", "${policy}"))
-      .bodyPart(RawFileBodyPart("file", "data/testdoc.docx").contentType("application/msword"))
+    fileInfo("testdoc.docx", "application/msword")
       .check(status.is(303))
       .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
