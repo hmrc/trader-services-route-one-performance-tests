@@ -122,10 +122,29 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def fileInfoFull(fileName: String, fileType: String): HttpRequestBuilder = {
-    fileInfoLocal(s"$fileName", s"$fileType")
+    http("Upload file")
+      .post("${fileUploadAmazonUrl}")
+      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
+      .asMultipartForm
+      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "${callBack}"))
+      .bodyPart(StringBodyPart("x-amz-date", "${amazonDate}"))
+      .bodyPart(StringBodyPart("success_action_redirect", "${successRedirect}"))
+      .bodyPart(StringBodyPart("x-amz-credential", "${amazonCredential}"))
       .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "${upscanInitiateResponse}"))
       .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "${upscanInitiateReceived}"))
       .bodyPart(StringBodyPart("x-amz-meta-request-id", "${requestId}"))
       .bodyPart(StringBodyPart("x-amz-meta-session-id", "${amzSessionId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-original-filename", s"$fileName"))
+      .bodyPart(StringBodyPart("x-amz-algorithm", "${amazonAlgorithm}"))
+      .bodyPart(StringBodyPart("key", "${key}"))
+      .bodyPart(StringBodyPart("acl", "private"))
+      .bodyPart(StringBodyPart("x-amz-signature", "${amazonSignature}"))
+      .bodyPart(StringBodyPart("Content-Type", "${contentType}"))
+      .bodyPart(StringBodyPart("error_action_redirect", "${errorRedirect}"))
+      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "trader-services-route-one-frontend"))
+      .bodyPart(StringBodyPart("policy", "${policy}"))
+      .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
+      .check(status.is(303))
+      .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
 }

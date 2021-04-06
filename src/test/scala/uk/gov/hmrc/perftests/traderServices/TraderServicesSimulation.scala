@@ -141,8 +141,21 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postExportContact,
 
     getFileInfoNew,
+    postDOCFileUpload,
+    uploadWait,
+    getFileUploadedPage,
+
+    postYesMoreUpload,
+    getFileInfoNew,
     postDOCXFileUpload,
     uploadWait,
+    getFileUploadedPage,
+
+    postYesMoreUpload,
+    getFileInfoNew,
+    postODSFileUpload,
+    uploadWait,
+    getFileUploadedPage,
 
     postNoMoreUpload,
     getExportCYAPage,
