@@ -70,19 +70,19 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getFileUploadedPage: HttpRequestBuilder = {
     http("New: Get file uploaded page")
-      .get(baseUrlRead + "/new" + fileUploadedUrl)
+      .get(baseUrlNew + fileUploadedUrl)
       .check(status.is(200))
   }
 
   def getAmendFileUploadedPage: HttpRequestBuilder = {
     http("Amend: Get file uploaded page")
-      .get(baseUrlRead + "/add" + fileUploadedUrl)
+      .get(baseUrlAmend + fileUploadedUrl)
       .check(status.is(200))
   }
 
   def postNoMoreUpload: HttpRequestBuilder = {
     http("New: Last upload - complete journey")
-      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .post(baseUrlNew + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
       .check(status.is(303))
@@ -90,7 +90,7 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postAmendNoMoreUpload: HttpRequestBuilder = {
     http("Amend: Last upload - complete journey")
-      .post(baseUrlRead + "/add" + fileUploadedUrl)
+      .post(baseUrlAmend + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "no")
       .check(status.is(303))
@@ -98,20 +98,20 @@ object UploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postYesMoreUpload: HttpRequestBuilder = {
     http("New: Upload another")
-      .post(baseUrlRead + "/new" + fileUploadedUrl)
+      .post(baseUrlNew + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + "/new" + fileUploadUrl))
+      .check(header("Location").is(traderNewUrl + fileUploadUrl))
   }
 
   def postAmendYesMoreUpload: HttpRequestBuilder = {
     http("Amend: Upload another")
-      .post(baseUrlRead + "/add" + fileUploadedUrl)
+      .post(baseUrlAmend + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", "yes")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + "/add" + fileUploadUrl))
+      .check(header("Location").is(traderAmendUrl + fileUploadUrl))
   }
 }
 

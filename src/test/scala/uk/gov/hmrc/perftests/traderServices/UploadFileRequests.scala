@@ -63,7 +63,6 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
     fileInfo("testOdp.odp", "application/vnd.oasis.opendocument.presentation")
   }
 
-
   def postJPEGFileUpload: HttpRequestBuilder = {
     fileInfo("testJpeg.jpeg", "image/jpeg")
   }
