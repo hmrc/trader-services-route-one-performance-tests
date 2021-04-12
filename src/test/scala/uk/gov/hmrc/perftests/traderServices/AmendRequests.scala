@@ -30,73 +30,73 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + caseRefUrl))
+      .check(header("Location").is(traderAmendUrl + caseRefUrl))
   }
 
   def getCaseRefPage: HttpRequestBuilder = {
     http("Amend: Get case reference number page")
-      .get(baseUrlRead + caseRefUrl)
+      .get(baseUrlAmend + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
     http("Amend: Load case reference number page")
-      .get(baseUrlRead + caseRefUrl)
+      .get(baseUrlAmend + caseRefUrl)
       .check(status.is(200))
   }
 
   def postCaseref: HttpRequestBuilder = {
     http("Amend: Post case ref number")
-      .post(baseUrlRead + caseRefUrl)
+      .post(baseUrlAmend + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + whichAmendUrl))
+      .check(header("Location").is(traderAmendUrl + whichAmendUrl))
   }
 
   def getTypeOfAmendmentPage: HttpRequestBuilder = {
     http("Amend: Get the amendment type options page")
-      .get(baseUrlRead +  whichAmendUrl)
+      .get(baseUrlAmend + whichAmendUrl)
       .check(status.is(200))
   }
 
   //Journey choices
   def postWriteOnly: HttpRequestBuilder = {
     http("Amend: Post write only option")
-      .post(baseUrlRead +  whichAmendUrl)
+      .post(baseUrlAmend + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + writeResponseUrl))
+      .check(header("Location").is(traderAmendUrl + writeResponseUrl))
   }
 
   def postUploadOnly: HttpRequestBuilder = {
     http("Amend: Post upload only option")
-      .post(baseUrlRead +  whichAmendUrl)
+      .post(baseUrlAmend +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "UploadDocuments")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + "add" + fileUploadUrl))
+      .check(header("Location").is(traderAmendUrl + fileUploadUrl))
   }
 
   def postWriteAndUpload: HttpRequestBuilder = {
     http("Amend: Post write response and upload option")
-      .post(baseUrlRead +  whichAmendUrl)
+      .post(baseUrlAmend +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponseAndUploadDocuments")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + writeResponseUrl))
+      .check(header("Location").is(traderAmendUrl + writeResponseUrl))
   }
 
   def getWriteResponsePage: HttpRequestBuilder = {
     http("Amend: Get write response page")
-      .get(baseUrlRead + writeResponseUrl)
+      .get(baseUrlAmend + writeResponseUrl)
       .check(status.is(200))
   }
 
   def postFreeTextResponse: HttpRequestBuilder = {
     http("Amend: Post query response in free text field")
-      .post(baseUrlRead + writeResponseUrl)
+      .post(baseUrlAmend + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
       .check(status.is(303))
@@ -105,23 +105,23 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   //CYA
   def getAmendCYAPage: HttpRequestBuilder = {
     http("Amend: Get amend confirmation page")
-      .get(baseUrlRead + "/add" + CYA)
+      .get(baseUrlAmend + CYA)
       .check(status.is(200))
   }
 
   def postAmendCYA: HttpRequestBuilder = {
     http("Amend: Post CYA page - submit case to update-case")
-      .post(baseUrlRead + "/add/amend-case")
+      .post(baseUrlAmend + "/amend-case")
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is(traderUrl + "/add" + confirmationUrl))
+      .check(header("Location").is(traderAmendUrl + confirmationUrl))
   }
 
 
   //Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder = {
     http("Amend: Get confirmation page")
-      .get(baseUrlRead + "/add" + confirmationUrl)
+      .get(baseUrlAmend + confirmationUrl)
       .check(status.is(200))
   }
 }

@@ -29,33 +29,33 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
   val baseUrlRead: String = readProperty("baseUrlTrader")
 
-  val baseUrlTS: String = baseUrlFor("trader-services-route-one-frontend")
-  val traderBase:String = s"$baseUrlTS/send-documents-for-customs-check"
-
   val traderUrl:String = "/send-documents-for-customs-check"
   val traderUrlStart:String = "/start"
   val traderUrlLanding:String = "/new-or-existing"
-  val traderUrlNew:String = "/send-documents-for-customs-check/new"
+
+  val baseUrlNew:String = baseUrlRead + "/new"
+  val baseUrlAmend:String = baseUrlRead + "/add"
+  val traderNewUrl:String = "/send-documents-for-customs-check/new"
   val traderAmendUrl:String = "/send-documents-for-customs-check/add"
 
   //New
-  val entryDetailsUrl: String = "/new/entry-details"
-  val exportPrefix: String = "/new/export"
-  val importPrefix: String = "/new/import"
+  val entryDetailsUrl: String = "/entry-details"
+  val exportPrefix: String = "/export"
+  val importPrefix: String = "/import"
   val requestType: String = "/request-type"
   val routeType: String = "/route-type"
   val priorityYN: String = "/has-priority-goods"
   val whichPriority: String = "/which-priority-goods"
   val hasALVS: String = "/automatic-licence-verification"
   val transport: String = "/transport-type"
-  val vesselMandatory: String = "/transport-information-required"
-  val vesselOptional: String = "/transport-information"
+  val transportMandatory: String = "/transport-information-required"
+  val transportOptional: String = "/transport-information"
   val contactDetails: String = "/contact-information"
 
   //Amend
-  val caseRefUrl: String = "/add/case-reference-number"
-  val whichAmendUrl:String = "/add/type-of-amendment"
-  val writeResponseUrl: String = "/add/write-response"
+  val caseRefUrl: String = "/case-reference-number"
+  val whichAmendUrl:String = "/type-of-amendment"
+  val writeResponseUrl: String = "/write-response"
 
   //Common
   val CYA: String = "/check-your-answers"
