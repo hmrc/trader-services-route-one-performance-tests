@@ -21,7 +21,7 @@ import java.util.UUID
 
 import scala.util.Random
 
-trait Utils {
+trait DynamicTestData {
 
   lazy val nowDay: LocalDate = LocalDate.now
   lazy val (d, m, y) = (nowDay.getDayOfMonth, nowDay.getMonthValue, nowDay.getYear)

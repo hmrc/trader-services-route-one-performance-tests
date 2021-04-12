@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 import scala.concurrent.duration.DurationInt
 
-object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with Utils {
+object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with DynamicTestData {
 
   def pause = new PauseBuilder(0 seconds, None)
 
