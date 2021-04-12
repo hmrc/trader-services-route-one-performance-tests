@@ -29,7 +29,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
 
   def pause = new PauseBuilder(0 seconds, None)
 
-  def uploadWait = new PauseBuilder(0 seconds, None)
+  def uploadWait = new PauseBuilder(5 seconds, None)
 
   def getPreLandingPage: HttpRequestBuilder = {
     http("Get temporary start page")

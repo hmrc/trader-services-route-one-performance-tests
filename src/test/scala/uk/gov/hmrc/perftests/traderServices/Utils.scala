@@ -42,10 +42,10 @@ trait Utils {
   var randomString: String = s"${UUID.randomUUID().toString}"
   var randomEmail: String = s"$randomString@test.com"
 
-  var randomEPU: String = (100 + Random.nextInt(669)).toString
+  lazy val randomEPU: String = (100 + Random.nextInt(569)).toString
   lazy val randomAlpha: String = Random.alphanumeric.filter(_.isLetter).head.toString
 
-  var randomImportEN: String = (100000 + Random.nextInt(999999)).toString + randomAlpha
-  var randomExportEN: String = randomAlpha + (10000 + Random.nextInt(99999)).toString + randomAlpha
+  lazy val randomImportEN: String = (100000 + Random.nextInt(899999)).toString + randomAlpha
+  lazy val randomExportEN: String = randomAlpha + (10000 + Random.nextInt(89999)).toString + randomAlpha
 
 }
