@@ -39,7 +39,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     loadLandingPage,
 
     pause,
-    postJourney("New", entryDetailsUrl),
+    postJourney("New", traderNewUrl+entryDetailsUrl),
 
     getEntryDetailsPage,
     pause,
@@ -111,7 +111,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getLandingPage,
     loadLandingPage,
     pause,
-    postJourney("New", entryDetailsUrl),
+    postJourney("New", traderNewUrl+entryDetailsUrl),
 
     getEntryDetailsPage,
     pause,
@@ -174,7 +174,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getLandingPage,
     loadLandingPage,
     pause,
-    postJourneyAmend,
+    postJourney("Existing", traderAmendUrl+caseRefUrl),
 
     getCaseRefPage,
     loadCaseRefPage,
@@ -183,10 +183,10 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getTypeOfAmendmentPage,
     pause,
-    postWriteAndUpload,
+    postResponse("WriteResponseAndUploadDocuments", writeResponseUrl),
     getWriteResponsePage,
     pause,
-    postFreeTextResponse,
+    postFreeTextResponse(message),
     pause,
 
     getFileInfoAmend,

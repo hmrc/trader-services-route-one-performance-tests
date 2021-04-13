@@ -49,4 +49,8 @@ trait DynamicTestData {
   lazy val randomImportEN: String = (100000 + Random.nextInt(899999)).toString + randomAlpha
   lazy val randomExportEN: String = randomAlpha + (10000 + Random.nextInt(89999)).toString + randomAlpha
 
+
+  //randomize...
+  val message = "ABCDEFHIJKLMNOPQRSTUVWXYZ abcdefhijklmnopqrstuvxyz 1234567890 §-=[];',./!@£$%^&*()±_+{}:|<>?¡€#¢∞§¶•ªº–≠“‘…æ«≤≥æ"
+
 }

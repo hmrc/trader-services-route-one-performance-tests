@@ -24,14 +24,6 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def postJourneyAmend: HttpRequestBuilder = {
-    http("Amend: Post existing journey response")
-      .post(readBaseUrl + traderLandingUrl)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("newOrExistingCase", "Existing")
-      .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + caseRefUrl))
-  }
 
   def getCaseRefPage: HttpRequestBuilder = {
     http("Amend: Get case reference number page")
@@ -61,31 +53,18 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   //Journey choices
-  def postWriteOnly: HttpRequestBuilder = {
+
+  //WriteResponse
+  //UploadDocuments
+  //WriteResponseAndUploadDocuments
+
+  def postResponse(responseType:String, nextPage:String): HttpRequestBuilder = {
     http("Amend: Post write only option")
       .post(baseAmendUrl + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("typeOfAmendment", "WriteResponse")
+      .formParam("typeOfAmendment", s"$responseType")
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + writeResponseUrl))
-  }
-
-  def postUploadOnly: HttpRequestBuilder = {
-    http("Amend: Post upload only option")
-      .post(baseAmendUrl +  whichAmendUrl)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("typeOfAmendment", "UploadDocuments")
-      .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + fileUploadUrl))
-  }
-
-  def postWriteAndUpload: HttpRequestBuilder = {
-    http("Amend: Post write response and upload option")
-      .post(baseAmendUrl +  whichAmendUrl)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("typeOfAmendment", "WriteResponseAndUploadDocuments")
-      .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + writeResponseUrl))
+      .check(header("Location").is(traderAmendUrl + s"$nextPage"))
   }
 
   def getWriteResponsePage: HttpRequestBuilder = {
@@ -94,11 +73,11 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  def postFreeTextResponse: HttpRequestBuilder = {
+  def postFreeTextResponse(message:String): HttpRequestBuilder = {
     http("Amend: Post query response in free text field")
       .post(baseAmendUrl + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("responseText", "Sample Text")
+      .formParam("responseText", s"$message")
       .check(status.is(303))
   }
 

@@ -65,7 +65,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", s"$journeyChoice")
       .check(status.is(303))
-      .check(header("Location").is(traderNewUrl + s"$nextPage"))
+      .check(header("Location").is(s"$nextPage"))
   }
 
   //Entry Details
