@@ -39,10 +39,11 @@ trait DynamicTestData {
   val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
   val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
 
-  var randomString: String = s"${UUID.randomUUID().toString}"
-  var randomEmail: String = s"$randomString@test.com"
+  val randomString: String = s"${UUID.randomUUID().toString}"
+  val randomEmail: String = s"$randomString@test.com"
 
-  lazy val randomEPU: String = (100 + Random.nextInt(569)).toString
+  //omitting 666 & 667 => set up as error pages in stub data
+  lazy val randomEPU: String = (100 + Random.nextInt(565)).toString
   lazy val randomAlpha: String = Random.alphanumeric.filter(_.isLetter).head.toString
 
   lazy val randomImportEN: String = (100000 + Random.nextInt(899999)).toString + randomAlpha

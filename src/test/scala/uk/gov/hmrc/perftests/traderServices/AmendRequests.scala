@@ -26,7 +26,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postJourneyAmend: HttpRequestBuilder = {
     http("Amend: Post existing journey response")
-      .post(baseUrlRead + traderUrlLanding)
+      .post(readBaseUrl + traderLandingUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("newOrExistingCase", "Existing")
       .check(status.is(303))
@@ -35,19 +35,19 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getCaseRefPage: HttpRequestBuilder = {
     http("Amend: Get case reference number page")
-      .get(baseUrlAmend + caseRefUrl)
+      .get(baseAmendUrl + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
     http("Amend: Load case reference number page")
-      .get(baseUrlAmend + caseRefUrl)
+      .get(baseAmendUrl + caseRefUrl)
       .check(status.is(200))
   }
 
   def postCaseref: HttpRequestBuilder = {
     http("Amend: Post case ref number")
-      .post(baseUrlAmend + caseRefUrl)
+      .post(baseAmendUrl + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
@@ -56,14 +56,14 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getTypeOfAmendmentPage: HttpRequestBuilder = {
     http("Amend: Get the amendment type options page")
-      .get(baseUrlAmend + whichAmendUrl)
+      .get(baseAmendUrl + whichAmendUrl)
       .check(status.is(200))
   }
 
   //Journey choices
   def postWriteOnly: HttpRequestBuilder = {
     http("Amend: Post write only option")
-      .post(baseUrlAmend + whichAmendUrl)
+      .post(baseAmendUrl + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponse")
       .check(status.is(303))
@@ -72,7 +72,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postUploadOnly: HttpRequestBuilder = {
     http("Amend: Post upload only option")
-      .post(baseUrlAmend +  whichAmendUrl)
+      .post(baseAmendUrl +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "UploadDocuments")
       .check(status.is(303))
@@ -81,7 +81,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def postWriteAndUpload: HttpRequestBuilder = {
     http("Amend: Post write response and upload option")
-      .post(baseUrlAmend +  whichAmendUrl)
+      .post(baseAmendUrl +  whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", "WriteResponseAndUploadDocuments")
       .check(status.is(303))
@@ -90,13 +90,13 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getWriteResponsePage: HttpRequestBuilder = {
     http("Amend: Get write response page")
-      .get(baseUrlAmend + writeResponseUrl)
+      .get(baseAmendUrl + writeResponseUrl)
       .check(status.is(200))
   }
 
   def postFreeTextResponse: HttpRequestBuilder = {
     http("Amend: Post query response in free text field")
-      .post(baseUrlAmend + writeResponseUrl)
+      .post(baseAmendUrl + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", "Sample Text")
       .check(status.is(303))
@@ -105,13 +105,13 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   //CYA
   def getAmendCYAPage: HttpRequestBuilder = {
     http("Amend: Get amend confirmation page")
-      .get(baseUrlAmend + CYA)
+      .get(baseAmendUrl + cyaReviewUrl)
       .check(status.is(200))
   }
 
   def postAmendCYA: HttpRequestBuilder = {
     http("Amend: Post CYA page - submit case to update-case")
-      .post(baseUrlAmend + "/amend-case")
+      .post(baseAmendUrl + "/amend-case")
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + confirmationUrl))
@@ -121,7 +121,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   //Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder = {
     http("Amend: Get confirmation page")
-      .get(baseUrlAmend + confirmationUrl)
+      .get(baseAmendUrl + confirmationUrl)
       .check(status.is(200))
   }
 }

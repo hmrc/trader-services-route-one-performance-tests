@@ -27,30 +27,30 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
     "/send-documents-for-customs-check"
   }
 
-  val baseUrlRead: String = readProperty("baseUrlTrader")
+  val readBaseUrl: String = readProperty("baseUrlTrader")
 
   val traderUrl:String = "/send-documents-for-customs-check"
-  val traderUrlStart:String = "/start"
-  val traderUrlLanding:String = "/new-or-existing"
+  val traderStartUrl:String = "/start"
+  val traderLandingUrl:String = "/new-or-existing"
 
-  val baseUrlNew:String = baseUrlRead + "/new"
-  val baseUrlAmend:String = baseUrlRead + "/add"
+  val baseNewUrl:String = readBaseUrl + "/new"
+  val baseAmendUrl:String = readBaseUrl + "/add"
   val traderNewUrl:String = "/send-documents-for-customs-check/new"
   val traderAmendUrl:String = "/send-documents-for-customs-check/add"
 
   //New
   val entryDetailsUrl: String = "/entry-details"
-  val exportPrefix: String = "/export"
-  val importPrefix: String = "/import"
-  val requestType: String = "/request-type"
-  val routeType: String = "/route-type"
-  val priorityYN: String = "/has-priority-goods"
-  val whichPriority: String = "/which-priority-goods"
-  val hasALVS: String = "/automatic-licence-verification"
-  val transport: String = "/transport-type"
-  val transportMandatory: String = "/transport-information-required"
-  val transportOptional: String = "/transport-information"
-  val contactDetails: String = "/contact-information"
+  val exports: String = "/export"
+  val imports: String = "/import"
+  val requestTypeUrl: String = "/request-type"
+  val routeTypeUrl: String = "/route-type"
+  val hasPriorityGoodsUrl: String = "/has-priority-goods"
+  val whichPriorityGoodsUrl: String = "/which-priority-goods"
+  val hasALVSUrl: String = "/automatic-licence-verification"
+  val transportTypeUrl: String = "/transport-type"
+  val transportMandatoryUrl: String = "/transport-information-required"
+  val transportOptionalUrl: String = "/transport-information"
+  val contactDetailsUrl: String = "/contact-information"
 
   //Amend
   val caseRefUrl: String = "/case-reference-number"
@@ -58,8 +58,8 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val writeResponseUrl: String = "/write-response"
 
   //Common
-  val CYA: String = "/check-your-answers"
-  val fileUploadUrlMFU: String = "/upload-files"
+  val cyaReviewUrl: String = "/check-your-answers"
+  val multiFileUploadUrlUrl: String = "/upload-files"
 
   val fileUploadUrl: String = "/file-upload"
   val fileUploadedUrl: String = "/file-uploaded"
