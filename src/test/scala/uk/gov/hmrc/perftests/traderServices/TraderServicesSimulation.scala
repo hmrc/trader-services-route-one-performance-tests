@@ -183,7 +183,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getTypeOfAmendmentPage,
     pause,
-    postResponse("WriteResponseAndUploadDocuments", writeResponseUrl),
+    postResponse(writeAndUpload, writeResponseUrl),
     getWriteResponsePage,
     pause,
     postFreeTextResponse(message),
