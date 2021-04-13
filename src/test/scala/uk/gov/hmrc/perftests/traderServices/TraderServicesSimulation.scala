@@ -20,8 +20,9 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
 import uk.gov.hmrc.perftests.traderServices.JourneyNewRequests._
-import uk.gov.hmrc.perftests.traderServices.UploadRequests._
+import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 import uk.gov.hmrc.perftests.traderServices.UploadFileRequests._
+import uk.gov.hmrc.perftests.traderServices.UploadRequests._
 
 
 class TraderServicesSimulation extends PerformanceTestRunner {
@@ -38,43 +39,43 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     loadLandingPage,
 
     pause,
-    postJourneyNew,
+    postJourney("New", traderNewUrl+entryDetailsUrl),
 
     getEntryDetailsPage,
     pause,
-    postImportEntryDetails,
+    postEntryDetails(imports, randomImportEN),
 
-    getImportRequestPage,
+    getRequestTypePage(imports),
     pause,
-    postImportRequestType,
+    postRequestType(imports, randomImportRqType),
 
-    getImportRoutePage,
+    getRoutePage(imports),
     pause,
-    postImportRouteType,
+    postRouteType(imports),
 
-    getImportHasPriorityPage,
+    getHasPriorityPage(imports),
     pause,
-    postImportPriorityYN,
+    postPriorityYN(imports, "yes", whichPriorityGoodsUrl),
 
-    getImportPriorityGoodsPage,
+    getPriorityGoodsPage(imports),
     pause,
-    postImportPriorityGoods,
+    postPriorityGoods(imports, hasALVSUrl),
 
     getALVSPage,
     pause,
     postALVS,
 
-    getImportTransportPage,
+    getTransportTypePage(imports),
     pause,
-    postImportTransport,
+    postTransportType(imports, transportOptionalUrl),
 
-    getImportVesselOptionalPage,
+    getTransportOptionalPage(imports),
     pause,
-    postImportVesselOptional,
+    postImportTransportDetails(transportOptionalUrl),
 
-    getImportContactDetailsPage,
+    getContactDetailsPage(imports),
     pause,
-    postImportContact,
+    postContactDetails(imports),
 
     getFileInfoNew,
     postXLSFileUpload,
@@ -94,8 +95,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadedPage,
 
     postNoMoreUpload,
-    getImportCYAPage,
-    postImportCYA,
+    getCYAPage(imports),
+    postCYA,
     getConfirmationPage,
     destroy_UserPlanet
   )
@@ -110,35 +111,35 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getLandingPage,
     loadLandingPage,
     pause,
-    postJourneyNew,
+    postJourney("New", traderNewUrl+entryDetailsUrl),
 
     getEntryDetailsPage,
     pause,
-    postExportEntryDetails,
+    postEntryDetails(exports, randomExportEN),
 
-    getExportRequestPage,
+    getRequestTypePage(exports),
     pause,
-    postExportRequestType,
+    postRequestType(exports, randomExportRqMandatoryType),
 
-    getExportRoutePage,
+    getRoutePage(exports),
     pause,
-    postExportRouteType,
+    postRouteType(exports),
 
-    getExportHasPriorityPage,
+    getHasPriorityPage(exports),
     pause,
-    postExportPriorityYN,
+    postPriorityYN(exports, "no", transportTypeUrl),
 
-    getExportTransportPage,
+    getTransportTypePage(exports),
     pause,
-    postExportTransport,
+    postTransportType(exports, transportMandatoryUrl),
 
-    getExportVesselMandatoryPage,
+    getTransportMandatoryPage(exports),
     pause,
-    postExportVesselMandatory,
+    postExportTransportDetails(transportMandatoryUrl),
 
-    getExportContactDetailsPage,
+    getContactDetailsPage(exports),
     pause,
-    postExportContact,
+    postContactDetails(exports),
 
     getFileInfoNew,
     postDOCXFileUpload,
@@ -158,8 +159,8 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadedPage,
 
     postNoMoreUpload,
-    getExportCYAPage,
-    postExportCYA,
+    getCYAPage(exports),
+    postCYA,
     getConfirmationPage,
     destroy_UserPlanet
   )
@@ -173,7 +174,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getLandingPage,
     loadLandingPage,
     pause,
-    postJourneyAmend,
+    postJourney("Existing", traderAmendUrl+caseRefUrl),
 
     getCaseRefPage,
     loadCaseRefPage,
@@ -182,10 +183,10 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getTypeOfAmendmentPage,
     pause,
-    postWriteAndUpload,
+    postResponse(writeAndUpload, writeResponseUrl),
     getWriteResponsePage,
     pause,
-    postFreeTextResponse,
+    postFreeTextResponse(message),
     pause,
 
     getFileInfoAmend,
