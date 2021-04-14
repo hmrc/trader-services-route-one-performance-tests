@@ -25,11 +25,11 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 import scala.concurrent.duration.DurationInt
 
-object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with DynamicTestData {
+object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with TestData {
 
-  def pause = new PauseBuilder(0 seconds, None)
+  def pause = new PauseBuilder(8 seconds, None)
 
-  def uploadWait = new PauseBuilder(2 seconds, None)
+  def uploadWait = new PauseBuilder(12 seconds, None)
 
   def getPreLandingPage: HttpRequestBuilder = {
     http("Get temporary start page")
@@ -143,7 +143,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def postPriorityGoods(journey: String, nextPage: String): HttpRequestBuilder = {
-    http(s"$journey Post priority goods")
+    http(s"$journey Post priority goods option")
       .post(baseNewUrl + s"$journey" + whichPriorityGoodsUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("priorityGoods", s"$randomPriorityGoods")
@@ -159,7 +159,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def postALVS: HttpRequestBuilder = {
-    http("Post ALVS")
+    http("Post ALVS selection")
       .post(baseNewUrl + imports + hasALVSUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasALVS", "yes")
@@ -169,7 +169,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
 
   //Transport Type & Details
   def getTransportTypePage(journey: String): HttpRequestBuilder = {
-    http(s"$journey Get transport details page")
+    http(s"$journey Get transport type page")
       .get(baseNewUrl + s"$journey" + transportTypeUrl)
       .check(status.is(200))
   }

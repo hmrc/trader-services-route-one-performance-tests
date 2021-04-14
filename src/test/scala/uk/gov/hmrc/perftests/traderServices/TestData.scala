@@ -20,7 +20,7 @@ import java.time.{LocalDate, LocalTime}
 
 import scala.util.Random
 
-trait DynamicTestData {
+trait TestData {
 
   lazy val nowDay: LocalDate = LocalDate.now
   lazy val (d, m, y) = (nowDay.getDayOfMonth, nowDay.getMonthValue, nowDay.getYear)
@@ -33,7 +33,7 @@ trait DynamicTestData {
   val randomExportRqMandatoryType: String = Random.shuffle(List("C1601", "C1602")).head
 
   val randomRouteType: String = Random.shuffle(List("Route1", "Route1Cap", "Route2", "Route3", "Route6")).head
-  //Hold absent => Mandatory vessel page, impacts later flow...
+  //todo Hold absent => Mandatory vessel page, impacts later flow...
 
   val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
   val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
@@ -51,4 +51,8 @@ trait DynamicTestData {
   lazy val randomImportEN: String = (100000 + Random.nextInt(899999)).toString + randomAlpha
   lazy val randomExportEN: String = randomAlpha + (10000 + Random.nextInt(89999)).toString + randomAlpha
 
+  //Journey choices for amend
+  val writeResponseOnly: String = "WriteResponse"
+  val UploadOnly: String = "UploadDocuments"
+  val writeAndUpload: String = "WriteResponseAndUploadDocuments"
 }

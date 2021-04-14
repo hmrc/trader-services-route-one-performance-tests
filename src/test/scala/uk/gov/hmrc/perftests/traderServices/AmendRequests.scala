@@ -53,11 +53,6 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  //Journey choices
-  val writeResponseOnly: String = "WriteResponse"
-  val UploadOnly: String = "UploadDocuments"
-  val writeAndUpload: String = "WriteResponseAndUploadDocuments"
-
   def postResponse(responseType: String, nextPage: String): HttpRequestBuilder = {
     http("Amend: Post write only option")
       .post(baseAmendUrl + whichAmendUrl)
