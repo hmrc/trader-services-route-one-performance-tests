@@ -19,9 +19,9 @@ package uk.gov.hmrc.perftests.traderServices
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
+import uk.gov.hmrc.perftests.traderServices.FileUploadRequests._
 import uk.gov.hmrc.perftests.traderServices.JourneyNewRequests._
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
-import uk.gov.hmrc.perftests.traderServices.FileUploadRequests._
 
 
 class TraderServicesSimulation extends PerformanceTestRunner {
@@ -73,24 +73,25 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     pause,
     postContactDetails(imports),
 
-    getFileInfo(newUrl),
+    getFileInfo("/new"),
     postXLSFileUpload,
     uploadWait,
-    getFileUploadedPage(newUrl),
+    getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(newUrl, "yes"),
-    getFileInfo(newUrl),
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
     postDOCFileUpload,
     uploadWait,
-    getFileUploadedPage(newUrl),
+    getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(newUrl, "yes"),
-    getFileInfo(newUrl),
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"
+    ),
     postPPTFileUpload,
     uploadWait,
-    getFileUploadedPage(newUrl),
+    getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(newUrl, "no"),
+    postYesNoResponseMoreUpload(baseNewUrl, "no"),
     getCYAPage(imports),
     postCYA,
     getConfirmationPage,
@@ -137,24 +138,24 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     pause,
     postContactDetails(exports),
 
-    getFileInfo(newUrl),
+    getFileInfo("/new"),
     postDOCXFileUpload,
     uploadWait,
-    getFileUploadedPage(newUrl),
+    getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(newUrl, "yes"),
-    getFileInfo(newUrl),
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
     postXLSXFileUpload,
     uploadWait,
-    getFileUploadedPage(newUrl),
+    getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(newUrl, "yes"),
-    getFileInfo(newUrl),
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
     postPPTXFileUpload,
     uploadWait,
-    getFileUploadedPage(newUrl),
+    getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(newUrl, "no"),
+    postYesNoResponseMoreUpload(baseNewUrl, "no"),
     getCYAPage(exports),
     postCYA,
     getConfirmationPage,
@@ -175,7 +176,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getCaseRefPage,
     loadCaseRefPage,
     pause,
-    postCaseref,
+    postCaseRef,
 
     getTypeOfAmendmentPage,
     pause,
@@ -185,24 +186,24 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postFreeTextResponse,
     pause,
 
-    getFileInfo(amendUrl),
+    getFileInfo("/add"),
     postODTFileUpload,
     uploadWait,
-    getFileUploadedPage(amendUrl),
+    getFileUploadedPage(baseAmendUrl),
 
-    postYesNoResponseMoreUpload(amendUrl, "yes"),
-    getFileInfo(amendUrl),
+    postYesNoResponseMoreUpload(baseAmendUrl, "yes"),
+    getFileInfo("/add"),
     postODSFileUpload,
     uploadWait,
-    getFileUploadedPage(amendUrl),
+    getFileUploadedPage(baseAmendUrl),
 
-    postYesNoResponseMoreUpload(amendUrl, "yes"),
-    getFileInfo(amendUrl),
+    postYesNoResponseMoreUpload(baseAmendUrl, "yes"),
+    getFileInfo("/add"),
     postODPFileUpload,
     uploadWait,
-    getFileUploadedPage(amendUrl),
+    getFileUploadedPage(baseAmendUrl),
 
-    postYesNoResponseMoreUpload(amendUrl, "no"),
+    postYesNoResponseMoreUpload(baseAmendUrl, "no"),
     getAmendCYAPage,
     postAmendCYA,
     getConfirmationPageAmend,

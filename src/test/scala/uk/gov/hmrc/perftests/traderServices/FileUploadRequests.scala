@@ -42,19 +42,18 @@ object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(status.is(303))
   }
 
-  def getFileUploadedPage(journey: String): HttpRequestBuilder = {
-    http(s"$journey Get file uploaded page")
-      .get(s"$journey" + fileUploadedUrl)
+  def getFileUploadedPage(journeyUrl: String): HttpRequestBuilder = {
+    http("Get file uploaded page")
+      .get(s"$journeyUrl" + fileUploadedUrl)
       .check(status.is(200))
   }
 
-  def postYesNoResponseMoreUpload(journey: String, yesNo: String): HttpRequestBuilder = {
-    http("New: Last upload - complete journey")
-      .post(s"$journey" + fileUploadedUrl)
+  def postYesNoResponseMoreUpload(journeyUrl: String, yesNo: String): HttpRequestBuilder = {
+    http("Select yes or no to uploading another file")
+      .post(s"$journeyUrl" + fileUploadedUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("uploadAnotherFile", s"$yesNo")
       .check(status.is(303))
-      .check(header("Location").is(s"$journey" + fileUploadUrl))
   }
 
   def postPDFFileUpload: HttpRequestBuilder = {
@@ -126,7 +125,7 @@ object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def getFileUploadInfoLocal(journey: String): HttpRequestBuilder = {
-    http(s"$journey" + "Get info from" + s" $journey " + "file upload page")
+    http("Get info from file upload page")
       .get(readBaseUrl + s"$journey" + fileUploadUrl)
       .check(saveFileUploadUrl)
       .check(saveCallBack)

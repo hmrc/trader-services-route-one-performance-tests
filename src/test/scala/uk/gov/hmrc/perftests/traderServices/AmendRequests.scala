@@ -27,19 +27,19 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
 
   def getCaseRefPage: HttpRequestBuilder = {
-    http("Amend: Get case reference number page")
+    http("Get case reference number page")
       .get(baseAmendUrl + caseRefUrl)
       .check(status.is(303))
   }
 
   def loadCaseRefPage: HttpRequestBuilder = {
-    http("Amend: Load case reference number page")
+    http("Load case reference number page")
       .get(baseAmendUrl + caseRefUrl)
       .check(status.is(200))
   }
 
-  def postCaseref: HttpRequestBuilder = {
-    http("Amend: Post case ref number")
+  def postCaseRef: HttpRequestBuilder = {
+    http("Post case ref number")
       .post(baseAmendUrl + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
@@ -48,7 +48,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   }
 
   def getTypeOfAmendmentPage: HttpRequestBuilder = {
-    http("Amend: Get the amendment type options page")
+    http("Get the amendment type options page")
       .get(baseAmendUrl + whichAmendUrl)
       .check(status.is(200))
   }
