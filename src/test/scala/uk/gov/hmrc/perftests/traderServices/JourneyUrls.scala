@@ -33,22 +33,13 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val traderStartUrl:String = "/start"
   val traderLandingUrl:String = "/new-or-existing"
 
-<<<<<<< Updated upstream
-  val baseNewUrl:String = readBaseUrl + newUrl
-  val baseAmendUrl:String = readBaseUrl + amendUrl
-  val traderNewUrl:String = "/send-documents-for-customs-check/new"
-  val traderAmendUrl:String = "/send-documents-for-customs-check/add"
-
   //New
-  lazy val newUrl:String = "/new"
-=======
   val baseNewUrl: String = readBaseUrl + "/new"
   val baseAmendUrl: String = readBaseUrl + "/add"
   val traderNewUrl: String = "/send-documents-for-customs-check/new"
   val traderAmendUrl: String = "/send-documents-for-customs-check/add"
 
   //New
->>>>>>> Stashed changes
   val entryDetailsUrl: String = "/entry-details"
   val exports: String = "/export"
   val imports: String = "/import"
@@ -63,10 +54,6 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val contactDetailsUrl: String = "/contact-information"
 
   //Amend
-<<<<<<< Updated upstream
-  lazy val amendUrl:String = "/add"
-=======
->>>>>>> Stashed changes
   val caseRefUrl: String = "/case-reference-number"
   val whichAmendUrl:String = "/type-of-amendment"
   val writeResponseUrl: String = "/write-response"
