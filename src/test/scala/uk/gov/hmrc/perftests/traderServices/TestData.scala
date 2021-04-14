@@ -38,7 +38,8 @@ trait TestData {
   val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
   val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
 
-  def randomString(length:Int): String = Random.alphanumeric.take(length).mkString
+  def randomString(length: Int): String = Random.alphanumeric.take(length).mkString
+
   val shortString: String = randomString(20)
   val longString: String = randomString(1000)
 

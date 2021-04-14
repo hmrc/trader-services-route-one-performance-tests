@@ -20,84 +20,138 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
-object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessions {
+object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
+
+  def getFileInfo(journey: String): HttpRequestBuilder =
+    if (runLocal) {
+      getFileUploadInfoLocal(s"$journey")
+    } else
+      getFileUploadInfoFull(s"$journey")
+
+  def postFileInfo(fileName: String, fileType: String): HttpRequestBuilder = if (runLocal) {
+    postFileInfoLocal(s"$fileName", s"$fileType")
+  } else {
+    postFileInfoFull(s"$fileName", s"$fileType")
+  }
+
+  def getSuccessUrl: HttpRequestBuilder = {
+    http("Get success url")
+      .get("${successRedirect}")
+      .check(status.is(303))
+  }
+
+  def getFileUploadedPage(journey: String): HttpRequestBuilder = {
+    http(s"$journey Get file uploaded page")
+      .get(s"$journey" + fileUploadedUrl)
+      .check(status.is(200))
+  }
+
+  def postYesNoResponseMoreUpload(journey: String, yesNo: String): HttpRequestBuilder = {
+    http("New: Last upload - complete journey")
+      .post(s"$journey" + fileUploadedUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("uploadAnotherFile", s"$yesNo")
+      .check(status.is(303))
+      .check(header("Location").is(s"$journey" + fileUploadUrl))
+  }
 
   def postPDFFileUpload: HttpRequestBuilder = {
-    fileInfo("testPdf.pdf", "application/pdf")
+    postFileInfo("testPdf.pdf", "application/pdf")
   }
 
   def postXLSXFileUpload: HttpRequestBuilder = {
-    fileInfo("testXls.xls", "application/vnd.ms-excel")
+    postFileInfo("testXls.xls", "application/vnd.ms-excel")
   }
 
   def postXLSFileUpload: HttpRequestBuilder = {
-    fileInfo("testXlsx.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    postFileInfo("testXlsx.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   }
 
   def postDOCXFileUpload: HttpRequestBuilder = {
-    fileInfo("testDocx.docx", "application/msword")
+    postFileInfo("testDocx.docx", "application/msword")
   }
 
   def postDOCFileUpload: HttpRequestBuilder = {
-    fileInfo("testDoc.doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    postFileInfo("testDoc.doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
   }
 
   def postPPTXFileUpload: HttpRequestBuilder = {
-    fileInfo("testPptx.pptx", "application/vnd.ms-presentation")
+    postFileInfo("testPptx.pptx", "application/vnd.ms-presentation")
   }
 
   def postPPTFileUpload: HttpRequestBuilder = {
-    fileInfo("testPpt.ppt", "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+    postFileInfo("testPpt.ppt", "application/vnd.openxmlformats-officedocument.presentationml.presentation")
   }
 
   def postODTFileUpload: HttpRequestBuilder = {
-    fileInfo("testOdt.odt", "application/vnd.oasis.opendocument.text")
+    postFileInfo("testOdt.odt", "application/vnd.oasis.opendocument.text")
   }
 
   def postODSFileUpload: HttpRequestBuilder = {
-    fileInfo("testOds.ods", "application/vnd.oasis.opendocument.spreadsheet")
+    postFileInfo("testOds.ods", "application/vnd.oasis.opendocument.spreadsheet")
   }
 
   def postODPFileUpload: HttpRequestBuilder = {
-    fileInfo("testOdp.odp", "application/vnd.oasis.opendocument.presentation")
+    postFileInfo("testOdp.odp", "application/vnd.oasis.opendocument.presentation")
   }
 
   def postJPEGFileUpload: HttpRequestBuilder = {
-    fileInfo("testJpeg.jpeg", "image/jpeg")
+    postFileInfo("testJpeg.jpeg", "image/jpeg")
   }
 
   def postJPGFileUpload: HttpRequestBuilder = {
-    fileInfo("testJpg.jpeg", "image/jpg")
+    postFileInfo("testJpg.jpeg", "image/jpg")
   }
 
   def postTIFFFileUpload: HttpRequestBuilder = {
-    fileInfo("testTiff.tiff", "image/tiff")
+    postFileInfo("testTiff.tiff", "image/tiff")
   }
 
   def postTIFFileUpload: HttpRequestBuilder = {
-    fileInfo("testTif.tif", "image/tif")
+    postFileInfo("testTif.tif", "image/tif")
   }
 
   def postPNGFileUpload: HttpRequestBuilder = {
-    fileInfo("testPng.png", "image/png")
+    postFileInfo("testPng.png", "image/png")
   }
 
   def postTXTFileUpload: HttpRequestBuilder = {
-    fileInfo("testTxt.txt", "text/plain")
+    postFileInfo("testTxt.txt", "text/plain")
   }
 
   def postMSGFileUpload: HttpRequestBuilder = {
-    fileInfo("testMsg.msg", "application/vnd.ms-outlook")
+    postFileInfo("testMsg.msg", "application/vnd.ms-outlook")
   }
 
-  def fileInfo(fileName: String, fileType: String): HttpRequestBuilder = if (runLocal) {
-    fileInfoLocal(s"$fileName", s"$fileType")
-  } else {
-    fileInfoFull(s"$fileName", s"$fileType")
+  def getFileUploadInfoLocal(journey: String): HttpRequestBuilder = {
+    http(s"$journey" + "Get info from" + s" $journey " + "file upload page")
+      .get(readBaseUrl + s"$journey" + fileUploadUrl)
+      .check(saveFileUploadUrl)
+      .check(saveCallBack)
+      .check(saveAmazonDate)
+      .check(saveSuccessRedirect)
+      .check(saveAmazonCredential)
+      .check(saveAmazonAlgorithm)
+      .check(saveKey)
+      .check(saveAmazonSignature)
+      .check(saveErrorRedirect)
+      .check(saveContentType)
+      .check(savePolicy)
+      .check(status.is(200))
   }
 
-  def fileInfoLocal(fileName: String, fileType: String): HttpRequestBuilder = {
+  def getFileUploadInfoFull(journey: String): HttpRequestBuilder = {
+    getFileUploadInfoLocal(s"$journey")
+      .check(saveUpscanIniateResponse)
+      .check(saveUpscanInitiateRecieved)
+      .check(saveRequestId)
+      .check(saveAmzSessionID)
+  }
+
+  def postFileInfoLocal(fileName: String, fileType: String): HttpRequestBuilder = {
+
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
@@ -120,7 +174,7 @@ object UploadFileRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").saveAs("UpscanResponseSuccess"))
   }
 
-  def fileInfoFull(fileName: String, fileType: String): HttpRequestBuilder = {
+  def postFileInfoFull(fileName: String, fileType: String): HttpRequestBuilder = {
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
