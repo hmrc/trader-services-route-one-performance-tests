@@ -17,7 +17,6 @@
 package uk.gov.hmrc.perftests.traderServices
 
 import java.time.{LocalDate, LocalTime}
-import java.util.UUID
 
 import scala.util.Random
 
@@ -39,8 +38,11 @@ trait DynamicTestData {
   val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
   val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
 
-  val randomString: String = s"${UUID.randomUUID().toString}"
-  val randomEmail: String = s"$randomString@test.com"
+  def randomString(length:Int): String = Random.alphanumeric.take(length).mkString
+  val shortString: String = randomString(20)
+  val longString: String = randomString(1000)
+
+  val randomEmail: String = s"$shortString@test.com"
 
   //omitting 666 & 667 => set up as error pages in stub data
   lazy val randomEPU: String = (100 + Random.nextInt(565)).toString
@@ -48,9 +50,5 @@ trait DynamicTestData {
 
   lazy val randomImportEN: String = (100000 + Random.nextInt(899999)).toString + randomAlpha
   lazy val randomExportEN: String = randomAlpha + (10000 + Random.nextInt(89999)).toString + randomAlpha
-
-
-  //randomize...
-  val message = "ABCDEFHIJKLMNOPQRSTUVWXYZ abcdefhijklmnopqrstuvxyz 1234567890 §-=[];',./!@£$%^&*()±_+{}:|<>?¡€#¢∞§¶•ªº–≠“‘…æ«≤≥æ"
 
 }

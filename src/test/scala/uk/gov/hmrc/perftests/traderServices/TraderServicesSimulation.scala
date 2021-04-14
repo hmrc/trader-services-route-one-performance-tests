@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.perftests.traderServices
 
-import io.gatling.core.action.builder.ActionBuilder
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.traderServices.AgentStubRequests._
 import uk.gov.hmrc.perftests.traderServices.AmendRequests._
@@ -184,7 +183,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postResponse(writeAndUpload, writeResponseUrl),
     getWriteResponsePage,
     pause,
-    postFreeTextResponse(message),
+    postFreeTextResponse,
     pause,
 
     getFileInfoAmend,
