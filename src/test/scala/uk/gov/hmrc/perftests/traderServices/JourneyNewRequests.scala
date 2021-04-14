@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 import scala.concurrent.duration.DurationInt
 
-object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with DynamicTestData {
+object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with TestData {
 
   def pause = new PauseBuilder(8 seconds, None)
 
@@ -59,7 +59,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(regex("What do you want to do?"))
   }
 
-  def postJourney(journeyChoice:String, nextPage:String): HttpRequestBuilder = {
+  def postJourney(journeyChoice: String, nextPage: String): HttpRequestBuilder = {
     http("Post new journey response")
       .post(readBaseUrl + traderLandingUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -75,7 +75,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(status.is(200))
   }
 
-  def postEntryDetails(journey:String, entryNo:String): HttpRequestBuilder = {
+  def postEntryDetails(journey: String, entryNo: String): HttpRequestBuilder = {
     http(s"$journey Post entry details")
       .post(baseNewUrl + entryDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -88,15 +88,14 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").is(traderNewUrl + s"$journey" + requestTypeUrl))
   }
 
-
   //Request Type
-  def getRequestTypePage(journey:String): HttpRequestBuilder = {
+  def getRequestTypePage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get request type page")
       .get(baseNewUrl + s"$journey" + requestTypeUrl)
       .check(status.is(200))
   }
 
-  def postRequestType(journey:String, requestType:String): HttpRequestBuilder = {
+  def postRequestType(journey: String, requestType: String): HttpRequestBuilder = {
     http(s"$journey Post request type")
       .post(baseNewUrl + s"$journey" + requestTypeUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -106,14 +105,13 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   //Route Type
-  def getRoutePage(journey:String): HttpRequestBuilder = {
+  def getRoutePage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get route type page")
       .get(baseNewUrl + s"$journey" + routeTypeUrl)
       .check(status.is(200))
   }
 
-  //todo include hold.......???
-  def postRouteType(journey:String): HttpRequestBuilder = {
+  def postRouteType(journey: String): HttpRequestBuilder = {
     http(s"$journey Post route type")
       .post(baseNewUrl + s"$journey" + routeTypeUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -122,16 +120,14 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").is(traderNewUrl + s"$journey" + hasPriorityGoodsUrl))
   }
 
-
-  //Priority Goods
-  def getHasPriorityPage(journey:String): HttpRequestBuilder = {
+  //Priority YesNo & Which Goods
+  def getHasPriorityPage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get has-priority-goods page")
       .get(baseNewUrl + s"$journey" + hasPriorityGoodsUrl)
       .check(status.is(200))
   }
 
-  //todo
-  def postPriorityYN(journey:String, yesNo:String, nextPage:String): HttpRequestBuilder = {
+  def postPriorityYN(journey: String, yesNo: String, nextPage: String): HttpRequestBuilder = {
     http(s"$journey Post to priority yes/no page")
       .post(baseNewUrl + s"$journey" + hasPriorityGoodsUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -140,14 +136,14 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").is(traderNewUrl + s"$journey" + s"$nextPage"))
   }
 
-  def getPriorityGoodsPage(journey:String): HttpRequestBuilder = {
+  def getPriorityGoodsPage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get which-priority-goods page")
       .get(baseNewUrl + s"$journey" + whichPriorityGoodsUrl)
       .check(status.is(200))
   }
 
-  def postPriorityGoods(journey:String, nextPage:String): HttpRequestBuilder = {
-    http(s"$journey Post priority goods")
+  def postPriorityGoods(journey: String, nextPage: String): HttpRequestBuilder = {
+    http(s"$journey Post priority goods option")
       .post(baseNewUrl + s"$journey" + whichPriorityGoodsUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("priorityGoods", s"$randomPriorityGoods")
@@ -163,7 +159,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   def postALVS: HttpRequestBuilder = {
-    http("Post ALVS")
+    http("Post ALVS selection")
       .post(baseNewUrl + imports + hasALVSUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("hasALVS", "yes")
@@ -171,15 +167,14 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").is(traderNewUrl + imports + transportTypeUrl))
   }
 
-  //Transport
-  def getTransportTypePage(journey:String): HttpRequestBuilder = {
+  //Transport Type & Details
+  def getTransportTypePage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get transport type page")
       .get(baseNewUrl + s"$journey" + transportTypeUrl)
       .check(status.is(200))
   }
 
-  //todo opt v mand
-  def postTransportType(journey:String, mandOrOpt:String): HttpRequestBuilder = {
+  def postTransportType(journey: String, mandOrOpt: String): HttpRequestBuilder = {
     http(s"$journey Post transport type")
       .post(baseNewUrl + s"$journey" + transportTypeUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -188,45 +183,31 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").is(traderNewUrl + s"$journey" + s"$mandOrOpt"))
   }
 
-  //Optional
-  def getImportTransportMandatoryPage: HttpRequestBuilder = {
-    http("Get mandatory transport details page - import")
-      .get(baseNewUrl + imports + transportMandatoryUrl)
+  def getTransportDetailsPage(journey: String, mandOrOpt: String): HttpRequestBuilder = {
+    http(s"$journey Get transport details page - " + s"$mandOrOpt")
+      .get(baseNewUrl + s"$journey" + s"$mandOrOpt")
       .check(status.is(200))
   }
 
-  //todo
-  def getTransportOptionalPage(journey:String): HttpRequestBuilder = {
-    http(s"$journey Get optional transport details page")
-      .get(baseNewUrl + s"$journey" + transportOptionalUrl)
-      .check(status.is(200))
-  }
-
-  def getTransportMandatoryPage(journey:String): HttpRequestBuilder = {
-    http(s"$journey Get mandatory transport details page")
-      .get(baseNewUrl + s"$journey" + transportMandatoryUrl)
-      .check(status.is(200))
-  }
-
-
-  def postImportTransportDetails(mandOrOpt:String): HttpRequestBuilder = {
-    http("Import: Post transport details - import")
+  def postImportTransportDetails(mandOrOpt: String): HttpRequestBuilder = {
+    http("Import: Post transport details")
       .post(baseNewUrl + imports + s"$mandOrOpt")
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("vesselName", "S.S Test Ship")
+      .formParam("vesselName", "S.S Anne")
       .formParam("dateOfArrival.day", s"$d")
       .formParam("dateOfArrival.month", s"$m")
       .formParam("dateOfArrival.year", s"$y")
+      .formParam("timeOfArrival.hour", s"$hr")
+      .formParam("timeOfArrival.minutes", s"$min")
       .check(status.is(303))
       .check(header("Location").is(traderNewUrl + imports + contactDetailsUrl))
   }
 
-  //Mandatory
-  def postExportTransportDetails(mandOrOpt:String): HttpRequestBuilder = {
+  def postExportTransportDetails(mandOrOpt: String): HttpRequestBuilder = {
     http("Export: Post transport details - " + s"$mandOrOpt")
       .post(baseNewUrl + exports + s"$mandOrOpt")
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("vesselName", "fedcba")
+      .formParam("vesselName", "PlanetExpress Mk -1")
       .formParam("dateOfDeparture.day", s"$d")
       .formParam("dateOfDeparture.month", s"$m")
       .formParam("dateOfDeparture.year", s"$y")
@@ -238,13 +219,13 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
 
 
   //Contact details
-  def getContactDetailsPage (journey:String): HttpRequestBuilder = {
+  def getContactDetailsPage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get contact details")
       .get(baseNewUrl + s"$journey" + contactDetailsUrl)
       .check(status.is(200))
   }
 
-  def postContactDetails(journey:String): HttpRequestBuilder = {
+  def postContactDetails(journey: String): HttpRequestBuilder = {
     http(s"$journey Post contact details")
       .post(baseNewUrl + s"$journey" + contactDetailsUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -256,7 +237,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
   }
 
   //CYA
-  def getCYAPage(journey:String): HttpRequestBuilder = {
+  def getCYAPage(journey: String): HttpRequestBuilder = {
     http(s"$journey Get CYA page")
       .get(baseNewUrl + s"$journey" + cyaReviewUrl)
       .check(status.is(200))

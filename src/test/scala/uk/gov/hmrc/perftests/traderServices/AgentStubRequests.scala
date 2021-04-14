@@ -32,14 +32,14 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
   val updateUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users"
   val updateSpecificUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users/$${userId}"
 
-  def getLogin_Page: HttpRequestBuilder = {
+  def getLoginPage: HttpRequestBuilder = {
     http("Get login stub page")
       .get(s"$loginUrl")
       .check(status.is(200))
       .check(saveCsrfToken)
   }
 
-  def login_User: HttpRequestBuilder =
+  def loginUser: HttpRequestBuilder =
     http("Authenticate a user")
       .post(s"$postSignInUrl")
       .check(status.is(201))
@@ -49,7 +49,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .check(savePlanetIdHeader)
       .check(saveUserIdHeader)
 
-  def update_UserRole: HttpRequestBuilder =
+  def updateUserRole: HttpRequestBuilder =
     http("Update current user to have HMRC-CUS-ORG")
       .put(updateUserUrl)
       .body(StringBody(stubUserAsAgentWithEnrolment))
@@ -76,7 +76,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
     """.stripMargin
 
 
-  def postsuccessful_Login: HttpRequestBuilder = {
+  def postSuccessful_Login: HttpRequestBuilder = {
     http("Login with user credentials")
       .post(loginSubmitUrl)
       .formParam("csrfToken", "${csrfToken}")

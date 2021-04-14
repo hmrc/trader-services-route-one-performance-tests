@@ -27,19 +27,16 @@ import uk.gov.hmrc.perftests.traderServices.UploadRequests._
 
 class TraderServicesSimulation extends PerformanceTestRunner {
 
-
   setup("Trader Services Import Journey", "Import").withActions(
-    getLogin_Page,
-    login_User,
-    update_UserRole,
-    postsuccessful_Login,
-
+    getLoginPage,
+    loginUser,
+    updateUserRole,
+    postSuccessful_Login,
     getPreLandingPage,
     loadPreLandingPage,
     loadLandingPage,
-
     pause,
-    postJourney("New", traderNewUrl+entryDetailsUrl),
+    postJourney("New", traderNewUrl + entryDetailsUrl),
 
     getEntryDetailsPage,
     pause,
@@ -69,7 +66,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     pause,
     postTransportType(imports, transportOptionalUrl),
 
-    getTransportOptionalPage(imports),
+    getTransportDetailsPage(imports, transportOptionalUrl),
     pause,
     postImportTransportDetails(transportOptionalUrl),
 
@@ -103,15 +100,15 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
 
   setup("Trader Services Export Journey", "Export").withActions(
-    getLogin_Page,
-    login_User,
-    update_UserRole,
-    postsuccessful_Login,
+    getLoginPage,
+    loginUser,
+    updateUserRole,
+    postSuccessful_Login,
 
     getLandingPage,
     loadLandingPage,
     pause,
-    postJourney("New", traderNewUrl+entryDetailsUrl),
+    postJourney("New", traderNewUrl + entryDetailsUrl),
 
     getEntryDetailsPage,
     pause,
@@ -133,7 +130,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     pause,
     postTransportType(exports, transportMandatoryUrl),
 
-    getTransportMandatoryPage(exports),
+    getTransportDetailsPage(exports, transportMandatoryUrl),
     pause,
     postExportTransportDetails(transportMandatoryUrl),
 
@@ -166,15 +163,15 @@ class TraderServicesSimulation extends PerformanceTestRunner {
   )
 
   setup("Trader Services Amend Journey", "Amend").withActions(
-    getLogin_Page,
-    login_User,
-    update_UserRole,
-    postsuccessful_Login,
+    getLoginPage,
+    loginUser,
+    updateUserRole,
+    postSuccessful_Login,
 
     getLandingPage,
     loadLandingPage,
     pause,
-    postJourney("Existing", traderAmendUrl+caseRefUrl),
+    postJourney("Existing", traderAmendUrl + caseRefUrl),
 
     getCaseRefPage,
     loadCaseRefPage,
@@ -186,7 +183,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     postResponse(writeAndUpload, writeResponseUrl),
     getWriteResponsePage,
     pause,
-    postFreeTextResponse(message),
+    postFreeTextResponse,
     pause,
 
     getFileInfoAmend,

@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.traderServices.JourneyNewRequests.longString
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
@@ -52,12 +53,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  //Journey choices
-  val writeResponseOnly:String = "WriteResponse"
-  val UploadOnly:String = "UploadDocuments"
-  val writeAndUpload:String = "WriteResponseAndUploadDocuments"
-
-  def postResponse(responseType:String, nextPage:String): HttpRequestBuilder = {
+  def postResponse(responseType: String, nextPage: String): HttpRequestBuilder = {
     http("Amend: Post write only option")
       .post(baseAmendUrl + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -72,11 +68,11 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
       .check(status.is(200))
   }
 
-  def postFreeTextResponse(message:String): HttpRequestBuilder = {
+  def postFreeTextResponse: HttpRequestBuilder = {
     http("Amend: Post query response in free text field")
       .post(baseAmendUrl + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("responseText", s"$message")
+      .formParam("responseText", s"$longString")
       .check(status.is(303))
   }
 
