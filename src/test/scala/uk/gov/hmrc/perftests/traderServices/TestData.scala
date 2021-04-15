@@ -27,33 +27,37 @@ trait TestData {
   lazy val nowTime: LocalTime = LocalTime.now()
   lazy val (hr, min) = (nowTime.getHour, nowTime.getMinute)
 
-  val randomImportRqType: String = Random.shuffle(List("New", "Cancellation")).head
+  lazy val randomImportRqType: String = Random.shuffle(List("New", "Cancellation")).head
 
-  val randomExportRqOptionalType: String = Random.shuffle(List("New", "Cancellation", "Withdrawal", "C1603")).head
-  val randomExportRqMandatoryType: String = Random.shuffle(List("C1601", "C1602")).head
+  lazy val randomExportRqOptionalType: String = Random.shuffle(List("New", "Cancellation", "Withdrawal", "C1603")).head
+  lazy val randomExportRqMandatoryType: String = Random.shuffle(List("C1601", "C1602")).head
 
-  val randomRouteType: String = Random.shuffle(List("Route1", "Route1Cap", "Route2", "Route3", "Route6")).head
+  lazy val randomRouteType: String = Random.shuffle(List("Route1", "Route1Cap", "Route2", "Route3", "Route6")).head
   //todo Hold absent => Mandatory vessel page, impacts later flow...
 
-  val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
-  val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
+  lazy val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
+  lazy val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
 
   def randomString(length: Int): String = Random.alphanumeric.take(length).mkString
 
-  val shortString: String = randomString(20)
-  val longString: String = randomString(1000)
+  lazy val shortString: String = randomString(20)
+  lazy val longString: String = randomString(1000)
 
-  val randomEmail: String = s"$shortString@test.com"
+  lazy val randomEmail: String = s"$shortString@test.com"
 
-  //omitting 666 & 667 => set up as error pages in stub data
-  lazy val randomEPU: String = (100 + Random.nextInt(565)).toString
+  lazy val randomEpuDigits: Int = Random.nextInt(666)
+  lazy val randomEPU: String = f"$randomEpuDigits%03d"
+
   lazy val randomAlpha: String = Random.alphanumeric.filter(_.isLetter).head.toString
 
-  lazy val randomImportEN: String = (100000 + Random.nextInt(899999)).toString + randomAlpha
-  lazy val randomExportEN: String = randomAlpha + (10000 + Random.nextInt(89999)).toString + randomAlpha
+  lazy val randomImportDigits: Int = Random.nextInt(999999)
+  lazy val randomImportEN: String = f"$randomImportDigits%06d" + randomAlpha
+
+  lazy val randomExportDigits: Int = Random.nextInt(99999)
+  lazy val randomExportEN: String = randomAlpha + f"$randomExportDigits%05d" + randomAlpha
 
   //Journey choices for amend
-  val writeResponseOnly: String = "WriteResponse"
-  val UploadOnly: String = "UploadDocuments"
-  val writeAndUpload: String = "WriteResponseAndUploadDocuments"
+  lazy val writeResponseOnly: String = "WriteResponse"
+  lazy val UploadOnly: String = "UploadDocuments"
+  lazy val writeAndUpload: String = "WriteResponseAndUploadDocuments"
 }
