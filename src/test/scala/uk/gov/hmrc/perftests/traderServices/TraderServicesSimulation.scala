@@ -85,9 +85,50 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     getFileUploadedPage(baseNewUrl),
 
     postYesNoResponseMoreUpload(baseNewUrl, "yes"),
-    getFileInfo("/new"
-    ),
+    getFileInfo("/new"),
     postPPTFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postDOCXFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postPPTXFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postJPEGFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postTIFFFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postMSGFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postTXTFileUpload,
+    uploadWait,
+    getFileUploadedPage(baseNewUrl),
+
+    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
+    getFileInfo("/new"),
+    postPNGFileUpload,
     uploadWait,
     getFileUploadedPage(baseNewUrl),
 
