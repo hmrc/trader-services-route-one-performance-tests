@@ -30,7 +30,6 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val readBaseUrl: String = readProperty("baseUrlTrader")
 
   val traderUrl:String = "/send-documents-for-customs-check"
-  val traderStartUrl:String = "/start"
   val traderLandingUrl:String = "/new-or-existing"
 
   //New
@@ -50,7 +49,6 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val hasALVSUrl: String = "/automatic-licence-verification"
   val transportTypeUrl: String = "/transport-type"
   val transportMandatoryUrl: String = "/transport-information-required"
-  val transportOptionalUrl: String = "/transport-information"
   val contactDetailsUrl: String = "/contact-information"
 
   //Amend

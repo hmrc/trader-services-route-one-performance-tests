@@ -27,27 +27,13 @@ import scala.concurrent.duration.DurationInt
 
 object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with TestData {
 
-  def pause = new PauseBuilder(8 seconds, None)
+  def pause = new PauseBuilder(5 seconds, None)
 
-  def uploadWait = new PauseBuilder(12 seconds, None)
-
-  def getPreLandingPage: HttpRequestBuilder = {
-    http("Get temporary start page")
-      .get(readBaseUrl)
-      .check(status.is(303))
-      .check(header("Location").is(traderUrl))
-  }
-
-  def loadPreLandingPage: HttpRequestBuilder = {
-    http("Load temporary start page")
-      .get(readBaseUrl + traderStartUrl)
-      .check(status.is(200))
-      .check(regex("Send documents for a customs check for declarations made in CHIEF"))
-  }
+  def uploadWait = new PauseBuilder(8 seconds, None)
 
   def getLandingPage: HttpRequestBuilder = {
     http("Get new or existing page")
-      .get(readBaseUrl + traderLandingUrl)
+      .get(readBaseUrl)
       .check(status.is(303))
       .check(header("Location").is(traderUrl))
   }
@@ -111,11 +97,11 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(status.is(200))
   }
 
-  def postRouteType(journey: String): HttpRequestBuilder = {
+  def postRouteType(journey: String, holdOrNot:String): HttpRequestBuilder = {
     http("Post route type")
       .post(baseNewUrl + s"$journey" + routeTypeUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("routeType", s"$randomRouteType")
+      .formParam("routeType", s"$holdOrNot")
       .check(status.is(303))
       .check(header("Location").is(traderNewUrl + s"$journey" + hasPriorityGoodsUrl))
   }
@@ -189,9 +175,9 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(status.is(200))
   }
 
-  def postImportTransportDetails(mandOrOpt: String): HttpRequestBuilder = {
-    http("Post transport details" + s"$mandOrOpt")
-      .post(baseNewUrl + imports + s"$mandOrOpt")
+  def postArrivalTransportDetails(journey: String): HttpRequestBuilder = {
+    http("Post transport details")
+      .post(baseNewUrl + s"$journey" + transportMandatoryUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("vesselName", "S.S Anne")
       .formParam("dateOfArrival.day", s"$d")
@@ -203,9 +189,9 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(header("Location").is(traderNewUrl + imports + contactDetailsUrl))
   }
 
-  def postExportTransportDetails(mandOrOpt: String): HttpRequestBuilder = {
-    http("Post transport details - " + s"$mandOrOpt")
-      .post(baseNewUrl + exports + s"$mandOrOpt")
+  def postDepartureTransportDetails(): HttpRequestBuilder = {
+    http("Post transport details")
+      .post(baseNewUrl + exports + transportMandatoryUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("vesselName", "PlanetExpress Mk -1")
       .formParam("dateOfDeparture.day", s"$d")
