@@ -31,8 +31,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     loginUser,
     updateUserRole,
     postSuccessful_Login,
-    getPreLandingPage,
-    loadPreLandingPage,
+    getLandingPage,
     loadLandingPage,
     pause,
     postJourney("New", traderNewUrl + entryDetailsUrl),
@@ -47,7 +46,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getRoutePage(imports),
     pause,
-    postRouteType(imports),
+    postRouteType(imports, randomRouteType),
 
     getHasPriorityPage(imports),
     pause,
@@ -63,11 +62,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getTransportTypePage(imports),
     pause,
-    postTransportType(imports, transportOptionalUrl),
-
-    getTransportDetailsPage(imports, transportOptionalUrl),
-    pause,
-    postImportTransportDetails(transportOptionalUrl),
+    postTransportType(imports, contactDetailsUrl),
 
     getContactDetailsPage(imports),
     pause,
@@ -157,11 +152,11 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getRequestTypePage(exports),
     pause,
-    postRequestType(exports, randomExportRqMandatoryType),
+    postRequestType(exports, exportDepartureRqType),
 
     getRoutePage(exports),
     pause,
-    postRouteType(exports),
+    postRouteType(exports, "Hold"),
 
     getHasPriorityPage(exports),
     pause,
@@ -173,7 +168,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getTransportDetailsPage(exports, transportMandatoryUrl),
     pause,
-    postExportTransportDetails(transportMandatoryUrl),
+    postDepartureTransportDetails(),
 
     getContactDetailsPage(exports),
     pause,

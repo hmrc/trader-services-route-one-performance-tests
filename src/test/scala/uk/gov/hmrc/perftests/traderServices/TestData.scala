@@ -28,12 +28,16 @@ trait TestData {
   lazy val (hr, min) = (nowTime.getHour, nowTime.getMinute)
 
   lazy val randomImportRqType: String = Random.shuffle(List("New", "Cancellation")).head
+  lazy val randomExportRqType: String = Random.shuffle(List("New", "Cancellation", "Withdrawal", "C1601", "C1602", "C1603")).head
 
   lazy val randomExportRqOptionalType: String = Random.shuffle(List("New", "Cancellation", "Withdrawal", "C1603")).head
   lazy val randomExportRqMandatoryType: String = Random.shuffle(List("C1601", "C1602")).head
 
+  lazy val exportArrivalRqType:String = Random.shuffle(List("C1601", "C1603")).head
+  lazy val exportDepartureRqType:String = Random.shuffle(List("New", "Cancellation", "Withdrawal", "C1602")).head
+
+
   lazy val randomRouteType: String = Random.shuffle(List("Route1", "Route1Cap", "Route2", "Route3", "Route6")).head
-  //todo Hold absent => Mandatory vessel page, impacts later flow...
 
   lazy val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
   lazy val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
