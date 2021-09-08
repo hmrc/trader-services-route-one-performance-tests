@@ -42,13 +42,17 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getRequestTypePage(imports),
     pause,
-    postRequestType(imports, randomImportRqType),
+    postRequestType(imports, "New"),
 
     getRoutePage(imports),
     pause,
-    postRouteType(imports, randomRouteType),
+    postRouteType(imports, "Route3", reasonUrl),
 
-    getHasPriorityPage(imports),
+    getReasonPage(imports),
+    pause,
+    postReason(imports),
+
+    getHasPriorityPage (imports),
     pause,
     postPriorityYN(imports, "yes", whichPriorityGoodsUrl),
 
@@ -152,11 +156,11 @@ class TraderServicesSimulation extends PerformanceTestRunner {
 
     getRequestTypePage(exports),
     pause,
-    postRequestType(exports, exportDepartureRqType),
+    postRequestType(exports, "C1602"),
 
     getRoutePage(exports),
     pause,
-    postRouteType(exports, "Hold"),
+    postRouteType(exports, "Hold", hasPriorityGoodsUrl),
 
     getHasPriorityPage(exports),
     pause,

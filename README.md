@@ -43,3 +43,28 @@ sbt -Dperftest.runSmokeTest=true -DrunLocal=false gatling:test
 #### Run the performance test
 
 To run a full performance test against staging environment, implement a job builder and run the test **only** from Jenkins.
+
+#### Different journey flows 
+
+Import 
+Selection of [Cancellation] for [Request Type] 
+OR 
+[Route 3] for [Route] => Reason page 
+All other options will go to Priority goods page
+--
+Selection of [Hold] for [Route] will lead to Mandatory Transport details page
+All other options will not see Transport details page
+--
+
+Export 
+Selection of [Cancellation]/[Withdrawal] for [Request Type] 
+OR 
+[Route 3] for [Route] => Reason page 
+All other options will go to Priority goods page
+
+Selection of [C1601]/[C1602] for [Request Type] OR [Hold] for [Route] will lead to Mandatory Transport details page
+All other options will not see Transport details page
+
+Selection of [C1601]/[C1603] for [Request Type] => Will ask for date of ARRIVAL instead of date of DEPARTURE 
+on Transport details page
+

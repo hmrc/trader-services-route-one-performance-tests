@@ -44,6 +44,7 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
   val imports: String = "/import"
   val requestTypeUrl: String = "/request-type"
   val routeTypeUrl: String = "/route-type"
+  val reasonUrl: String = "/reason"
   val hasPriorityGoodsUrl: String = "/has-priority-goods"
   val whichPriorityGoodsUrl: String = "/which-priority-goods"
   val hasALVSUrl: String = "/automatic-licence-verification"
