@@ -97,15 +97,29 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
       .check(status.is(200))
   }
 
-  def postRouteType(journey: String, holdOrNot:String): HttpRequestBuilder = {
+  def postRouteType(journey: String, route:String, nextPage:String): HttpRequestBuilder = {
     http("Post route type")
       .post(baseNewUrl + s"$journey" + routeTypeUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("routeType", s"$holdOrNot")
+      .formParam("routeType", s"$route")
+      .check(status.is(303))
+      .check(header("Location").is(traderNewUrl + s"$journey" + s"$nextPage"))
+  }
+  //Reason page - Cancellation, Withdrawal (export only) or Route 3
+  def getReasonPage(journey: String): HttpRequestBuilder = {
+    http("Get reason page")
+      .get(baseNewUrl + s"$journey" + reasonUrl)
+      .check(status.is(200))
+  }
+
+  def postReason(journey: String): HttpRequestBuilder = {
+    http("Post reason")
+      .post(baseNewUrl + s"$journey" + reasonUrl)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("reasonText", s"$longString")
       .check(status.is(303))
       .check(header("Location").is(traderNewUrl + s"$journey" + hasPriorityGoodsUrl))
   }
-
   //Priority YesNo & Which Goods
   def getHasPriorityPage(journey: String): HttpRequestBuilder = {
     http("Get has-priority-goods page")
