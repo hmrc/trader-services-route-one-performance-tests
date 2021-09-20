@@ -63,7 +63,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       |    "affinityGroup" : "Individual",
       |    "principalEnrolments" : [
       |              {
-      |                  "key" : "HMRC-CUS-ORG",
+      |                  "key" : "HMRC-CTS-ORG",
       |                  "identifiers" : [
       |                    {
       |                      "key" : "EORINumber",
