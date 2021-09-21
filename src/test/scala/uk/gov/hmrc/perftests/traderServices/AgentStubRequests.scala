@@ -49,8 +49,8 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .check(savePlanetIdHeader)
       .check(saveUserIdHeader)
 
-  def updateUserRole: HttpRequestBuilder =
-    http("Update current user to have HMRC-CUS-ORG")
+  def updateUserRole(): HttpRequestBuilder =
+    http("Update current user to have HMRC-CTS-ORG")
       .put(updateUserUrl)
       .body(StringBody(stubUserAsAgentWithEnrolment))
       .header("Content-Type", "application/json")

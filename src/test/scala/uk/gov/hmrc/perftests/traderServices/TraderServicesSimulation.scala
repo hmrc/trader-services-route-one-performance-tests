@@ -29,7 +29,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
   setup("Trader Services Import Journey", "Import").withActions(
     getLoginPage,
     loginUser,
-    updateUserRole,
+    updateUserRole(),
     postSuccessful_Login,
     getLandingPage,
     loadLandingPage,
@@ -142,7 +142,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
   setup("Trader Services Export Journey", "Export").withActions(
     getLoginPage,
     loginUser,
-    updateUserRole,
+    updateUserRole(),
     postSuccessful_Login,
 
     getLandingPage,
@@ -205,7 +205,7 @@ class TraderServicesSimulation extends PerformanceTestRunner {
   setup("Trader Services Amend Journey", "Amend").withActions(
     getLoginPage,
     loginUser,
-    updateUserRole,
+    updateUserRole(),
     postSuccessful_Login,
 
     getLandingPage,
