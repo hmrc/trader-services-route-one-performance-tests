@@ -19,122 +19,123 @@ package uk.gov.hmrc.perftests.traderServices
 import java.io.InputStream
 
 import io.gatling.core.Predef._
-import io.gatling.core.check.CheckBuilder
+import io.gatling.core.check.regex.{RegexCheckType, RegexOfType}
+import io.gatling.core.check.{CheckBuilder, MultipleFindCheckBuilder}
 import io.gatling.http.Predef._
-import io.gatling.http.check.HttpCheck
+import io.gatling.http.check.header.{HttpHeaderCheckType, HttpHeaderRegexCheckType}
 import io.gatling.http.response.Response
 
 trait SaveToGatlingSessions extends Patterns {
 
-  def saveCsrfToken: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveCsrfToken: CheckBuilder[RegexCheckType, String, String] = {
     regex(_ => csrfPattern).saveAs("csrfToken")
   }
 
-  def bodyCheck(body: String) = regex(body)
+  def bodyCheck(body: String): MultipleFindCheckBuilder[RegexCheckType, String, String] with RegexOfType = regex(body)
 
-  def saveBearerToken = {
+  def saveBearerToken: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(authTokenPattern).saveAs("bearerToken")
   }
 
-  def saveBearerTokenHeader = {
+  def saveBearerTokenHeader: CheckBuilder[HttpHeaderRegexCheckType, Response, String] = {
     headerRegex("Authorization","""Bearer\s([^"]+)""").saveAs("bearerToken")
   }
 
-  def saveSessionId = {
+  def saveSessionId: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(sessionIdPattern).saveAs("sessionId")
   }
 
-  def saveSessionIdHeader = {
+  def saveSessionIdHeader: CheckBuilder[HttpHeaderCheckType, Response, String] = {
     header("X-Session-ID").saveAs("sessionId")
   }
 
-  def savePlanetIdHeader = {
+  def savePlanetIdHeader: CheckBuilder[HttpHeaderCheckType, Response, String] = {
     header("X-Planet-ID").saveAs("planetId")
   }
 
-  def saveUserIdHeader = {
+  def saveUserIdHeader: CheckBuilder[HttpHeaderCheckType, Response, String] = {
     header("X-User-ID").saveAs("userId")
   }
 
-  def saveClientUserId = {
+  def saveClientUserId: CheckBuilder[HttpHeaderRegexCheckType, Response, String] = {
     headerRegex("Location", clientUserIdPattern).saveAs("clientUserId")
   }
 
-  def saveUserDetailsUrl = {
+  def saveUserDetailsUrl: CheckBuilder[HttpHeaderRegexCheckType, Response, String] = {
     headerRegex("Location", userDetailsUrlPattern).saveAs("userDetailsUrl")
   }
 
 
   //Uploads
-  def saveSuccessRedirect: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveSuccessRedirect: CheckBuilder[RegexCheckType, String, String]  = {
     bodyCheck(successRedirectPattern).saveAs("successRedirect")
   }
 
-  def saveErrorRedirect: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveErrorRedirect: CheckBuilder[RegexCheckType, String, String]  = {
     bodyCheck(errorRedirectPattern).saveAs("errorRedirect")
   }
 
-  def saveFileUploadUrl: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveFileUploadUrl: CheckBuilder[RegexCheckType, String, String]  = {
     bodyCheck(amazonUrlPattern).saveAs("fileUploadAmazonUrl")
   }
 
-  def saveCallBack: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveCallBack: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(callBackUrPattern).saveAs("callBack")
   }
 
-  def saveReference: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveReference: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(referencePattern).saveAs("reference")
   }
 
-  def saveFileType: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveFileType: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(fileTypePattern).saveAs("fileType")
   }
 
-  def saveAmazonDate: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveAmazonDate: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(amzDatePattern).saveAs("amazonDate")
   }
 
-  def saveAmazonCredential: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveAmazonCredential: CheckBuilder[RegexCheckType, String, String]  = {
     bodyCheck(credentialPattern).saveAs("amazonCredential")
   }
 
-  def saveUpscanIniateResponse: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveUpscanInitiateResponse: CheckBuilder[RegexCheckType, String, String]  = {
     bodyCheck(initiateResponsePattern).saveAs("upscanInitiateResponse")
   }
 
-  def saveUpscanInitiateRecieved: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveUpscanInitiateReceived: CheckBuilder[RegexCheckType, String, String]  = {
     bodyCheck(initiateReceivedPattern).saveAs("upscanInitiateReceived")
   }
 
-  def saveAmazonMetaOriginalFileName: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveAmazonMetaOriginalFileName: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(metaOriginalFilename).saveAs("amazonMetaOriginalFileName")
   }
 
-  def saveAmazonAlgorithm: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveAmazonAlgorithm: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(algorithmPattern).saveAs("amazonAlgorithm")
   }
 
-  def saveKey: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveKey: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(keyPattern).saveAs("key")
   }
 
-  def saveAmazonSignature: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveAmazonSignature: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(signaturePattern).saveAs("amazonSignature")
   }
 
-  def saveRequestId: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveRequestId: CheckBuilder[RegexCheckType, String, String]= {
     bodyCheck(requestIdPattern).saveAs("requestId")
   }
 
-  def savePolicy: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def savePolicy: CheckBuilder[RegexCheckType, String, String]= {
     bodyCheck(policyPattern).saveAs("policy")
   }
 
-  def saveAmzSessionID: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveAmzSessionID: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(amazonSessionPattern).saveAs("amzSessionId")
   }
 
-  def saveContentType: CheckBuilder[HttpCheck, Response, CharSequence, String] = {
+  def saveContentType: CheckBuilder[RegexCheckType, String, String] = {
     bodyCheck(contentTypePattern).saveAs("contentType")
   }
 

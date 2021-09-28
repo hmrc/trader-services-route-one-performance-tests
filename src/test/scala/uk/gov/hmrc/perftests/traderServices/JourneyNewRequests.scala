@@ -27,7 +27,7 @@ import scala.concurrent.duration.DurationInt
 
 object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessions with TestData {
 
-  def pause = new PauseBuilder(5 seconds, None)
+  def pause = new PauseBuilder(4 seconds, None)
 
   def uploadWait = new PauseBuilder(8 seconds, None)
 
