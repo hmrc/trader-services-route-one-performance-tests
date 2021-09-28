@@ -113,24 +113,6 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     uploadWait,
     getFileUploadedPage(baseNewUrl),
 
-    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
-    getFileInfo("/new"),
-    postMSGFileUpload,
-    uploadWait,
-    getFileUploadedPage(baseNewUrl),
-
-    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
-    getFileInfo("/new"),
-    postTXTFileUpload,
-    uploadWait,
-    getFileUploadedPage(baseNewUrl),
-
-    postYesNoResponseMoreUpload(baseNewUrl, "yes"),
-    getFileInfo("/new"),
-    postPNGFileUpload,
-    uploadWait,
-    getFileUploadedPage(baseNewUrl),
-
     postYesNoResponseMoreUpload(baseNewUrl, "no"),
     getCYAPage(imports),
     postCYA,

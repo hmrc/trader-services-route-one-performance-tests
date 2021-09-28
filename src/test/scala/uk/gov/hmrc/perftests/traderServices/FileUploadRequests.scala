@@ -143,8 +143,8 @@ object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessio
 
   def getFileUploadInfoFull(journey: String): HttpRequestBuilder = {
     getFileUploadInfoLocal(s"$journey")
-      .check(saveUpscanIniateResponse)
-      .check(saveUpscanInitiateRecieved)
+      .check(saveUpscanInitiateResponse)
+      .check(saveUpscanInitiateReceived)
       .check(saveRequestId)
       .check(saveAmzSessionID)
   }
