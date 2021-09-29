@@ -2,7 +2,7 @@ lazy val root = (project in file("."))
   .enablePlugins(GatlingPlugin)
   .enablePlugins(SbtAutoBuildPlugin)
   .settings(
-      name := "income-tax-view-change-performance-tests",
+      name := "trader-services-route-one-performance-tests",
       version := "0.1.0-SNAPSHOT",
       scalaVersion := "2.12.12",
       //implicitConversions & postfixOps are Gatling recommended -language settings
