@@ -20,7 +20,7 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
-  //Base
+  // Base
   val redirectUrl: String = if (runLocal) {
     "http://localhost:9379/send-documents-for-customs-check"
   } else {
@@ -29,39 +29,39 @@ object JourneyUrls extends ServicesConfiguration with SaveToGatlingSessions {
 
   val readBaseUrl: String = readProperty("baseUrlTrader")
 
-  val traderUrl:String = "/send-documents-for-customs-check"
-  val traderLandingUrl:String = "/new-or-existing"
+  val traderUrl: String        = "/send-documents-for-customs-check"
+  val traderLandingUrl: String = "/new-or-existing"
 
-  //New
-  val baseNewUrl: String = readBaseUrl + "/new"
-  val baseAmendUrl: String = readBaseUrl + "/add"
-  val traderNewUrl: String = "/send-documents-for-customs-check/new"
+  // New
+  val baseNewUrl: String     = readBaseUrl + "/new"
+  val baseAmendUrl: String   = readBaseUrl + "/add"
+  val traderNewUrl: String   = "/send-documents-for-customs-check/new"
   val traderAmendUrl: String = "/send-documents-for-customs-check/add"
 
-  //New
-  val entryDetailsUrl: String = "/entry-details"
-  val exports: String = "/export"
-  val imports: String = "/import"
-  val requestTypeUrl: String = "/request-type"
-  val routeTypeUrl: String = "/route-type"
-  val reasonUrl: String = "/reason"
-  val hasPriorityGoodsUrl: String = "/has-priority-goods"
+  // New
+  val entryDetailsUrl: String       = "/entry-details"
+  val exports: String               = "/export"
+  val imports: String               = "/import"
+  val requestTypeUrl: String        = "/request-type"
+  val routeTypeUrl: String          = "/route-type"
+  val reasonUrl: String             = "/reason"
+  val hasPriorityGoodsUrl: String   = "/has-priority-goods"
   val whichPriorityGoodsUrl: String = "/which-priority-goods"
-  val hasALVSUrl: String = "/automatic-licence-verification"
-  val transportTypeUrl: String = "/transport-type"
+  val hasALVSUrl: String            = "/automatic-licence-verification"
+  val transportTypeUrl: String      = "/transport-type"
   val transportMandatoryUrl: String = "/transport-information-required"
-  val contactDetailsUrl: String = "/contact-information"
+  val contactDetailsUrl: String     = "/contact-information"
 
-  //Amend
-  val caseRefUrl: String = "/case-reference-number"
-  val whichAmendUrl:String = "/type-of-amendment"
+  // Amend
+  val caseRefUrl: String       = "/case-reference-number"
+  val whichAmendUrl: String    = "/type-of-amendment"
   val writeResponseUrl: String = "/write-response"
 
-  //Common
-  val cyaReviewUrl: String = "/check-your-answers"
+  // Common
+  val cyaReviewUrl: String          = "/check-your-answers"
   val multiFileUploadUrlUrl: String = "/upload-files"
 
-  val fileUploadUrl: String = "/file-upload"
+  val fileUploadUrl: String   = "/file-upload"
   val fileUploadedUrl: String = "/file-uploaded"
 
   val confirmationUrl: String = "/confirmation"

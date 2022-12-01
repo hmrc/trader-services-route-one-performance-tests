@@ -24,20 +24,19 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls.redirectUrl
 
 object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  val loginUrl: String = readProperty("loginUrl")
-  val loginSubmitUrl: String = readProperty("loginSubmitUrl")
+  val loginUrl: String             = readProperty("loginUrl")
+  val loginSubmitUrl: String       = readProperty("loginSubmitUrl")
   val baseUrlExternalStubs: String = baseUrlFor("agents-external-stubs")
 
-  val postSignInUrl = s"$baseUrlExternalStubs/agents-external-stubs/sign-in"
-  val updateUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users"
+  val postSignInUrl         = s"$baseUrlExternalStubs/agents-external-stubs/sign-in"
+  val updateUserUrl         = s"$baseUrlExternalStubs/agents-external-stubs/users"
   val updateSpecificUserUrl = s"$baseUrlExternalStubs/agents-external-stubs/users/$${userId}"
 
-  def getLoginPage: HttpRequestBuilder = {
+  def getLoginPage: HttpRequestBuilder =
     http("Get login stub page")
       .get(s"$loginUrl")
       .check(status.is(200))
       .check(saveCsrfToken)
-  }
 
   def loginUser: HttpRequestBuilder =
     http("Authenticate a user")
@@ -75,8 +74,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       |}
     """.stripMargin
 
-
-  def postSuccessful_Login: HttpRequestBuilder = {
+  def postSuccessful_Login: HttpRequestBuilder =
     http("Login with user credentials")
       .post(loginSubmitUrl)
       .formParam("csrfToken", "${csrfToken}")
@@ -84,7 +82,6 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .formParam("planetId", "${planetId}")
       .check(status.is(303))
       .check(header("Location").is(redirectUrl))
-  }
 
   def destroyPlanetUrl(planetId: String) = s"$baseUrlExternalStubs/agents-external-stubs/planets/$planetId"
 
