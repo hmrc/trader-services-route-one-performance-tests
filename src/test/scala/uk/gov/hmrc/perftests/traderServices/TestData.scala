@@ -22,34 +22,35 @@ import scala.util.Random
 
 trait TestData {
 
-  lazy val nowDay: LocalDate = LocalDate.now
-  lazy val (d, m, y) = (nowDay.getDayOfMonth, nowDay.getMonthValue, nowDay.getYear)
+  lazy val nowDay: LocalDate  = LocalDate.now
+  lazy val (d, m, y)          = (nowDay.getDayOfMonth, nowDay.getMonthValue, nowDay.getYear)
   lazy val nowTime: LocalTime = LocalTime.now()
-  lazy val (hr, min) = (nowTime.getHour, nowTime.getMinute)
+  lazy val (hr, min)          = (nowTime.getHour, nowTime.getMinute)
 
-  lazy val randomPriorityGoods: String = Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
-  lazy val randomTransport: String = Random.shuffle(List("Air", "Maritime", "RORO")).head
+  lazy val randomPriorityGoods: String =
+    Random.shuffle(List("ExplosivesOrFireworks", "HumanRemains", "LiveAnimals")).head
+  lazy val randomTransport: String     = Random.shuffle(List("Air", "Maritime", "RORO")).head
 
   def randomString(length: Int): String = Random.alphanumeric.take(length).mkString
 
   lazy val shortString: String = randomString(20)
-  lazy val longString: String = randomString(1000)
+  lazy val longString: String  = randomString(1000)
 
   lazy val randomEmail: String = s"$shortString@test.com"
 
   lazy val randomEpuDigits: Int = Random.nextInt(666)
-  lazy val randomEPU: String = f"$randomEpuDigits%03d"
+  lazy val randomEPU: String    = f"$randomEpuDigits%03d"
 
   lazy val randomAlpha: String = Random.alphanumeric.filter(_.isLetter).head.toString
 
   lazy val randomImportDigits: Int = Random.nextInt(999999)
-  lazy val randomImportEN: String = f"$randomImportDigits%06d" + randomAlpha
+  lazy val randomImportEN: String  = f"$randomImportDigits%06d" + randomAlpha
 
   lazy val randomExportDigits: Int = Random.nextInt(99999)
-  lazy val randomExportEN: String = randomAlpha + f"$randomExportDigits%05d" + randomAlpha
+  lazy val randomExportEN: String  = randomAlpha + f"$randomExportDigits%05d" + randomAlpha
 
-  //Journey choices for amend
+  // Journey choices for amend
   lazy val writeResponseOnly: String = "WriteResponse"
-  lazy val UploadOnly: String = "UploadDocuments"
-  lazy val writeAndUpload: String = "WriteResponseAndUploadDocuments"
+  lazy val UploadOnly: String        = "UploadDocuments"
+  lazy val writeAndUpload: String    = "WriteResponseAndUploadDocuments"
 }

@@ -25,77 +25,65 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-
-  def getCaseRefPage: HttpRequestBuilder = {
+  def getCaseRefPage: HttpRequestBuilder =
     http("Get case reference number page")
       .get(baseAmendUrl + caseRefUrl)
       .check(status.is(303))
-  }
 
-  def loadCaseRefPage: HttpRequestBuilder = {
+  def loadCaseRefPage: HttpRequestBuilder =
     http("Load case reference number page")
       .get(baseAmendUrl + caseRefUrl)
       .check(status.is(200))
-  }
 
-  def postCaseRef: HttpRequestBuilder = {
+  def postCaseRef: HttpRequestBuilder =
     http("Post case ref number")
       .post(baseAmendUrl + caseRefUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + whichAmendUrl))
-  }
 
-  def getTypeOfAmendmentPage: HttpRequestBuilder = {
+  def getTypeOfAmendmentPage: HttpRequestBuilder =
     http("Get the amendment type options page")
       .get(baseAmendUrl + whichAmendUrl)
       .check(status.is(200))
-  }
 
-  def postResponse(responseType: String, nextPage: String): HttpRequestBuilder = {
+  def postResponse(responseType: String, nextPage: String): HttpRequestBuilder =
     http("Amend: Post write only option")
       .post(baseAmendUrl + whichAmendUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeOfAmendment", s"$responseType")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + s"$nextPage"))
-  }
 
-  def getWriteResponsePage: HttpRequestBuilder = {
+  def getWriteResponsePage: HttpRequestBuilder =
     http("Amend: Get write response page")
       .get(baseAmendUrl + writeResponseUrl)
       .check(status.is(200))
-  }
 
-  def postFreeTextResponse: HttpRequestBuilder = {
+  def postFreeTextResponse: HttpRequestBuilder =
     http("Amend: Post query response in free text field")
       .post(baseAmendUrl + writeResponseUrl)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("responseText", s"$longString")
       .check(status.is(303))
-  }
 
-  //CYA
-  def getAmendCYAPage: HttpRequestBuilder = {
+  // CYA
+  def getAmendCYAPage: HttpRequestBuilder =
     http("Amend: Get amend confirmation page")
       .get(baseAmendUrl + cyaReviewUrl)
       .check(status.is(200))
-  }
 
-  def postAmendCYA: HttpRequestBuilder = {
+  def postAmendCYA: HttpRequestBuilder =
     http("Amend: Post CYA page - submit case to update-case")
       .post(baseAmendUrl + "/amend-case")
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + confirmationUrl))
-  }
 
-
-  //Confirmation
-  def getConfirmationPageAmend: HttpRequestBuilder = {
+  // Confirmation
+  def getConfirmationPageAmend: HttpRequestBuilder =
     http("Amend: Get confirmation page")
       .get(baseAmendUrl + confirmationUrl)
       .check(status.is(200))
-  }
 }
