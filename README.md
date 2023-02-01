@@ -1,5 +1,3 @@
-sbt **This is a template README.md.  Be sure to update this with project specific content that describes your performance test project.**
-
 # trader-services-route-one-performance-tests
 Performance test suite for `Trader Services`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
 
