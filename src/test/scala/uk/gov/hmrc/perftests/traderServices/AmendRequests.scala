@@ -27,7 +27,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
   def getCaseRefPage: HttpRequestBuilder =
     http("Get case reference number page")
-      .get(baseAmendUrl + caseRefUrl)
+      .get(baseAmendUrl)
       .check(status.is(303))
 
   def loadCaseRefPage: HttpRequestBuilder =

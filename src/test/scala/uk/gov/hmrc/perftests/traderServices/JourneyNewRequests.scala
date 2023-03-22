@@ -35,7 +35,7 @@ object JourneyNewRequests extends ServicesConfiguration with SaveToGatlingSessio
     http("Get new or existing page")
       .get(readBaseUrl)
       .check(status.is(303))
-      .check(header("Location").is(traderUrl))
+      .check(header("Location").is(traderUrl+traderLandingUrl))
 
   def loadLandingPage: HttpRequestBuilder =
     http("Load new or existing page")
