@@ -162,7 +162,6 @@ class TraderServicesSimulation extends PerformanceTestRunner {
     loadLandingPage,
     pause,
     postJourney("Existing", traderAmendUrl + caseRefUrl),
-    getCaseRefPage,
     loadCaseRefPage,
     pause,
     postCaseRef,

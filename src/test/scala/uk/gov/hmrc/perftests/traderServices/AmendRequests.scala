@@ -25,11 +25,6 @@ import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
-  def getCaseRefPage: HttpRequestBuilder =
-    http("Get case reference number page")
-      .get(baseAmendUrl + caseRefUrl)
-      .check(status.is(303))
-
   def loadCaseRefPage: HttpRequestBuilder =
     http("Load case reference number page")
       .get(baseAmendUrl + caseRefUrl)
