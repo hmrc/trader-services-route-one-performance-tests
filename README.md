@@ -11,7 +11,7 @@ Prior to executing the tests ensure you have:
 
 Run the following command to start the services locally:
 ```
-sm --start TRADER_SERVICES_ALL -f
+sm2 --start TRADER_SERVICES_ALL
 
 docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
 ```
