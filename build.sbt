@@ -1,6 +1,5 @@
 lazy val root = (project in file("."))
   .enablePlugins(GatlingPlugin)
-  .enablePlugins(SbtAutoBuildPlugin)
   .settings(
     name := "trader-services-route-one-performance-tests",
     version := "0.1.0-SNAPSHOT",
