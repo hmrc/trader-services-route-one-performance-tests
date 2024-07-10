@@ -6,8 +6,8 @@ Performance test suite for `Trader Services`, using [performance-test-runner](ht
 
 Prior to executing the tests ensure you have:
 
-* Docker - to start mongo container
-* Installed/configured service manager
+* Docker - to start mongo container [MongoDB](https://docs.mongodb.com/manual/installation/)
+* Installed/configured service manager [service manager 2](https://github.com/hmrc/sm2).
 
 Run the following command to start the services locally:
 ```
