@@ -53,9 +53,9 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .put(updateUserUrl)
       .body(StringBody(stubUserAsAgentWithEnrolment))
       .header("Content-Type", "application/json")
-      .header("Authorization", "Bearer ${bearerToken}")
+      .header("Authorization", "Bearer #{bearerToken}")
       .check(status.is(202))
-      .check(header("Location").is("/agents-external-stubs/users/${userId}"))
+      .check(header("Location").is("/agents-external-stubs/users/#{userId}"))
 
   private val stubUserAsAgentWithEnrolment =
     """{
@@ -77,9 +77,9 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
   def postSuccessful_Login: HttpRequestBuilder =
     http("Login with user credentials")
       .post(loginSubmitUrl)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("userId", "${userId}")
-      .formParam("planetId", "${planetId}")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("userId", "#{userId}")
+      .formParam("planetId", "#{planetId}")
       .check(status.is(303))
       .check(header("Location").is(redirectUrl))
 
@@ -87,7 +87,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
 
   def destroy_UserPlanet: HttpRequestBuilder =
     http("Destroy planet")
-      .delete(destroyPlanetUrl("${planetId}"))
-      .header("Authorization", "Bearer ${bearerToken}")
+      .delete(destroyPlanetUrl("#{planetId}"))
+      .header("Authorization", "Bearer #{bearerToken}")
       .check(status.is(204))
 }

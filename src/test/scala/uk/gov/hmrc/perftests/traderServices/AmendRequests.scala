@@ -33,7 +33,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postCaseRef: HttpRequestBuilder =
     http("Post case ref number")
       .post(baseAmendUrl + caseRefUrl)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + whichAmendUrl))
@@ -46,7 +46,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postResponse(responseType: String, nextPage: String): HttpRequestBuilder =
     http("Amend: Post write only option")
       .post(baseAmendUrl + whichAmendUrl)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("typeOfAmendment", s"$responseType")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + s"$nextPage"))
@@ -59,7 +59,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postFreeTextResponse: HttpRequestBuilder =
     http("Amend: Post query response in free text field")
       .post(baseAmendUrl + writeResponseUrl)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("responseText", s"$longString")
       .check(status.is(303))
 
@@ -72,7 +72,7 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postAmendCYA: HttpRequestBuilder =
     http("Amend: Post CYA page - submit case to update-case")
       .post(baseAmendUrl + "/amend-case")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
       .check(header("Location").is(traderAmendUrl + confirmationUrl))
 
