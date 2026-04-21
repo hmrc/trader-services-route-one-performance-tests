@@ -21,6 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls.redirectUrl
+import io.gatling.core.session.el._
 
 object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
@@ -36,7 +37,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
     http("Get login stub page")
       .get(s"$loginUrl")
       .check(status.is(200))
-      .check(saveCsrfToken)
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def loginUser: HttpRequestBuilder =
     http("Authenticate a user")
@@ -55,7 +56,7 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
       .header("Content-Type", "application/json")
       .header("Authorization", "Bearer #{bearerToken}")
       .check(status.is(202))
-      .check(header("Location").is("/agents-external-stubs/users/#{userId}"))
+      .check(header("Location".el[CharSequence]).is("/agents-external-stubs/users/#{userId}"))
 
   private val stubUserAsAgentWithEnrolment =
     """{
@@ -77,11 +78,11 @@ object AgentStubRequests extends ServicesConfiguration with SaveToGatlingSession
   def postSuccessful_Login: HttpRequestBuilder =
     http("Login with user credentials")
       .post(loginSubmitUrl)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("userId", "#{userId}")
-      .formParam("planetId", "#{planetId}")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("userId", "#{userId}".el[String])
+      .formParam("planetId", "#{planetId}".el[String])
       .check(status.is(303))
-      .check(header("Location").is(redirectUrl))
+      .check(header("Location".el[CharSequence]).is(redirectUrl))
 
   def destroyPlanetUrl(planetId: String) = s"$baseUrlExternalStubs/agents-external-stubs/planets/$planetId"
 

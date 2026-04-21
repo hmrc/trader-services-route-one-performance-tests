@@ -24,6 +24,7 @@ import io.gatling.core.check.CheckBuilder.MultipleFind
 import io.gatling.http.Predef._
 import io.gatling.http.check.header.{HttpHeaderCheckType, HttpHeaderRegexCheckType}
 import io.gatling.http.response.Response
+import io.gatling.commons.validation._
 
 trait SaveToGatlingSessions extends Patterns {
 
@@ -36,25 +37,25 @@ trait SaveToGatlingSessions extends Patterns {
     bodyCheck(authTokenPattern).saveAs("bearerToken")
 
   def saveBearerTokenHeader: CheckBuilder[HttpHeaderRegexCheckType, Response] =
-    headerRegex("Authorization", """Bearer\s([^"]+)""").saveAs("bearerToken")
+    headerRegex(_ => "Authorization", """Bearer\s([^"]+)""").saveAs("bearerToken")
 
   def saveSessionId: CheckBuilder[RegexCheckType, String] =
     bodyCheck(sessionIdPattern).saveAs("sessionId")
 
   def saveSessionIdHeader: CheckBuilder[HttpHeaderCheckType, Response] =
-    header("X-Session-ID").saveAs("sessionId")
+    header(_ => "X-Session-ID").saveAs("sessionId")
 
   def savePlanetIdHeader: CheckBuilder[HttpHeaderCheckType, Response] =
-    header("X-Planet-ID").saveAs("planetId")
+    header(_ => "X-Planet-ID").saveAs("planetId")
 
   def saveUserIdHeader: CheckBuilder[HttpHeaderCheckType, Response] =
-    header("X-User-ID").saveAs("userId")
+    header(_ => "X-User-ID").saveAs("userId")
 
   def saveClientUserId: CheckBuilder[HttpHeaderRegexCheckType, Response] =
-    headerRegex("Location", clientUserIdPattern).saveAs("clientUserId")
+    headerRegex(_ => "location".success, clientUserIdPattern).saveAs("clientUserId")
 
   def saveUserDetailsUrl: CheckBuilder[HttpHeaderRegexCheckType, Response] =
-    headerRegex("Location", userDetailsUrlPattern).saveAs("userDetailsUrl")
+    headerRegex(_ => "location".success, userDetailsUrlPattern).saveAs("userDetailsUrl")
 
   // Uploads
   def saveSuccessRedirect: CheckBuilder[RegexCheckType, String] =
