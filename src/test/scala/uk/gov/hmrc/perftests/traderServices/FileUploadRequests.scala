@@ -22,6 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
 import io.gatling.commons.validation._
+import io.gatling.core.session.el._
 
 object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
@@ -146,7 +147,7 @@ object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessio
       .bodyPart(StringBodyPart("x-amz-meta-original-filename", s"$fileName"))
       .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName"))
       .check(status.is(303))
-      .check(header(_ => "Location".success).is("UpscanResponseSuccess"))
+      .check(header("Location".el[CharSequence]).saveAs("UpscanResponseSuccess"))
 
   def postFileInfoFull(fileName: String, fileType: String): HttpRequestBuilder =
     http("Upload file")
@@ -171,5 +172,5 @@ object FileUploadRequests extends ServicesConfiguration with SaveToGatlingSessio
       .bodyPart(StringBodyPart("policy", "#{policy}"))
       .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName"))
       .check(status.is(303))
-      .check(header(_ => "Location".success).is("UpscanResponseSuccess"))
+      .check(header("Location".el[CharSequence]).saveAs("UpscanResponseSuccess"))
 }
