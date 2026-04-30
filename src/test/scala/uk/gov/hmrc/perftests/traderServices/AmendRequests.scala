@@ -22,6 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.traderServices.JourneyNewRequests.longString
 import uk.gov.hmrc.perftests.traderServices.JourneyUrls._
+import io.gatling.commons.validation._
 
 object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
 
@@ -33,10 +34,10 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postCaseRef: HttpRequestBuilder =
     http("Post case ref number")
       .post(baseAmendUrl + caseRefUrl)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("caseReferenceNumber", "PC12010081330XGBNZJO04")
+      .formParam("csrfToken", _("csrfToken").as[String])
+      .formParam("caseReferenceNumber",  _ => "PC12010081330XGBNZJO04")
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + whichAmendUrl))
+      .check(header(_ => "Location".success).is(traderAmendUrl + whichAmendUrl))
 
   def getTypeOfAmendmentPage: HttpRequestBuilder =
     http("Get the amendment type options page")
@@ -46,10 +47,11 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postResponse(responseType: String, nextPage: String): HttpRequestBuilder =
     http("Amend: Post write only option")
       .post(baseAmendUrl + whichAmendUrl)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("typeOfAmendment", s"$responseType")
+      .formParam("csrfToken", _("csrfToken").as[String])
+      .formParam("typeOfAmendment",  _ => s"$responseType")
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + s"$nextPage"))
+      .check(header(_ => "Location".success).is(traderAmendUrl + s"$nextPage"))
+
 
   def getWriteResponsePage: HttpRequestBuilder =
     http("Amend: Get write response page")
@@ -59,8 +61,8 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postFreeTextResponse: HttpRequestBuilder =
     http("Amend: Post query response in free text field")
       .post(baseAmendUrl + writeResponseUrl)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("responseText", s"$longString")
+      .formParam("csrfToken", _("csrfToken").as[String])
+      .formParam("responseText",  _ => s"$longString")
       .check(status.is(303))
 
   // CYA
@@ -72,9 +74,10 @@ object AmendRequests extends ServicesConfiguration with SaveToGatlingSessions {
   def postAmendCYA: HttpRequestBuilder =
     http("Amend: Post CYA page - submit case to update-case")
       .post(baseAmendUrl + "/amend-case")
-      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("csrfToken", _("csrfToken").as[String])
       .check(status.is(303))
-      .check(header("Location").is(traderAmendUrl + confirmationUrl))
+      .check(header(_ => "Location".success).is(traderAmendUrl + confirmationUrl))
+
 
   // Confirmation
   def getConfirmationPageAmend: HttpRequestBuilder =
